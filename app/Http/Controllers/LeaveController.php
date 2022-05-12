@@ -13,10 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LeaveController extends Controller
-{
-
-
-                                                                
+{                                                                
     public function leave()
     {
         return view('User.Leave.index');
