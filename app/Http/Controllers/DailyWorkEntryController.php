@@ -15,6 +15,7 @@ class DailyWorkEntryController extends Controller
 
        return view('User.DailyWorkEntry.index');
     }
+    
     public function daily_work_entrylist(Request $request)
     {
       if ($request->ajax()) {
