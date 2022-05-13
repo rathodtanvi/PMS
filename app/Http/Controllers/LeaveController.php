@@ -99,14 +99,15 @@ class LeaveController extends Controller
         //$work = Leave::latest()->get();
         return DataTables::of($data)
                 ->addColumn('action', function($row){
-                       if($row->leave_status === 0)
-                       {
-                        $btn = '<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-primary btn-sm m-1">Pending</a>';
-                       }
-                       else
+                  $btn = '<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-primary btn-sm m-1">Pending</a>';
+                       if($row->leave_status == 1)
                        {
                        $btn = $btn.'<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-success btn-sm m-1">Approve</a>';
+
                        }
+                      //  else
+                      //  {
+                      //  }
                        $btn =$btn.'<a href="'.route('leaveview',$row->id).'" class="edit btn btn-success btn-sm m-1">view</a>';
                         return $btn;
                })
