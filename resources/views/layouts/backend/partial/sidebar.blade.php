@@ -83,12 +83,12 @@
       </li><!-- End Icons Nav --> --}}
 
      
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="admin">
         <i class="bi bi-grid"></i>
         <span>Dashboard</span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="nav-item">
         <a class="nav-link collapsed"  href="AdminTechnology">

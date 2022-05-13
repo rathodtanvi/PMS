@@ -22,7 +22,7 @@
     });
 
 </script>
-
+<main id="main" class="main"> 
 <div class="pagetitle">
     <h1>Project 
         <a href='AddAllotment' class="new-btn"> New </a>
@@ -45,5 +45,5 @@
 </div>
 
 </html>
-
+<main>
 @endsection
