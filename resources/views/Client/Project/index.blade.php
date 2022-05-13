@@ -1,4 +1,4 @@
-@extends('Client.layouts.master')
+@extends('layouts.frontend.index')
 
 @section('content')
 
@@ -21,33 +21,34 @@
         
     });
     
-    function checkboxchecked()
-    {
-        alert('hi');
-    }
-    </script>
 
-<div class="pagetitle">
-    <h1>Project 
-        <a href='AddProject' class="new-btn"> New </a>
-    </h1>
-</div>  
-<div class="box-body">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Select</th>
-                <th>No</th>
-                <th>Project Name</th>
-                <th>Technology Name</th>
-                <th>Manage</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
+</script>
 
-</html>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Project 
+            <a href='AddProject' class="new-btn"> New </a><br/><br/>
+        </h1>
+    </div>  
+    <div class="card">
+        <div class="card-body">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>No</th>
+                    <th>Project Name</th>
+                    <th>Technology Name</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</main>
 
 @endsection

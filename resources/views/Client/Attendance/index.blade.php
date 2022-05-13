@@ -1,43 +1,50 @@
-@extends('Client.layouts.master')
+@extends('layouts.frontend.index')
 
 @section('content')
+
+<main id="main" class="main">
 
     <div class="pagetitle">
         <h1> Attendance </h1>
     </div>  
-    <div class="box-body">
-        <center>
-            <h3 class="h3tag"> Attendance on {{date('d-m-Y')}} </h3>
-            
-            @if ($attendance->isEmpty())
-                <button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
-                <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button><br/>
-            @else
-            
-                @foreach ($attendance as $row)
-                <div>
-                    @if ($row->user_id == '1')
-                        <button type="button" class="btn-inentry" disabled="disabled" > {{$row->In_Entry}} </button>
-                    
-                    @else
-                        <button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
-                    
-                    @endif
+    
+    <div class="card">
+        <div class="card-body">
 
-                    @if ($row->Out_Entry == null)
-                        <button type="button" class="btn-outentry" > Out Entry <i class="bi bi-box-arrow-right"></i> </button>
-                        <br/>
-                    @else
-                        <button type="button" class="btn-outentry" disabled="disabled"> {{$row->Out_Entry}} </button>    
-                    @endif
-                </div>
-                @endforeach 
-            @endif
-            <br/>
-            <button type="button" class="btn-workinhours">Workibg Hour : <i class="bi bi-clock"></i></button>
-            
-        </center>
+            <center>
+                <h3 class="h3tag"> Attendance on {{date('d-m-Y')}} </h3>
+                
+                @if ($attendance->isEmpty())
+                    <button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
+                    <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button><br/>
+                @else
+                
+                    @foreach ($attendance as $row)
+                    <div>
+                        @if ($row->user_id == '1')
+                            <button type="button" class="btn-inentry" disabled="disabled" > {{$row->In_Entry}} </button>
+                        
+                        @else
+                            <button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
+                        
+                        @endif
+
+                        @if ($row->Out_Entry == null)
+                            <button type="button" class="btn-outentry" > Out Entry <i class="bi bi-box-arrow-right"></i> </button>
+                            <br/>
+                        @else
+                            <button type="button" class="btn-outentry" disabled="disabled"> {{$row->Out_Entry}} </button>    
+                        @endif
+                    </div>
+                    @endforeach 
+                @endif
+                <br/>
+                <button type="button" class="btn-workinhours">Workibg Hour : <i class="bi bi-clock"></i></button>
+                
+            </center>
+        </div>
     </div>
+</main>
 
 <script>
 

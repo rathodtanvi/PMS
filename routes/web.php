@@ -10,6 +10,8 @@ use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAllotmentController;
 use App\Http\Controllers\AttendanceController;
+use Illuminate\support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

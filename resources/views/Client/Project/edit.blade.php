@@ -1,5 +1,5 @@
 
-@extends('Client.layouts.master')
+@extends('layouts.frontend.index')
 
 @section('content')
 
@@ -8,36 +8,42 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-<div class="pagetitle">
-    <h1> Enter Project </h1>
-</div>
-    
-<div class="box-body">
-    <h4 class="box-form-header"> Add Project </h4>
-    <form method="post" action="{{ url('update-project/'.$edits->id) }}"> 
-        @csrf
-        
-            Project Name <span class="error"> * </span>
-            <input type='text' name='projectnm' value="{{$edits->Project_Name}}" class="input-tagspace" placeholder="Enter Project Name" />
-            <br/><br/>
-            
-            Technology Name <span class="error" style="margin-right:9%;"> * </span>
-            <select style="width: 41%;" id="nameid" name="technm[]" multiple>
-                @foreach($technology as $row)
-                    @if ($edits->Technology_Name == $row->Technology_Name)
-                    <option value="{{$row->Technology_Name}}" selected>{{$row->Technology_Name}}</option>
-                    @else
-                        <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
-                    @endif
-                    
-                @endforeach
-            </select>
-        <br/><br/>
+<main id="main" class="main">
 
-        <button type="button"  class="btn-cancel"> Cancel </button>
-        <button type="submit" name="submit" class="btn-submit"> Submit </button>
-    </form>
-</div>
+    <div class="pagetitle">
+        <h1> Enter Project </h1>
+    </div>
+        
+    <div class="card">
+        <div class="card-body">
+
+        <h4 class="box-form-header"> Add Project </h4>
+        <form method="post" action="{{ url('update-project/'.$edits->id) }}"> 
+            @csrf
+            
+                Project Name <span class="error"> * </span>
+                <input type='text' name='projectnm' value="{{$edits->Project_Name}}" class="input-tagspace" placeholder="Enter Project Name" />
+                <br/><br/>
+                
+                Technology Name <span class="error" style="margin-right:9%;"> * </span>
+                <select style="width: 41%;" id="nameid" name="technm[]" multiple>
+                    @foreach($technology as $row)
+                        @if ($edits->Technology_Name == $row->Technology_Name)
+                        <option value="{{$row->Technology_Name}}" selected>{{$row->Technology_Name}}</option>
+                        @else
+                            <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
+                        @endif
+                        
+                    @endforeach
+                </select>
+            <br/><br/>
+
+            <button type="button"  class="btn-cancel"> Cancel </button>
+            <button type="submit" name="submit" class="btn-submit"> Submit </button>
+        </form>
+    </div>
+    </div>
+</main>
 
 <script type="text/javascript">
 

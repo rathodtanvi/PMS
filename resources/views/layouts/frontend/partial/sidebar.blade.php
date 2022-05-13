@@ -9,6 +9,27 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
+		<li class="nav-item">
+            <a class="nav-link collapsed"  href="Technology">
+            <i class="bi bi-menu-button-wide"></i><span> Technology </span>
+            </a>
+            
+        </li>
+		
+		<li class="nav-item">
+            <a class="nav-link collapsed"  href="Project">
+            <i class="bi bi-card-list"></i><span> Project </span>
+            </a>
+            
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed"  href="ProjectAllotment">
+            <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
+            </a>
+            
+        </li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>leave</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -89,7 +110,12 @@
         </ul>
       </li><!-- End Icons Nav -->
 
-     
+        <li class="nav-item">
+            <a class="nav-link collapsed"  href="Attendance">
+            <i class="bi bi-calendar-check"></i><span> Attendance </span>
+            </a>
+            
+        </li>
 
     </ul>
 
