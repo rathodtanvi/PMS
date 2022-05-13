@@ -110,50 +110,7 @@
         </ul>
       </li><!-- End Icons Nav -->
 
-<<<<<<< HEAD
-        <li class="nav-item">
-            <a class="nav-link collapsed"  href="Attendance">
-            <i class="bi bi-calendar-check"></i><span> Attendance </span>
-            </a>
-            
-        </li>
-=======
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="Dashboard">
-        <i class="bi bi-grid"></i>
-        <span>Dashboard</span>
-        </a>
-    </li> --}}
 
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="Technology">
-        <i class="bi bi-menu-button-wide"></i><span> Technology </span>
-        </a>
-        
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="Project">
-        <i class="bi bi-card-list"></i><span> Project </span>
-        </a>
-        
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="ProjectAllotment">
-        <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
-        </a>
-        
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="Attendance">
-        <i class="bi bi-calendar-check"></i><span> Attendance </span>
-        </a>
-        
-    </li>
-     
->>>>>>> 7d07e21ec11118e95f1becad71f13301c75f07bb
 
     </ul>
 
