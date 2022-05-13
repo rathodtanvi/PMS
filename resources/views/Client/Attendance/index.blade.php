@@ -1,9 +1,13 @@
 @extends('layouts.frontend.index')
 
 @section('content')
+<<<<<<< HEAD
 
 <main id="main" class="main">
 
+=======
+<main id="main" class="main"> 
+>>>>>>> 7d07e21ec11118e95f1becad71f13301c75f07bb
     <div class="pagetitle">
         <h1> Attendance </h1>
     </div>  
@@ -45,7 +49,10 @@
         </div>
     </div>
 </main>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7d07e21ec11118e95f1becad71f13301c75f07bb
 <script>
 
     $("body").on("click",".btn-inentry",function(){

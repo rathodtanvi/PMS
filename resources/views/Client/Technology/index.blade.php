@@ -25,9 +25,13 @@
     });
     
     </script>
+<<<<<<< HEAD
 
 <main id="main" class="main">
 
+=======
+  <main id="main" class="main"> 
+>>>>>>> 7d07e21ec11118e95f1becad71f13301c75f07bb
     <div class="pagetitle">
         <h1>Technology 
             <a href='AddTechnology' class="new-btn"> New </a><br/><br/>
@@ -51,6 +55,11 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 </main>
 
+=======
+</html>
+</main>
+>>>>>>> 7d07e21ec11118e95f1becad71f13301c75f07bb
 @endsection

@@ -25,7 +25,7 @@
     });
     
 </script>
-
+<main id="main" class="main">
     <div class="pagetitle">
         <h1>Technology 
             <a href='adminAddTechnology' class="new-btn"> New </a>
@@ -47,5 +47,5 @@
     </div>
 
 </html>
-
+<main>
 @endsection
