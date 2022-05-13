@@ -52,30 +52,3 @@
     </div>
 </main>
 
-=======
-<main id="main" class="main"> 
-<div class="pagetitle">
-    <h1>Project 
-        <a href='AddAllotment' class="new-btn"> New </a>
-    </h1>
-</div>  
-<div class="box-body">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Employee Name</th>
-                <th>Project Name</th>
-                <th>Technology Name</th>
-                <th>Manage</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
-
-</html>
-<main>
->>>>>>> 7d07e21ec11118e95f1becad71f13301c75f07bb
-@endsection

@@ -68,7 +68,7 @@ Route::get('/leave', [LeaveController::class, 'leave'])->name('leave');
 Route::get('/leavelist', [LeaveController::class, 'leavelist'])->name('leavelist');
 Route::get('/addleave', [LeaveController::class, 'addleave'])->name('addleave');
 Route::post('/inleave', [LeaveController::class, 'inleave'])->name('inleave');
-Route::get('/leavestatus', [LeaveController::class, 'leavestatus'])->name('leavestatus');
+Route::get('/leavestatus/{id}', [LeaveController::class, 'leavestatus'])->name('leavestatus');
 Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leaveview');
 
 

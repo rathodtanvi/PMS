@@ -27,8 +27,8 @@
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/custom.css" rel="stylesheet">
+    {{-- <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet"> --}}
 
     <!-- yajra links -->
 

@@ -111,26 +111,7 @@
         </a>
     </li> --}}
 
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="AdminTechnology">
-            <i class="bi bi-menu-button-wide"></i><span> Technology </span>
-            </a>
-        
-    </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="AdminProject">
-        <i class="bi bi-card-list"></i><span> Project </span>
-        </a>
-        
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="AdminProjectAllotment">
-        <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
-        </a>
-        
-    </li>
 
     </ul>
 
