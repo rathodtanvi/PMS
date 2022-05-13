@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Attendance;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Nette\Utils\DateTime;
+
+class AttendanceController extends Controller
+{
+    public function Attendance()
+    {
+        $attendance  = Attendance::where('user_id','=','1')->get();
+        return view('Client.Attendance.index',compact('attendance'));
+    }
+
+    public function AddAttendance(Request $request)
+    {
+        $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
+        $attend = new Attendance;
+        $attend->user_id = 1;
+        $attend->In_Entry = $currenttime;
+        $attend->Out_Entry = null;
+        $attend->Attendance_Date = Carbon::now()->format('Y-m-d');
+        //dd($attend);
+        $attend->save();
+
+        return response()->json(['data',$currenttime]);
+    }
+
+    public function OutAttendance()
+    {
+        $stime = $_GET['stime'];
+        
+        $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
+
+        $outentry = Attendance::where('user_id','=', 1)->where('In_Entry','=',$stime)->get();
+        dd($outentry);
+        $out =  Attendance::find($outentry);
+        $out->Out_Entry = $currenttime;
+        
+        $out->update();
+        
+        return response()->json(['data'=>$currenttime]);
+    }
+
+    public function WorkHours()
+    {
+        $currentdate = Carbon::now('Asia/Kolkata')->format('Y-m-d');
+        $duration = Attendance::where('user_id','=',1)->where('Attendance_Date','=',$currentdate)->get();
+
+        foreach($duration as $row)
+        {
+            $start = str_replace("AM","",$row['In_Entry']);
+            $strconvert = strtotime($start);
+
+            $end = strtotime($row['Out_Entry']);
+            
+            if($end != null)
+            {
+                
+                $data = $end-$strconvert;
+                $hours = gmdate("h:i:s",$data);
+                
+                return response()->json($hours);
+            }
+            else
+            {
+                $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
+                $str = str_replace("AM","",$currenttime);
+                $endtime = strtotime($str);
+
+                $data = $endtime-$strconvert;
+                $hours = gmdate("h:i:s",$data);
+                
+                return response()->json($hours);
+
+            }
+        }
+    
+    }
+}

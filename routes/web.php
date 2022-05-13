@@ -6,6 +6,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\DailyWorkEntryController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TechnologyController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectAllotmentController;
+use App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,3 +74,88 @@ Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leav
 Route::get('/all_leave', [LeaveController::class, 'all_leave'])->name('all_leave');
 Route::get('/all_leavelist', [LeaveController::class, 'all_leavelist'])->name('all_leavelist');
 });
+
+/*Route::get('/', function () {
+    return view('Client.Dashboard.index');
+});*/
+
+Route::get('/Dashboard', function () {
+    return view('Client.Dashboard.index');
+});
+
+Route::get('/admin', function () {
+    return view('Admin.Dashboard.index');
+});
+
+Route::get('AddTechnology', function () {
+    return view('Client.Technology.add');
+});
+
+Route::post('/AddTechnology',[TechnologyController::class,'AddTech']);
+
+Route::get('edit_tech/{id}',[TechnologyController::class,'Edit']);
+Route::post('update-technology/{id}',[TechnologyController::class,'Update']);
+
+Route::get('Technology', [TechnologyController::class, 'index']);
+Route::get('Technology/list', [TechnologyController::class, 'ShowTech'])->name('Technology.list');
+
+Route::get('/Project',[ProjectController::class,'ShowProject']);
+Route::get('Project/list', [ProjectController::class, 'DispProject'])->name('Project.list');
+
+Route::get('AddProject',[ProjectController::class,'InsertProject']);
+Route::post('AddProject',[ProjectController::class,'Addproject']);
+
+Route::get('edit_project/{id}',[ProjectController::class,'EditProject']);
+Route::post('update-project/{id}',[ProjectController::class,'Update']);
+
+Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
+
+Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
+Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');
+
+Route::get('AddAllotment',[ProjectAllotmentController::class,'InsertPAllotment']);
+Route::post('AddAllotment',[ProjectAllotmentController::class,'AddPAllotment']);
+
+Route::get('getprojectnm',[ProjectAllotmentController::class,'getPTechnology']); // get technology based on projectname
+
+Route::get('delete_PAllotment/{id}',[ProjectAllotmentController::class,'Delete']);
+
+Route::get('Attendance',[AttendanceController::class,'Attendance']);
+
+Route::get('addatendance',[AttendanceController::class,'AddAttendance']);
+Route::get('outatendance',[AttendanceController::class,'OutAttendance']);
+Route::get('workhour',[AttendanceController::class,'WorkHours']);
+
+// Routes (Admin Side)
+
+Route::get('AdminTechnology', [TechnologyController::class, 'Adminindex']);
+Route::get('AdminTechnology/list', [TechnologyController::class, 'AdminShowTech'])->name('AdminTechnology.list');
+
+Route::get('adminAddTechnology', function () {
+    return view('Admin.Technology.add');
+});
+Route::post('/adminAddTechnology',[TechnologyController::class,'addTechnology']);
+
+Route::get('admin_EditTech/{id}',[TechnologyController::class,'editTechnology']);
+Route::post('update-technology/{id}',[TechnologyController::class,'UpdateTechnology']);
+
+Route::get('/AdminProject',[ProjectController::class,'adminProject']);
+Route::get('AdminProject/list', [ProjectController::class, 'DispAdminProject'])->name('AdminProject.list');
+
+Route::get('adminAddProject',[ProjectController::class,'adminInsertProject']);
+Route::post('adminAddProject',[ProjectController::class,'adminAddproject']);
+
+Route::get('admin_Editproject/{id}',[ProjectController::class,'adminEditProject']);
+Route::post('admin_updateproject/{id}',[ProjectController::class,'adminUpdate']);
+
+Route::get('admin_DeleteProject/{id}',[ProjectController::class,'adminDelete']);
+
+Route::get('/AdminProjectAllotment',[ProjectAllotmentController::class,'adminPAllotment']);
+Route::get('AdminProjectAllotment/list', [ProjectAllotmentController::class, 'dispPAllotment'])->name('AdminProjectAllotment.list');
+
+Route::get('adminAddAllotment',[ProjectAllotmentController::class,'adminInsertPAllotment']);
+Route::post('adminAddAllotment',[ProjectAllotmentController::class,'adminAddPAllotment']);
+
+Route::get('admingetprojectnm',[ProjectAllotmentController::class,'admingetPTechnology']); // get technology based on projectname
+
+Route::get('admindelete_PAllotment/{id}',[ProjectAllotmentController::class,'DeleteAllotment']);
