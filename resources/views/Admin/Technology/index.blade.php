@@ -1,4 +1,4 @@
-@extends('Admin.layouts.master')
+@extends('layouts.backend.index')
 
 @section('content')
 
@@ -25,7 +25,7 @@
     });
     
 </script>
-
+<main id="main" class="main">
     <div class="pagetitle">
         <h1>Technology 
             <a href='adminAddTechnology' class="new-btn"> New </a>
@@ -47,5 +47,5 @@
     </div>
 
 </html>
-
+<main>
 @endsection

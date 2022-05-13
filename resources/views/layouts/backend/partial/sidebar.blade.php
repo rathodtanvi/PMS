@@ -35,11 +35,11 @@
               <i class="bi bi-circle"></i><span>Employee</span>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="{{url('addemployee')}}">
               <i class="bi bi-circle"></i><span>Add Employee</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li><!-- End Forms Nav -->
 

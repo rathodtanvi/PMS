@@ -1,7 +1,7 @@
-@extends('Client.layouts.master')
+@extends('layouts.frontend.index')
 
 @section('content')
-
+<main id="main" class="main"> 
     <div class="pagetitle">
         <h1> Attendance </h1>
     </div>  
@@ -38,7 +38,7 @@
             
         </center>
     </div>
-
+</main>
 <script>
 
     $("body").on("click",".btn-inentry",function(){

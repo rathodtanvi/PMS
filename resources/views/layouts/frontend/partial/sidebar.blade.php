@@ -19,11 +19,11 @@
               <i class="bi bi-circle"></i><span>Leave</span>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="{{url('addleave')}}">
               <i class="bi bi-circle"></i><span>Add Leave</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li><!-- End Components Nav -->
 {{-- 
@@ -81,11 +81,11 @@
               <i class="bi bi-circle"></i><span>Daily Work Entry</span>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="{{url('addwork')}}">
               <i class="bi bi-circle"></i><span>Add Work</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li><!-- End Icons Nav -->
 
