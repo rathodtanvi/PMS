@@ -44,6 +44,8 @@ class LeaveController extends Controller
                      $diff=$firstdate->diffInDays($seconddate);
                      if($diff == 0)
                      return 1;
+                     elseif($request->date_end == "")
+                     return 1;
                      else
                      return $diff;
                     // return $firstdate->diffInDays($seconddate);

@@ -32,8 +32,7 @@ class DailyWorkEntryController extends Controller
                 return Strip_tags($des->description);
                })
                ->addColumn('project_id',function(DailyWorkEntry $project_id){
-                  if($project_id->project_id == 1)
-                  return "TRAINING";
+                   return $project_id->project->Project_Name;
                })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -50,7 +49,7 @@ class DailyWorkEntryController extends Controller
       ];
       $work=new DailyWorkEntry();
       $work->user_id=Auth::id();
-      $work->project_id = "1"; 
+      $work->project_id = $request->project_id; 
       $work->entry_date=$request->entry_date;
       $work->entry_duration=implode(':',$data);
       $work->productive=$request->productive;

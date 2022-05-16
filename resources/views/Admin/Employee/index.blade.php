@@ -37,7 +37,7 @@
                   <table class="table yajra-datatable">
                     <thead>
                       <tr>
-                        <th>Id</th>
+                        <th>No.</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Mobile Number</th>

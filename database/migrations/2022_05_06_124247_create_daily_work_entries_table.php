@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('daily_work_entries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('project_id')->nullable();
+            $table->foreignId('project_id');
             $table->string('user_id');
             $table->date('entry_date');
             $table->string('entry_duration');

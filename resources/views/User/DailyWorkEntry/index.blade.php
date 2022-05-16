@@ -33,7 +33,7 @@
               <table class="table  yajra-datatable ">
                   <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>No</th>
                         <th>ProjectName</th>
                         <th>Entry Date</th>
                         <th>Work Hours</th>

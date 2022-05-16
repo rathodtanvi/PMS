@@ -32,7 +32,7 @@
                         <select class="form-select" aria-label="Default select example" name="project_id">
                         <option selected>---select---</option>
                         @foreach ($project as $item)
-                        <option value="{{$item->Project_Name}}">{{$item->Project_Name}}</option>
+                        <option value="{{$item->id}}">{{$item->Project_Name}}</option>
                         @endforeach
                       </select>
                     </div>
