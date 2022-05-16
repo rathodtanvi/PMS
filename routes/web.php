@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\AdminLeaveController;
 use App\Http\Controllers\DailyWorkEntryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TechnologyController;
@@ -73,8 +74,10 @@ Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leav
 
 
 //AdminLeave
-Route::get('/all_leave', [LeaveController::class, 'all_leave'])->name('all_leave');
-Route::get('/all_leavelist', [LeaveController::class, 'all_leavelist'])->name('all_leavelist');
+Route::get('/all_leave', [AdminLeaveController::class, 'all_leave'])->name('all_leave');
+Route::get('/all_leavelist', [AdminLeaveController::class, 'all_leavelist'])->name('all_leavelist');
+Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
+Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
 });
 
 /*Route::get('/', function () {
