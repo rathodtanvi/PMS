@@ -8,6 +8,28 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+.bi-check-circle
+{
+    font-size: 30px;
+    color:green;
+}
+
+.complete-project-btn
+{
+  background-color: rgb(121, 169, 217);
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+.new-btn:hover
+{
+    background-color: rgb(42, 120, 199);
+    color: white;
+    text-decoration: none;
+}
+
 :root {
   scroll-behavior: smooth;
 }

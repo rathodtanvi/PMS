@@ -35,11 +35,11 @@
               <i class="bi bi-circle"></i><span>Employee</span>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="{{url('addemployee')}}">
               <i class="bi bi-circle"></i><span>Add Employee</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -104,6 +104,13 @@
       </li><!-- End Icons Nav --> --}}
 
      
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="admin">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+        </a>
+    </li> --}}
+
     </ul>
 
   </aside>

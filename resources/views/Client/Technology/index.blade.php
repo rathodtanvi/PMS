@@ -26,7 +26,9 @@
     
     </script>
 
+
 <main id="main" class="main">
+
 
     <div class="pagetitle">
         <h1>Technology 
@@ -50,6 +52,7 @@
             </table>
         </div>
     </div>
+
 
 </main>
 

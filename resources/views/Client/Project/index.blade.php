@@ -20,7 +20,39 @@
         });
         
     });
-    
+
+    function checkboxchecked(x)
+    {
+        var getval = $(x).val();
+
+        if($('input[type="checkbox"]').is(":checked"))
+        {
+            $(".complete-project-btn").show();
+        }
+        else
+        {
+            $(".complete-project-btn").hide();
+        }
+        $("body").on("click",".complete-project-btn",function()
+        {
+            var tr = $(x).closest("tr");
+            var idval = $(x).val();
+            
+            $.ajax
+            ({
+                url: "{{url('/completeproject')}}",
+                type: 'GET',
+                datatype: 'JSON',
+                data: {id : idval },
+                success: function(res)
+                {
+                    tr.find(".actiondiv").html("<i class='bi bi-check-circle'></i>");
+                    $(".complete-project-btn").hide();
+                    $('input[type="checkbox"]').prop("checked",false);
+                }
+            });
+        });
+    }
 
 </script>
 
@@ -32,7 +64,9 @@
         </h1>
     </div>  
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" > 
+
+            <center><button type="button"  class="complete-project-btn" style="display:none"> Complete Project </button></center><br/><br/>
 
         <table class="table table-hover">
             <thead>
@@ -50,5 +84,6 @@
     </div>
     </div>
 </main>
+
 
 @endsection

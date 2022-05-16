@@ -77,6 +77,9 @@ Route::get('/all_leave', [LeaveController::class, 'all_leave'])->name('all_leave
 Route::get('/all_leavelist', [LeaveController::class, 'all_leavelist'])->name('all_leavelist');
 });
 
+
+
+
 /*Route::get('/', function () {
     return view('Client.Dashboard.index');
 });*/
@@ -103,6 +106,8 @@ Route::get('Technology/list', [TechnologyController::class, 'ShowTech'])->name('
 
 Route::get('/Project',[ProjectController::class,'ShowProject']);
 Route::get('Project/list', [ProjectController::class, 'DispProject'])->name('Project.list');
+
+Route::get('/completeproject',[ProjectController::class,'CompletProject']);    //complete project checkbox
 
 Route::get('AddProject',[ProjectController::class,'InsertProject']);
 Route::post('AddProject',[ProjectController::class,'Addproject']);

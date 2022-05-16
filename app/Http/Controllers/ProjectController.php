@@ -23,10 +23,17 @@ class ProjectController extends Controller
                 ->addIndexColumn()
 
                 ->addColumn('checkbox', function ($item) {
-                    return '<input type="checkbox" class="checkbox" value="'.$item->id.'" name="chk[]" onclick="checkboxchecked()"/>';
+                    return '<input type="checkbox" class="checkbox" value="'.$item->id.'" name="chk[]" onclick="checkboxchecked(this)"/>';
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = "<div class='actiondiv'> <a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a></div>";
+                    if($row->Complete_Project == "Complete")
+                    {
+                        $actionBtn = "<a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                    }
+                    else
+                    {
+                        $actionBtn = "<a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> </div>";
+                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -56,7 +63,7 @@ class ProjectController extends Controller
             $tech->Technology_Name = implode(' , ', $request->technm);
             $tech->save();
 
-            return redirect('http://localhost:8080/API_PMS/public/Project');
+            return redirect('Project');
         }
     }
 
@@ -76,13 +83,24 @@ class ProjectController extends Controller
         $update->Technology_Name = implode(',', $request->technm);
         
         $update->update();
-        return redirect('http://localhost:8080/API_PMS/public/Project');
+        return redirect('Project');
     }
 
     public function Delete($id)
     {
         $delete = Project::find($id)->delete();
         return redirect()->back();
+    }
+
+    public function CompletProject()
+    {
+        $getid = $_GET['id'];
+
+        $update = Project::find($getid);
+        $update->Complete_Project = "Complete";
+        $update->update();
+
+        return redirect('Project');
     }
 
 
@@ -104,10 +122,17 @@ class ProjectController extends Controller
                 ->addIndexColumn()
 
                 ->addColumn('checkbox', function ($item) {
-                    return '<input type="checkbox" class="checkbox" value="'.$item->id.'" name="chk[]" onclick="checkboxchecked()"/>';
+                    return '<input type="checkbox" class="checkbox" value="'.$item->id.'" name="chk[]" onclick="checkboxchecked(this)" />';
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = "<div class='actiondiv'> <a href='admin_Editproject/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class='btn-delete'> Delete </a></div>";
+                    if($row->Complete_Project == "Complete")
+                    {
+                        $actionBtn = "<a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                    }
+                    else
+                    {
+                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> </div>";
+                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -136,7 +161,7 @@ class ProjectController extends Controller
             $tech->Technology_Name = implode(' , ', $request->technm);
             $tech->save();
 
-            return redirect('http://localhost:8080/API_PMS/public/AdminProject');
+            return redirect('AdminProject');
         }
     }
 
@@ -156,7 +181,7 @@ class ProjectController extends Controller
         $update->Technology_Name = implode(',', $request->technm);
         
         $update->update();
-        return redirect('http://localhost:8080/API_PMS/public/AdminProject');
+        return redirect('AdminProject');
     }
 
     public function adminDelete($id)

@@ -20,8 +20,9 @@
                 @else
                 
                     @foreach ($attendance as $row)
+                    
                     <div>
-                        @if ($row->user_id == '1')
+                        @if ($row->user_id == Auth::user()->id)
                             <button type="button" class="btn-inentry" disabled="disabled" > {{$row->In_Entry}} </button>
                         
                         @else

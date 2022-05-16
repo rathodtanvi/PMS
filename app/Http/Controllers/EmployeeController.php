@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
-use Auth;
-use Hash;
-use DataTables;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
 
 class EmployeeController extends Controller
 {

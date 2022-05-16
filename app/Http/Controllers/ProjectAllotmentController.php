@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectAllotmentController extends Controller
 {
@@ -20,7 +21,8 @@ class ProjectAllotmentController extends Controller
     {
         if ($request->ajax()) 
         {
-            $data = ProjectAllotment::where("user_nm",'=','Bhavya')->get();
+
+            $data = ProjectAllotment::where("user_nm",'=',Auth::user()->name)->get();
             
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -58,13 +60,14 @@ class ProjectAllotmentController extends Controller
 
     public function AddPAllotment(Request $request)
     {
+        
         $tech = new ProjectAllotment;
-        $tech->user_nm = 'Bhavya';
+        $tech->user_nm = Auth::user()->name;
         $tech->Project_Name = $request['projectnm'];
         $tech->Technology_Name = implode(' , ',$request->technm );
         $tech->save();
 
-        return redirect('http://localhost:8080/API_PMS/public/ProjectAllotment');
+        return redirect('ProjectAllotment');
     }
 
     public function Delete($id)
@@ -132,7 +135,7 @@ class ProjectAllotmentController extends Controller
         $tech->Technology_Name = implode(' , ',$request->technm );
         $tech->save();
 
-        return redirect('http://localhost:8080/API_PMS/public/AdminProjectAllotment');
+        return redirect('AdminProjectAllotment');
     }
 
     public function DeleteAllotment($id)

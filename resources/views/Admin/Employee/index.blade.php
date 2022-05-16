@@ -31,7 +31,8 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Employee Details</h5>
-    
+                  <a class="btn btn-info mb-3"  href="{{route('addemployee')}}" style="float:right">New</a> 
+
                   <!-- Table with stripped rows -->
                   <table class="table yajra-datatable">
                     <thead>

@@ -7,12 +7,13 @@ use App\Models\Attendance;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
     public function Attendance()
     {
-        $attendance  = Attendance::where('user_id','=','1')->get();
+        $attendance  = Attendance::where('user_id','=',Auth::user()->id)->get();
         return view('Client.Attendance.index',compact('attendance'));
     }
 
@@ -20,7 +21,7 @@ class AttendanceController extends Controller
     {
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
         $attend = new Attendance;
-        $attend->user_id = 1;
+        $attend->user_id = Auth::user()->id;
         $attend->In_Entry = $currenttime;
         $attend->Out_Entry = null;
         $attend->Attendance_Date = Carbon::now()->format('Y-m-d');
@@ -32,24 +33,22 @@ class AttendanceController extends Controller
 
     public function OutAttendance()
     {
-        $stime = $_GET['stime'];
+        $strtime = $_GET['stime'];
+        $uid =  Auth::user()->id;
         
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
 
-        $outentry = Attendance::where('user_id','=', 1)->where('In_Entry','=',$stime)->get();
+        //$outentry = DB::table("attendace")->where('user_id',$uid)->where("In_Entry",$strtime)->update(["Out_Entry" => $currenttime]);
+        $outentry = Attendance::where("In_Entry","=",$strtime)->get();
         dd($outentry);
-        $out =  Attendance::find($outentry);
-        $out->Out_Entry = $currenttime;
-        
-        $out->update();
-        
+
         return response()->json(['data'=>$currenttime]);
     }
 
     public function WorkHours()
     {
         $currentdate = Carbon::now('Asia/Kolkata')->format('Y-m-d');
-        $duration = Attendance::where('user_id','=',1)->where('Attendance_Date','=',$currentdate)->get();
+        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date','=',$currentdate)->get();
 
         foreach($duration as $row)
         {
@@ -71,7 +70,7 @@ class AttendanceController extends Controller
                 $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
                 $str = str_replace("AM","",$currenttime);
                 $endtime = strtotime($str);
-
+                
                 $data = $endtime-$strconvert;
                 $hours = gmdate("h:i:s",$data);
                 

@@ -1,5 +1,5 @@
 
-@extends('Admin.layouts.master')
+@extends('layouts.backend.index')
 
 @section('content')
 
@@ -8,48 +8,53 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+<main id="main" class="main">
 
-<div class="pagetitle">
-    <h1> Enter Project </h1>
-</div>
-    
-<div class="box-body">
-    <h4 class="box-form-header"> Add Project Allotment </h4>
-    <form method="post" action="{{url('/')}}/adminAddAllotment"> 
-        @csrf
+    <div class="pagetitle">
+        <h1> Enter Project </h1>
+    </div>
+        
+    <div class="card">
+        <div class="card-body">
 
-            Employee Name <span class="error" style="margin-right:10%;"> * </span>
-            <select style="width: 40%;" class="selectid" name="unm" >
-                <option></option>
-                <option value="Bhavya">Bhavya</option>
-                <option value="Zara">Zara</option>
-                <option value="John">John</option>
-            </select>
-            <br/><br/>
+            <h4 class="box-form-header"> Add Project Allotment </h4>
+            <form method="post" action="{{url('/')}}/adminAddAllotment"> 
+                @csrf
 
-            Project Name <span class="error" style="margin-right:12.5%;"> * </span>
-            <select style="width: 40%;" class="selectid" name="projectnm" >
-                <option></option>
-                @foreach($projects as $project)
-                    <option value="{{$project->Project_Name}}">{{$project->Project_Name}}</option>
-                @endforeach
-            </select>
-            <br/><br/>
-            
-            Technology Name <span class="error" style="margin-right:9%;"> * </span>
-            <select style="width: 40%;" class="selectid" id="nameid" name="technm[]" multiple>
-                <option></option>
-                @foreach($technology as $row)
-                    <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
-                @endforeach
-            </select>
-            
-        <br/><br/>
+                    Employee Name <span class="error" style="margin-right:10%;"> * </span>
+                    <select style="width: 40%;" class="selectid" name="unm" >
+                        <option></option>
+                        <option value="Bhavya">Bhavya</option>
+                        <option value="Zara">Zara</option>
+                        <option value="John">John</option>
+                    </select>
+                    <br/><br/>
 
-        <button type="button"  class="btn-cancel"> Cancel </button>
-        <button type="submit" name="submit" class="btn-submit"> Submit </button>
-    </form>
-</div>
+                    Project Name <span class="error" style="margin-right:12.5%;"> * </span>
+                    <select style="width: 40%;" class="selectid" name="projectnm" >
+                        <option></option>
+                        @foreach($projects as $project)
+                            <option value="{{$project->Project_Name}}">{{$project->Project_Name}}</option>
+                        @endforeach
+                    </select>
+                    <br/><br/>
+                    
+                    Technology Name <span class="error" style="margin-right:9%;"> * </span>
+                    <select style="width: 40%;" class="selectid" id="nameid" name="technm[]" multiple>
+                        <option></option>
+                        @foreach($technology as $row)
+                            <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
+                        @endforeach
+                    </select>
+                    
+                <br/><br/>
+
+                <button type="button"  class="btn-cancel"> Cancel </button>
+                <button type="submit" name="submit" class="btn-submit"> Submit </button>
+            </form>
+        </div>
+    </div>
+</main>
 
 <script type="text/javascript">
 

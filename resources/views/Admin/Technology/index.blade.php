@@ -25,14 +25,14 @@
     });
     
 </script>
-
+<main id="main" class="main">
     <div class="pagetitle">
         <h1>Technology 
             <a href='adminAddTechnology' class="new-btn"> New </a>
         </h1>
     </div>  
     <div class="box-body">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>No</th>
@@ -45,7 +45,5 @@
             </tbody>
         </table>
     </div>
-
-</html>
-
+<main>
 @endsection

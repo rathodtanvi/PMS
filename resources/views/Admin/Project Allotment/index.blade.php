@@ -1,4 +1,4 @@
-@extends('Admin.layouts.master')
+@extends('layouts.backend.index')
 
 @section('content')
 
@@ -23,27 +23,31 @@
 
 </script>
 
-<div class="pagetitle">
-    <h1>Project 
-        <a href='adminAddAllotment' class="new-btn"> New </a>
-    </h1>
-</div>  
-<div class="box-body">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Employee Name</th>
-                <th>Project Name</th>
-                <th>Technology Name</th>
-                <th>Manage</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
+<main id="main" class="main">
 
-</html>
+    <div class="pagetitle">
+        <h1>Project 
+            <a href='adminAddAllotment' class="new-btn"> New </a>
+        </h1>
+    </div>  
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Employee Name</th>
+                        <th>Project Name</th>
+                        <th>Technology Name</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
 
 @endsection

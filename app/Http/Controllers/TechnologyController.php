@@ -25,7 +25,7 @@ class TechnologyController extends Controller
             $tech->Technology_Name = $request['technm'];
             $tech->save();
 
-            return redirect('http://localhost:8080/API_PMS/public/Technology');
+            return redirect('Technology');
         }
 
     }
@@ -65,7 +65,7 @@ class TechnologyController extends Controller
         $update->Technology_Name = $request->input('technm');
         
         $update->update();
-        return redirect('http://localhost:8080/API_PMS/public/Technology');
+        return redirect('Technology');
     }
 
 
@@ -110,7 +110,7 @@ class TechnologyController extends Controller
             $tech->Technology_Name = $request['technm'];
             $tech->save();
 
-            return redirect('http://localhost:8080/API_PMS/public/AdminTechnology');
+            return redirect('AdminTechnology');
         }
     }
     public function editTechnology($id)
@@ -126,6 +126,6 @@ class TechnologyController extends Controller
         $update->Technology_Name = $request->input('technm');
         
         $update->update();
-        return redirect('http://localhost:8080/API_PMS/public/AdminTechnology');
+        return redirect('AdminTechnology');
     }
 }

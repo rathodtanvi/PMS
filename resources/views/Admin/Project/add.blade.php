@@ -1,5 +1,5 @@
 
-@extends('Admin.layouts.master')
+@extends('layouts.backend.index')
 
 @section('content')
 
@@ -8,36 +8,41 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+<main id="main" class="main">
 
-<div class="pagetitle">
-    <h1> Enter Project </h1>
-</div>
-    
-<div class="box-body">
-    <h4 class="box-form-header"> Add Project </h4>
-    <form method="post" action="{{url('/')}}/adminAddProject"> 
-        @csrf
+    <div class="pagetitle">
+        <h1> Enter Project </h1>
+    </div>
         
-            Project Name <span class="error"> * </span>
-            <input type='text' name='projectnm' class="input-tagspace" placeholder="Enter Project Name" />
-            @if($errors->any())
-                <span class="input-tagspace" style="color:red"> {{$errors->first()}}</span>
-            @endif
-            <br/><br/><br/>
+    <div class="card">
+        <div class="card-body">
 
-            Technology Name <span class="error" style="margin-right:9%;"> * </span>
-            <select style="width: 40%;" id="nameid" name="technm[]" multiple>
-                <option></option>
-                @foreach($technology as $row)
-                    <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
-                @endforeach
-            </select>
-        <br/><br/>
+            <h4 class="box-form-header"> Add Project </h4>
+            <form method="post" action="{{url('/')}}/adminAddProject"> 
+                @csrf
+                
+                    Project Name <span class="error"> * </span>
+                    <input type='text' name='projectnm' class="input-tagspace" placeholder="Enter Project Name" />
+                    @if($errors->any())
+                        <span class="input-tagspace" style="color:red"> {{$errors->first()}}</span>
+                    @endif
+                    <br/><br/><br/>
 
-        <button type="button"  class="btn-cancel"> Cancel </button>
-        <button type="submit" name="submit" class="btn-submit"> Submit </button>
-    </form>
-</div>
+                    Technology Name <span class="error" style="margin-right:9%;"> * </span>
+                    <select style="width: 40%;" id="nameid" name="technm[]" multiple>
+                        <option></option>
+                        @foreach($technology as $row)
+                            <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
+                        @endforeach
+                    </select>
+                <br/><br/>
+
+                <button type="button"  class="btn-cancel"> Cancel </button>
+                <button type="submit" name="submit" class="btn-submit"> Submit </button>
+            </form>
+        </div>
+    </div>
+</main>
 
 <script type="text/javascript">
 
