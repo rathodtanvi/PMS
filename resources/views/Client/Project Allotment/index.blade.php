@@ -51,7 +51,3 @@
     </div>
 </main>
 
-
-<main>
-
-@endsection

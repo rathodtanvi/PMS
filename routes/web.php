@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\AdminLeaveController;
 use App\Http\Controllers\DailyWorkEntryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TechnologyController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/home', [AdminController::class, 'home'])->name('home');
 Route::get('/myprofile', [AdminController::class, 'myprofile'])->name('myprofile');
 Route::post('/changepassword', [AdminController::class, 'changepassword'])->name('changepassword');
+Route::get('/employee_list', [AdminController::class, 'employee_list'])->name('employee_list');
 
 //EmployeeController
 Route::get('/employee', [EmployeeController::class, 'employee'])->name('employee');
@@ -68,13 +70,16 @@ Route::get('/leave', [LeaveController::class, 'leave'])->name('leave');
 Route::get('/leavelist', [LeaveController::class, 'leavelist'])->name('leavelist');
 Route::get('/addleave', [LeaveController::class, 'addleave'])->name('addleave');
 Route::post('/inleave', [LeaveController::class, 'inleave'])->name('inleave');
-Route::get('/leavestatus', [LeaveController::class, 'leavestatus'])->name('leavestatus');
+Route::get('/leavestatus/{id}', [LeaveController::class, 'leavestatus'])->name('leavestatus');
 Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leaveview');
 
 
 //AdminLeave
-Route::get('/all_leave', [LeaveController::class, 'all_leave'])->name('all_leave');
-Route::get('/all_leavelist', [LeaveController::class, 'all_leavelist'])->name('all_leavelist');
+Route::get('/all_leave', [AdminLeaveController::class, 'all_leave'])->name('all_leave');
+Route::get('/all_leavelist', [AdminLeaveController::class, 'all_leavelist'])->name('all_leavelist');
+Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
+Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
 });
 
 

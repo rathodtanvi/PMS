@@ -43,7 +43,7 @@ class TechnologyController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='edit_tech/".$row['id']."' class='btn-edit'> Edit </a>";
+                    $actionBtn = "<a href='edit_tech/".$row['id']."' class='btn-edit btn btn-info'> Edit </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

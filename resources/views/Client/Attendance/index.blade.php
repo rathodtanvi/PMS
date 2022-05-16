@@ -46,7 +46,6 @@
         </div>
     </div>
 </main>
-
 <script>
 
     $("body").on("click",".btn-inentry",function(){

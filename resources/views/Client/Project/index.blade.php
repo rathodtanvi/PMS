@@ -21,6 +21,7 @@
         
     });
 
+
     function checkboxchecked(x)
     {
         var getval = $(x).val();
@@ -84,6 +85,5 @@
     </div>
     </div>
 </main>
-
 
 @endsection

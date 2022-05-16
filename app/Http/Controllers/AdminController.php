@@ -10,12 +10,30 @@ use Hash;
 use DataTables;
 
 
+
 class AdminController extends Controller
 {
     public function home()
     {
-       return view('Admin.home'); 
+       $employee=User::all();
+       return view('Admin.home',compact('employee')); 
     }
+    public function employee_list(Request $request)
+    {
+      if ($request->ajax()) {
+        $data=User::all();
+        return DataTables::of($data)
+               ->addColumn('attendance_duration',function(User $attendance_duration){
+                return "00";
+               })
+               ->addColumn('work_duration',function(User $work_duration){
+                  return "00";
+               })
+                ->rawColumns(['action'])
+                ->make(true);
+    }
+      // return view('User.daily_work_entry');
+   }
     public function myprofile()
     {
         return view('Admin.Profile.index'); 

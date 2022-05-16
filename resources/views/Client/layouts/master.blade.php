@@ -27,8 +27,8 @@
     <link href="http://localhost:8080/API_PMS/public/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="http://localhost:8080/API_PMS/public/assets/css/style.css" rel="stylesheet">
-    <link href="http://localhost:8080/API_PMS/public/assets/css/custom.css" rel="stylesheet">
+    {{-- <link href="http://localhost:8080/API_PMS/public/assets/css/style.css" rel="stylesheet"> --}}
+    {{-- <link href="http://localhost:8080/API_PMS/public/assets/css/custom.css" rel="stylesheet"> --}}
 
     <!-- yajra links -->
 
