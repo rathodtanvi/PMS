@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/home', [AdminController::class, 'home'])->name('home');
 Route::get('/myprofile', [AdminController::class, 'myprofile'])->name('myprofile');
 Route::post('/changepassword', [AdminController::class, 'changepassword'])->name('changepassword');
+Route::get('/employee_list', [AdminController::class, 'employee_list'])->name('employee_list');
 
 //EmployeeController
 Route::get('/employee', [EmployeeController::class, 'employee'])->name('employee');
@@ -78,6 +79,7 @@ Route::get('/all_leave', [AdminLeaveController::class, 'all_leave'])->name('all_
 Route::get('/all_leavelist', [AdminLeaveController::class, 'all_leavelist'])->name('all_leavelist');
 Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
 Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
 });
 
 /*Route::get('/', function () {

@@ -31,7 +31,9 @@
                         <div> 
                         <select class="form-select" aria-label="Default select example" name="project_id">
                         <option selected>---select---</option>
-                        <option value="1">Training</option>
+                        @foreach ($project as $item)
+                        <option value="{{$item->Project_Name}}">{{$item->Project_Name}}</option>
+                        @endforeach
                       </select>
                     </div>
                 </div>

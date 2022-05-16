@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DailyWorkEntry;
+use App\Models\Project;
 use Auth;
 use Hash;
 use DataTables;
@@ -47,10 +48,9 @@ class DailyWorkEntryController extends Controller
         $hours,
         $minutes,
       ];
-      $project_id="1";
       $work=new DailyWorkEntry();
       $work->user_id=Auth::id();
-      $work->project_id = $project_id; 
+      $work->project_id = "1"; 
       $work->entry_date=$request->entry_date;
       $work->entry_duration=implode(':',$data);
       $work->productive=$request->productive;
@@ -61,8 +61,8 @@ class DailyWorkEntryController extends Controller
     }
     public function addwork()
     {
-      
-       return view('User.DailyWorkEntry.add');
+       $project=Project::all();
+       return view('User.DailyWorkEntry.add',compact('project'));
     }
     public function workedit($id)
     {
