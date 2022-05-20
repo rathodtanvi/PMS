@@ -111,17 +111,17 @@
           </a>
           <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-              <a href="charts-chartjs.html">
+              <a href="{{url('report_attendance')}}">
                 <i class="bi bi-circle"></i><span>Attendance</span>
               </a>
             </li>
             <li>
-              <a href="charts-chartjs.html">
+              <a href="{{url('report_daily_work_entry')}}">
                 <i class="bi bi-circle"></i><span>Daily Work Entry</span>
               </a>
             </li>
             <li>
-              <a href="charts-chartjs.html">
+              <a href="{{url('report_project_total_hour')}}">
                 <i class="bi bi-circle"></i><span>Project Total Hours</span>
               </a>
             </li>

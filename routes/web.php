@@ -11,6 +11,7 @@ use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAllotmentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ReportsController;
 use Illuminate\support\Facades\Auth;
 
 /*
@@ -72,6 +73,11 @@ Route::get('/addleave', [LeaveController::class, 'addleave'])->name('addleave');
 Route::post('/inleave', [LeaveController::class, 'inleave'])->name('inleave');
 Route::get('/leavestatus/{id}', [LeaveController::class, 'leavestatus'])->name('leavestatus');
 Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leaveview');
+
+//Reports Controller
+Route::get('/report_attendance', [ReportsController::class, 'report_attendance'])->name('report_attendance');
+Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
+Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
 
 
 //AdminLeave
