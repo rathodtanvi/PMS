@@ -19,7 +19,7 @@ class EmployeeController extends Controller
     {
       if ($request->ajax()) {
          //$data = User::select('*');
-         $data=User::where('roles_id',2)->get();
+         $data=User::where('roles_id',2)->latest()->get();
          $user = User::latest()->get();
          return DataTables::of($data)
                  ->addIndexColumn()

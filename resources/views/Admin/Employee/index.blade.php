@@ -44,7 +44,7 @@
                         <th>Joining Date</th>
                         <th>Qualification</th>
                         <th>Address</th>
-                        <th colspan="3">Action</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@
     responsive: true,
         ajax: "{{ route('employeelist') }}",
         columns: [
-            {data: 'id', name: 'id'},
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data: 'mobile_number', name: 'mobile_number'},

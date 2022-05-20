@@ -67,7 +67,7 @@
     responsive: true,
         ajax: "{{ route('daily_work_entrylist') }}",
         columns: [
-            {data: 'id', name: 'id'},
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'project_id', name: 'project_id'},
             {data: 'entry_date', name: 'entry_date'},
             {data: 'entry_duration', name: 'entry_duration'},

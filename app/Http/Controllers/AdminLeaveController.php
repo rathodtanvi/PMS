@@ -21,9 +21,10 @@ class AdminLeaveController extends Controller
     public function all_leavelist(Request $request)
     {
       if ($request->ajax()) {
-        $data=Leave::all();
+        $data=Leave::latest()->get();
         //$work = Leave::latest()->get();
         return DataTables::of($data)
+                ->addIndexColumn()
                 ->addColumn('action', function($row){
                   $btn = '<a href="" class=" btn btn-primary btn-sm m-1">Pending</a>';
                   $btn = $btn.'<a href="'.route('all_leavestatus',$row->id).'"  class=" btn btn-warning btn-sm m-1">Approve</a>';
@@ -54,6 +55,8 @@ class AdminLeaveController extends Controller
                      $seconddate=Carbon::parse($request->date_end);
                      $diff =$firstdate->diffInDays($seconddate);
                      if($diff == 0)
+                     return 1;
+                     elseif($request->date_end == "")
                      return 1;
                      else
                      return $diff;
