@@ -55,11 +55,12 @@
         </div>
       </div>
  <!-- Card with header and footer -->
+
  <div class="card" id="data">
-  <div class="card-header">{{Auth::user()->name}}</div>
+  <div class="card-header  text-white" style="background-color: #00AA9E;">{{Auth::user()->name}}</div>
   <div class="card-body">
     <h5 class="card-title"></h5>
-    <table class="table  yajra-datatable ">
+    <table class="table  yajra-datatable">
       <thead>
         <tr>
             <th>No</th>
@@ -72,17 +73,57 @@
     </tbody>
   </table>
   </div>
-  <div class="card-footer">
-    Footer
+  <div class="card-footer  text-black">
+    <div class="row">
+      <div class="col-4">
+           <div class="row">
+              <div class="col-10">Required Attendance Hours</div>
+              <div class="col-2 badge bg-warning  text-black">8</div>
+           </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-10">Actual Attendance Hours</div>
+          <div class="col-2 badge bg-danger  text-black">Danger</div>
+       </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-10">Work Duration Hours</div>
+          <div class="col-2 badge bg-secondary  text-white">Danger</div>
+       </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="row pt-2">
+          <div class="col-10">Required Attendance Days</div>
+          <div class="col-2 badge bg-warning  text-black">1</div>
+       </div>
+      </div>
+      <div class="col-4">
+        <div class="row pt-2">
+          <div class="col-10">Actual Attendance Days</div>
+          <div class="col-2 badge bg-danger  text-black">Danger</div>
+       </div>
+      </div>
+      <div class="col-4">
+        <div class="row pt-2">
+          <div class="col-10">Work Duration Days</div>
+          <div class="col-2 badge bg-secondary  text-white">Danger</div>
+       </div>
+      </div>
+    </div>
   </div>
 </div><!-- End Card with header and footer -->
+
     </section>
 
   </main>
 </body>
 <script>
     $(document).ready(()=>{
-        $('#data').hide();
+      
          $("#getdata").on("click",function(){
             $('#data').show();
          });
@@ -93,23 +134,21 @@
 <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- {{-- <script type="text/javascript">
+ <script type="text/javascript">
  $(function () {
 
   var table = $('.yajra-datatable').DataTable({
     responsive: true,
-        ajax: "{{ route('attendance') }}",
+        ajax: "{{ route('report_attendancelist') }}",
         columns: [ 
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data:'created_at',name:'created_at'},
-            {data:'name',name:'name'},
-            {data: 'leave_type', name: 'leave_type'},
-            {data:'fdate_start',name:'fdate_start'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data:'Attendance_Date',name:'Attendance_Date'},
+            {data:'In_Entry',name:'In_Entry'},
+            {data:'In_Entry',name:'In_Entry'},
         ]
     });
   });
 
-</script> --}}
+</script>
 </html>
 @endsection

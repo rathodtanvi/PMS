@@ -66,18 +66,50 @@
   
            <!-- Card with header and footer -->
  <div class="card" id="data">
-  <div class="card-header">{{Auth::user()->name}}</div>
+  <div class="card-header text-white" style="background-color: #00AA9E;">{{$project->Project_Name}}</div>
   <div class="card-body">
     <h5 class="card-title"></h5>
 
      <!-- Table with stripped rows -->
-     <table class="table  yajra-datatable ">
+     <table class="table  yajra-datatable table table-bordered table-striped">
       <thead>
         <tr>
             <th>Employee</th>
             <th>Productive</th>
             <th>Unproductive</th>
-            <th>Total</th>
+            <th style="color:#FFF; background-color:#099">Total</th>
+        </tr>
+        <tr>
+          <td><b>Employee :</b> {{Auth::user()->name}}<br>
+            <b>Techonogy:</b> {{$project->Project_Name}}
+          </td>
+          <td>
+            Days - 0 <br>
+            Duration - 0 Hours 0 Minutes
+          </td>
+          <td>
+            Days - 0 <br>
+            Duration - 0 Hours 0 Minutes
+          </td>
+          <td style="color:#FFF; background-color:#099">
+            Days - 0 <br>
+            Duration - 0 Hours 0 Minutes
+          </td>
+        </tr>
+        <tr>
+          <td style="color:#FFF; background-color:#099">Total</td>
+          <td style="color:#FFF; background-color:#099">
+            Days - 0 <br>
+            Duration - 0 Hours 0 Minutes
+          </td>
+          <td style="color:#FFF; background-color:#099">
+            Days - 0 <br>
+            Duration - 0 Hours 0 Minutes
+          </td>
+          <td style="color:#FFF; background-color:#066">
+            Days - 0 <br>
+            Duration - 0 Hours 0 Minutes
+          </td>
         </tr>
     </thead>
     <tbody>
@@ -86,9 +118,6 @@
 
 
   <!-- End Table with stripped rows -->
-  </div>
-  <div class="card-footer">
-    Footer
   </div>
 </div><!-- End Card with header and footer -->
     </section>

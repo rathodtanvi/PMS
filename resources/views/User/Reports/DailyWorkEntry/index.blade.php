@@ -89,7 +89,17 @@
     
        <!-- Card with header and footer -->
  <div class="card" id="data">
-  <div class="card-header">{{Auth::user()->name}}</div>
+  <div class="card-header">
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-sm btn-secondary btn-outline">CSV</button>
+      <button class="btn btn-sm btn-secondary btn-outline">Excel</button>
+      <button class="btn btn-sm btn-secondary btn-outline">PDF</button>
+      <button class="btn btn-sm btn-secondary btn-outline">Print</button>
+    </div>
+    <div class="col-6"></div>
+  </div>
+  </div>
   <div class="card-body">
     <h5 class="card-title"></h5>
      <!-- Table with stripped rows -->
@@ -111,7 +121,28 @@
   <!-- End Table with stripped rows -->
   </div>
   <div class="card-footer">
-    Footer
+    <div class="row">
+      <div class="col-6"></div>
+      <div class="col-6">
+        <div class=" pr-3" style="color:#FFF; font-size:18px; border:1;">
+          <table class="table-responsive" style="background-color:#066;">
+            <thead>
+            <tr>
+              <td>Total Timing</td>
+            </tr>
+          </thead>
+            <tbody>
+              <tr><td>Days:0</td></tr>
+              <tr><td>Duration:0 Hours 0 Minutes</td></tr>
+              </tr>
+            </tbody>
+          </table>
+         
+        </div>
+      </div>
+    </div>
+  
+ 
   </div>
 </div><!-- End Card with header and footer -->
     </section>
