@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.backend.index')
 @section('content')
 <!DOCTYPE html>
 <html>
@@ -28,7 +28,18 @@
               <h5 class="card-title">Attendance Report</h5>
              
               <!-- Table with stripped rows -->
-             
+              <div class="col-4">    
+                <label class="col-form-label">Employee</label>
+                  <div> 
+                    <select class="form-select">
+                      <option selected>All</option>
+                        @foreach ($employee as $emp)
+                        <option value="{{$emp->id}}">{{$emp->name}}</option>
+                        @endforeach
+                      
+                    </select>
+                  </div>
+                </div>
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
@@ -54,28 +65,31 @@
 
         </div>
       </div>
- <!-- Card with header and footer -->
- <div class="card" id="data">
-  <div class="card-header">{{Auth::user()->name}}</div>
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-    <table class="table  yajra-datatable ">
-      <thead>
-        <tr>
-            <th>No</th>
-            <th>Date</th>
-            <th>Attendance Timing</th>
-            <th>Attendance Duration</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-  </div>
-  <div class="card-footer">
-    Footer
-  </div>
-</div><!-- End Card with header and footer -->
+      <div class="row" id="data">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{Auth::user()->name}}</h5>
+                <!-- Table with stripped rows -->
+                  <table class="table  yajra-datatable ">
+                    <thead>
+                      <tr>
+                          <th>No</th>
+                          <th>Date</th>
+                          <th>Attendance Timing</th>
+                          <th>Attendance Duration</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+  
+              </div>
+          </div>
+
+        </div>
+      </div>
     </section>
 
   </main>

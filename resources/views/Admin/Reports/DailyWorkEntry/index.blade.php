@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.backend.index')
 @section('content')
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('report_daily_work_entry')}}">DailyWorkEntry</a></li>
+          <li class="breadcrumb-item"><a href="{{url('')}}">DailyWorkEntry</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -29,7 +29,7 @@
              
               <!-- Table with stripped rows -->
               <div class="col-4">    
-                <label class="col-form-label">Project comp/InComp</label>
+                <label class="col-form-label">Projetc comp/InComp</label>
                   <div> 
                     <select class="form-select">
                       <option selected>---select---</option>
@@ -40,14 +40,11 @@
                   </div>
                 </div>
                 <div class="col-4">    
-                  <label class="col-form-label">Project</label>
+                  <label class="col-form-label">Projetc</label>
                     <div> 
                       <select class="form-select">
                         <option selected>---select---</option>
-                        @foreach ($projects as $project)
-                        <option value="{{$project->id}}">{{$project->Project_Name}}</option>
-                        @endforeach
-                         
+                          <option value="1">All</option>
                       </select>
                     </div>
                   </div>
@@ -56,9 +53,6 @@
                       <div> 
                         <select class="form-select">
                           <option selected>---select---</option>
-                          @foreach ($projects as $project)
-                          <option value="{{$project->id}}">{{$project->Technology_Name}}</option>
-                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -76,7 +70,7 @@
                  </div>
                  <div class="col-4">    
                     <div class="pt-3"> 
-                     <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
+                     <button type="submit" class="btn btn-sm btn-info">Get Data</button>
                     </div>
                </div>
               <!-- End Table with stripped rows -->
@@ -86,68 +80,10 @@
 
         </div>
       </div>
-    
-       <!-- Card with header and footer -->
- <div class="card" id="data">
-  <div class="card-header">{{Auth::user()->name}}</div>
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-     <!-- Table with stripped rows -->
-     <table class="table  yajra-datatable ">
-      <thead>
-        <tr>
-            <th>No</th>
-            <th>Technology</th>
-            <th>Project</th>
-            <th>Employee</th>
-            <th>Date</th>
-            <th>Work Information</th>
-            <th>Work Detail</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-  <!-- End Table with stripped rows -->
-  </div>
-  <div class="card-footer">
-    Footer
-  </div>
-</div><!-- End Card with header and footer -->
+   
     </section>
 
   </main>
 </body>
-<script>
-  $(document).ready(()=>{
-      $('#data').hide();
-       $("#getdata").on("click",function(){
-          $('#data').show();
-       });
-  });
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-{{-- <script type="text/javascript">
-$(function () {
-
-var table = $('.yajra-datatable').DataTable({
-  responsive: true,
-      ajax: "{{ route('attendance') }}",
-      columns: [ 
-          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          {data:'created_at',name:'created_at'},
-          {data:'name',name:'name'},
-          {data: 'leave_type', name: 'leave_type'},
-          {data:'fdate_start',name:'fdate_start'},
-          {data: 'action', name: 'action', orderable: false, searchable: false},
-      ]
-  });
-});
-
-</script> --}}
 </html>
 @endsection

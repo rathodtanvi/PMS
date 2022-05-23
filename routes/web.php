@@ -11,6 +11,7 @@ use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAllotmentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AdminReportsController;
 use App\Http\Controllers\ReportsController;
 use Illuminate\support\Facades\Auth;
 
@@ -85,6 +86,9 @@ Route::get('/all_leave', [AdminLeaveController::class, 'all_leave'])->name('all_
 Route::get('/all_leavelist', [AdminLeaveController::class, 'all_leavelist'])->name('all_leavelist');
 Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
 Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
+//Admin Report
+Route::get('/admin_report_attendance', [AdminReportsController::class, 'admin_report_attendance'])->name('admin_report_attendance');
 
 });
 

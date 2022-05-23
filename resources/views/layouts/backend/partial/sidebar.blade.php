@@ -109,7 +109,7 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{url('admin_report_attendance')}}">
               <i class="bi bi-circle"></i><span>Attendance And Work Duration</span>
             </a>
           </li>
