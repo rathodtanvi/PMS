@@ -123,7 +123,7 @@
 </body>
 <script>
     $(document).ready(()=>{
-      
+   // $('#data').hide();
          $("#getdata").on("click",function(){
             $('#data').show();
          });

@@ -114,27 +114,27 @@
             </a>
           </li>
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{url('admin_report_daily_work_entry')}}">
               <i class="bi bi-circle"></i><span>Daily Work Entry</span>
             </a>
           </li>
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{url('admin_report_project_total_hour')}}">
               <i class="bi bi-circle"></i><span>Project Total Hours</span>
             </a>
           </li>
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{url('project_summary')}}">
               <i class="bi bi-circle"></i><span>Project Summary</span>
             </a>
           </li>
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{url('employee_summary')}}">
               <i class="bi bi-circle"></i><span>Employee Summary</span>
             </a>
           </li>
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{url('project_history')}}">
               <i class="bi bi-circle"></i><span>Project History</span>
             </a>
           </li>

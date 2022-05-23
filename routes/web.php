@@ -90,6 +90,13 @@ Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview']
 
 //Admin Report
 Route::get('/admin_report_attendance', [AdminReportsController::class, 'admin_report_attendance'])->name('admin_report_attendance');
+Route::get('/admin_report_attendancelist', [AdminReportsController::class, 'admin_report_attendancelist'])->name('admin_report_attendancelist');
+Route::get('/admin_report_daily_work_entry', [AdminReportsController::class, 'admin_report_daily_work_entry'])->name('admin_report_daily_work_entry');
+Route::get('/admin_report_project_total_hour', [AdminReportsController::class, 'admin_report_project_total_hour'])->name('admin_report_project_total_hour');
+Route::get('/employee_summary', [AdminReportsController::class, 'employee_summary'])->name('employee_summary');
+Route::get('/project_summary', [AdminReportsController::class, 'project_summary'])->name('project_summary');
+Route::get('/project_history', [AdminReportsController::class, 'project_history'])->name('project_history');
+
 
 });
 
