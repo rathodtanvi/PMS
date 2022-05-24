@@ -52,11 +52,9 @@ class AttendanceController extends Controller
 
         foreach($duration as $row)
         {
-            $start = str_replace("AM","",$row['In_Entry']);
+            $start = str_replace("AM",":00",$row['In_Entry']);
             $strconvert = strtotime($start);
-
             $end = strtotime($row['Out_Entry']);
-            
             if($end != null)
             {
                 

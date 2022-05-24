@@ -16,10 +16,9 @@ return new class extends Migration
     {
         Schema::create('attendace', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamp('In_Entry')->nullable();
-            $table->timestamp('Out_Entry')->nullable();
+            $table->foreignId('user_id');
+            $table->string('In_Entry')->nullable();
+            $table->string('Out_Entry')->nullable();
             $table->date('Attendance_Date');
             $table->timestamps();
         });

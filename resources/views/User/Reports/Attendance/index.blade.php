@@ -143,8 +143,8 @@
         columns: [ 
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data:'Attendance_Date',name:'Attendance_Date'},
-            {data:'In_Entry',name:'In_Entry'},
-            {data:'In_Entry',name:'In_Entry'},
+            {data:'mergeColumn',name:'mergeColumn'},
+            {data:'attendance_duration',name:'attendance_duration'},
         ]
     });
   });
