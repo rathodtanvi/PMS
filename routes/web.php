@@ -12,6 +12,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAllotmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminReportsController;
+use App\Http\Controllers\ReportsController;
 use Illuminate\support\Facades\Auth;
 
 /*
@@ -74,12 +76,28 @@ Route::post('/inleave', [LeaveController::class, 'inleave'])->name('inleave');
 Route::get('/leavestatus/{id}', [LeaveController::class, 'leavestatus'])->name('leavestatus');
 Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leaveview');
 
+//Reports Controller
+Route::get('/report_attendance', [ReportsController::class, 'report_attendance'])->name('report_attendance');
+Route::get('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
+Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
+Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
+
 
 //AdminLeave
 Route::get('/all_leave', [AdminLeaveController::class, 'all_leave'])->name('all_leave');
 Route::get('/all_leavelist', [AdminLeaveController::class, 'all_leavelist'])->name('all_leavelist');
 Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
 Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
+//Admin Report
+Route::get('/admin_report_attendance', [AdminReportsController::class, 'admin_report_attendance'])->name('admin_report_attendance');
+Route::get('/admin_report_attendancelist', [AdminReportsController::class, 'admin_report_attendancelist'])->name('admin_report_attendancelist');
+Route::get('/admin_report_daily_work_entry', [AdminReportsController::class, 'admin_report_daily_work_entry'])->name('admin_report_daily_work_entry');
+Route::get('/admin_report_project_total_hour', [AdminReportsController::class, 'admin_report_project_total_hour'])->name('admin_report_project_total_hour');
+Route::get('/employee_summary', [AdminReportsController::class, 'employee_summary'])->name('employee_summary');
+Route::get('/project_summary', [AdminReportsController::class, 'project_summary'])->name('project_summary');
+Route::get('/project_history', [AdminReportsController::class, 'project_history'])->name('project_history');
+
 
 });
 

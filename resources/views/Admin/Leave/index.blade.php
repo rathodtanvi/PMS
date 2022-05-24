@@ -38,7 +38,7 @@
               <table class="table  yajra-datatable ">
                   <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>No</th>
                         <th>Date</th>
                         <th>Employee Name</th>
                         <th>Leave Type</th>
@@ -69,10 +69,12 @@
  $(function () {
 
   var table = $('.yajra-datatable').DataTable({
+    processing: true,
+    serverSide: true,
     responsive: true,
         ajax: "{{ route('all_leavelist') }}",
         columns: [ 
-            {data: 'id', name: 'id'},
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data:'created_at',name:'created_at'},
             {data:'name',name:'name'},
             {data: 'leave_type', name: 'leave_type'},

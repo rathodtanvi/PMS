@@ -20,9 +20,10 @@ class DailyWorkEntryController extends Controller
     public function daily_work_entrylist(Request $request)
     {
       if ($request->ajax()) {
-        $data=DailyWorkEntry::where('user_id',Auth::id())->get();
+        $data=DailyWorkEntry::where('user_id',Auth::id())->latest()->get();
         //$work = DailyWorkEntry::latest()->get();
         return DataTables::of($data)
+                ->addIndexColumn()
                 ->addColumn('action', function($row){
                        $btn = '<a href="'.route('workedit',$row->id).'"  class=" btn btn-info btn-sm m-1">Edit</a>';
                        $btn = $btn.'<a href="'.route('workdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
@@ -32,8 +33,7 @@ class DailyWorkEntryController extends Controller
                 return Strip_tags($des->description);
                })
                ->addColumn('project_id',function(DailyWorkEntry $project_id){
-                  if($project_id->project_id == 1)
-                  return "TRAINING";
+                   return $project_id->project->Project_Name;
                })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -50,7 +50,7 @@ class DailyWorkEntryController extends Controller
       ];
       $work=new DailyWorkEntry();
       $work->user_id=Auth::id();
-      $work->project_id = "1"; 
+      $work->project_id = $request->project_id; 
       $work->entry_date=$request->entry_date;
       $work->entry_duration=implode(':',$data);
       $work->productive=$request->productive;

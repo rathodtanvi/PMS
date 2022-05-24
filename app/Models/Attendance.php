@@ -10,4 +10,9 @@ class Attendance extends Model
     use HasFactory;
     protected $table = "attendace";
     protected $primarykey = "id";
+
+    public function employees()
+    {
+    return $this->belongsToMany(User::class);
+     }
 }

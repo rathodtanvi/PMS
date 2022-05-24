@@ -21,9 +21,10 @@ class LeaveController extends Controller
     public function leavelist(Request $request)
     {
       if ($request->ajax()) {
-        $data=Leave::where('user_id',Auth::id())->get();
+        $data=Leave::where('user_id',Auth::id())->latest()->get();
         //$work = Leave::latest()->get();
         return DataTables::of($data)
+                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                         $btn = '<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-primary btn-sm m-1">Pending</a>';
                         $btn =$btn.'<a href="'.route('leaveview',$row->id).'" class="edit btn btn-success btn-sm m-1">view</a>';
@@ -44,13 +45,17 @@ class LeaveController extends Controller
                       $diff=$firstdate->diffInDays($seconddate);
                       if($diff == 0)
                       return 1;
+                      elseif($request->date_end == "")
+                      return 1;
                       else
                       return $diff;
                     // return $firstdate->diffInDays($seconddate);
               })
                 ->addColumn('leave_type',function(Leave $leave_type){
-                      if($leave_type->leave_type == 1)
-                        return "Half Day leave";
+                      if($leave_type->leave_type == 1 && $leave_type->half_leave_type == 1)
+                        return "Half Day leave [ First Half ]";
+                        if($leave_type->leave_type == 1 && $leave_type->half_leave_type == 2)
+                        return "Half Day leave [ Second Half ]";
                         if($leave_type->leave_type == 2)
                         return "Full Day leave";
                         if($leave_type->leave_type == 3)
