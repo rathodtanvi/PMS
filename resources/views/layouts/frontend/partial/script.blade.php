@@ -18,8 +18,8 @@
 <!-- Template Main CSS File -->
 <link href="/assets/css/style.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.18.0/ckeditor.js"></script>
-{{-- <link href="http://localhost:8080/API_PMS/public/assets/css/custom.css" rel="stylesheet"> --}}
-{{-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script> --}}
+<link href="http://localhost:8080/API_PMS/public/assets/css/custom.css" rel="stylesheet"> 
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script> 
 
 <!-- yajra links -->
 
