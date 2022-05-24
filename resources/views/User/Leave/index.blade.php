@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
- 
+
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Leave</h1>

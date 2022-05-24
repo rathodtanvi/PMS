@@ -44,21 +44,21 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="AdminTechnology">
+        <a class="nav-link collapsed"  href="{{url('AdminTechnology')}}">
             <i class="bi bi-menu-button-wide"></i><span> Technology </span>
             </a>
         
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed"  href="AdminProject">
+        <a class="nav-link collapsed"  href="{{url('AdminProject')}}">
         <i class="bi bi-card-list"></i><span> Project </span>
         </a>
         
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed"  href="AdminProjectAllotment">
+        <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
         <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
         </a>
         

@@ -15,37 +15,40 @@
                 <h3 class="h3tag"> Attendance on {{date('d-m-Y')}} </h3>
                 
                 @if ($attendance->isEmpty())
-                    <button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
-                    <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button><br/>
-                @else
-                
-                    @foreach ($attendance as $row)
+                    <div class="mydiv"> </div>
+                    <div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
+                    <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>
                     
-                    <div>
-                        @if ($row->user_id == Auth::user()->id)
-                            <button type="button" class="btn-inentry" disabled="disabled" > {{$row->In_Entry}} </button>
-                        
-                        @else
-                            <button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
-                        
-                        @endif
+                @else
+                    <div class="mydiv"> </div>
+                    @if($getlatest->Out_Entry != Null)
 
-                        @if ($row->Out_Entry == null)
-                            <button type="button" class="btn-outentry" > Out Entry <i class="bi bi-box-arrow-right"></i> </button>
-                            <br/>
+                        <div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
+                        <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>
+
+                    @endif
+                    @foreach ($attendance as $row)
+                        <div ><button type="button" class="btn-inentry" disabled="disabled"> {{$row->In_Entry}} </button>
+                        
+                        @if ($row->Out_Entry == Null)
+                            <button type="button" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button>
                         @else
-                            <button type="button" class="btn-outentry" disabled="disabled"> {{$row->Out_Entry}} </button>    
+                            <button type="button" class="btn-outentry" disabled="disabled"> {{$row->Out_Entry}} </button>
+                            
                         @endif
                     </div>
-                    @endforeach 
+                    @endforeach
+                    
                 @endif
+                
                 <br/>
-                <button type="button" class="btn-workinhours">Workibg Hour : <i class="bi bi-clock"></i></button>
+                <button type="button" class="btn-workinhours"> Workibg Hour : <i class="bi bi-clock"></i> 00:00:00 </button>
                 
             </center>
         </div>
     </div>
 </main>
+
 <script>
 
     $("body").on("click",".btn-inentry",function(){
@@ -71,7 +74,6 @@
     $("body").on("click",".btn-outentry",function()
     {
         var tr = $(this).closest("div");
-
         var starttime = tr.find(".btn-inentry").text();
         
         $.ajax
@@ -86,7 +88,7 @@
                 {
                     tr.find(".btn-outentry").html(value);
                     $(".btn-outentry").attr("disabled","disabled");
-                    $(".h3tag").after('<div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>  <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button><br/></div>');
+                    $(".mydiv").append('<div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>  <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>');
                 });
             }
         });
@@ -102,7 +104,7 @@
             success: function(res)
             {
                 console.log(res);
-                $(".btn-workinhours").html('Workibg Hour : <i class="bi bi-clock"></i> '+res);
+                $(".btn-workinhours").html('Working Hour : <i class="bi bi-clock"></i> '+res);
             }
         });
     }

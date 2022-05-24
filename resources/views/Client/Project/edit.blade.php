@@ -12,12 +12,18 @@
 
     <div class="pagetitle">
         <h1> Enter Project </h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('Project')}}">Project</a></li>
+            </ol>
+        </nav>
     </div>
         
     <div class="card">
         <div class="card-body">
 
-        <h4 class="box-form-header"> Add Project </h4>
+        <h4 class="box-form-header"> Edit Project </h4>
         <form method="post" action="{{ url('update-project/'.$edits->id) }}"> 
             @csrf
             

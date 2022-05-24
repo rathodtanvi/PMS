@@ -12,7 +12,7 @@
             ajax: "{{ route('AdminProjectAllotment.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'user_nm', name: 'user_nm'},
+                {data: 'user.name', name: 'user.name'},
                 {data: 'Project_Name', name: 'Project_Name'},
                 {data: 'Technology_Name', name: 'Technology_Name'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
@@ -27,7 +27,7 @@
 
     <div class="pagetitle">
         <h1>Project 
-            <a href='adminAddAllotment' class="new-btn"> New </a>
+            <a href='adminAddAllotment' class="new-btn"> New </a><br/><br/>
         </h1>
     </div>  
     <div class="card">

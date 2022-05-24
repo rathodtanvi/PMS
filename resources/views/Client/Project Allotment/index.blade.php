@@ -2,6 +2,8 @@
 
 @section('content')
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
 
     $(function () {
@@ -12,10 +14,14 @@
             ajax: "{{ route('ProjectAllotment.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'user_nm', name: 'user_nm'},
+                {data: 'user.name', name: 'user.name'},
                 {data: 'Project_Name', name: 'Project_Name'},
                 {data: 'Technology_Name', name: 'Technology_Name'},
-                {data: 'action', name: 'action', orderable: true, searchable: true},
+                {   data: 'action', 
+                    name: 'action', 
+                    orderable: true, 
+                    searchable: true
+                },
             ]
         });
         
@@ -37,6 +43,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        
                         <th>No</th>
                         <th>Employee Name</th>
                         <th>Project Name</th>

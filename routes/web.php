@@ -11,6 +11,7 @@ use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAllotmentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\HomeController;
 use Illuminate\support\Facades\Auth;
 
 /*
@@ -31,7 +32,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () { 
 
 //Admin
@@ -106,10 +107,10 @@ Route::post('/AddTechnology',[TechnologyController::class,'AddTech']);
 Route::get('edit_tech/{id}',[TechnologyController::class,'Edit']);
 Route::post('update-technology/{id}',[TechnologyController::class,'Update']);
 
-Route::get('Technology', [TechnologyController::class, 'index']);
+Route::get('Technology', [TechnologyController::class, 'index'])->name('Technology');
 Route::get('Technology/list', [TechnologyController::class, 'ShowTech'])->name('Technology.list');
 
-Route::get('/Project',[ProjectController::class,'ShowProject']);
+Route::get('/Project',[ProjectController::class,'ShowProject'])->name('Project');
 Route::get('Project/list', [ProjectController::class, 'DispProject'])->name('Project.list');
 
 Route::get('/completeproject',[ProjectController::class,'CompletProject']);    //complete project checkbox

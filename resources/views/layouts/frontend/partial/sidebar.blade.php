@@ -10,21 +10,21 @@
       </li><!-- End Dashboard Nav -->
 
 		<li class="nav-item">
-            <a class="nav-link collapsed"  href="Technology">
+            <a class="nav-link collapsed"  href="{{url('Technology')}}">
             <i class="bi bi-menu-button-wide"></i><span> Technology </span>
             </a>
             
         </li>
 		
 		<li class="nav-item">
-            <a class="nav-link collapsed"  href="Project">
+            <a class="nav-link collapsed"  href="{{url('Project')}}">
             <i class="bi bi-card-list"></i><span> Project </span>
             </a>
             
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed"  href="ProjectAllotment">
+            <a class="nav-link collapsed"  href="{{url('ProjectAllotment')}}">
             <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
             </a>
             
@@ -111,7 +111,7 @@
       </li><!-- End Icons Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed"  href="Attendance">
+            <a class="nav-link collapsed"  href="{{url('Attendance')}}">
             <i class="bi bi-calendar-check"></i><span> Attendance </span>
             </a>
             
