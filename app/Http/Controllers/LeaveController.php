@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Leave;
 use App\Models\User;
-use Auth;
-use Hash;
-use DataTables;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\LeaveRequest;
 use Carbon\Carbon;
 
@@ -25,45 +25,45 @@ class LeaveController extends Controller
         //$work = Leave::latest()->get();
         return DataTables::of($data)
                 ->addColumn('action', function($row){
-                       $btn = '<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-primary btn-sm m-1">Pending</a>';
-                       $btn =$btn.'<a href="'.route('leaveview',$row->id).'" class="edit btn btn-success btn-sm m-1">view</a>';
+                        $btn = '<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-primary btn-sm m-1">Pending</a>';
+                        $btn =$btn.'<a href="'.route('leaveview',$row->id).'" class="edit btn btn-success btn-sm m-1">view</a>';
                         return $btn;
-               })
-               ->addColumn('created_at',function($request){
-                return  $request->created_at->format('Y-m-d');
-               })
-               ->addColumn('message',function(Leave $msg){
+                })
+                ->addColumn('created_at',function($request){
+                  return  $request->created_at->format('Y-m-d');
+                })
+                ->addColumn('message',function(Leave $msg){
                 return Strip_tags($msg->message);
-               })
-               ->addColumn('name',function(Leave  $name){
-                 return  $name=Auth::user()->name;
-               })
-               ->addColumn('fdate_start',function($request){
-                     $firstdate=Carbon::parse($request->date_start);
-                     $seconddate=Carbon::parse($request->date_end);
-                     $diff=$firstdate->diffInDays($seconddate);
-                     if($diff == 0)
-                     return 1;
-                     else
-                     return $diff;
+                })
+                ->addColumn('name',function(Leave  $name){
+                  return  $name=Auth::user()->name;
+                })
+                ->addColumn('fdate_start',function($request){
+                      $firstdate=Carbon::parse($request->date_start);
+                      $seconddate=Carbon::parse($request->date_end);
+                      $diff=$firstdate->diffInDays($seconddate);
+                      if($diff == 0)
+                      return 1;
+                      else
+                      return $diff;
                     // return $firstdate->diffInDays($seconddate);
               })
-               ->addColumn('leave_type',function(Leave $leave_type){
-                     if($leave_type->leave_type == 1)
-                       return "Half Day leave";
-                       if($leave_type->leave_type == 2)
-                       return "Full Day leave";
-                       if($leave_type->leave_type == 3)
-                       return "Multipal Day leave";
-                     
-               })
+                ->addColumn('leave_type',function(Leave $leave_type){
+                      if($leave_type->leave_type == 1)
+                        return "Half Day leave";
+                        if($leave_type->leave_type == 2)
+                        return "Full Day leave";
+                        if($leave_type->leave_type == 3)
+                        return "Multipal Day leave";
+                      
+                })
                 ->rawColumns(['action'])
                 ->make(true);
-       }
+        }
     }
     public function addleave()
     {
-         return view('User.Leave.add');
+          return view('User.Leave.add');
     }
     public function inleave(Request $request)
     {
@@ -82,11 +82,9 @@ class LeaveController extends Controller
     }
     public function leaveview($id)
     {
-       $datas= Leave::find($id);
-       return view('User.Leave.view',compact('datas'));
+        $datas= Leave::find($id);
+        return view('User.Leave.view',compact('datas'));
     }
-
-   
 
     public function leavestatus(Request $request,$id)
     {

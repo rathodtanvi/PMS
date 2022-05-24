@@ -8,13 +8,18 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\DateTime;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
 {
-    public function Attendance()
+    public function Attendance(Request $request)
     {
-        $attendance  = Attendance::where('user_id','=',Auth::user()->id)->get();
-        return view('Client.Attendance.index',compact('attendance'));
+        $todate = Carbon::now()->format('Y-m-d');
+        
+        $attendance  = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date',"=",$todate)->latest()->get();
+        $getlatest = Attendance::where("user_id",'=',Auth::user()->id)->latest()->first();
+        
+        return view('Client.Attendance.index',compact('attendance','getlatest'));
     }
 
     public function AddAttendance(Request $request)
@@ -34,50 +39,61 @@ class AttendanceController extends Controller
     public function OutAttendance()
     {
         $strtime = $_GET['stime'];
+        $stime = trim($strtime);
         $uid =  Auth::user()->id;
         
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
 
-        //$outentry = DB::table("attendace")->where('user_id',$uid)->where("In_Entry",$strtime)->update(["Out_Entry" => $currenttime]);
-        $outentry = Attendance::where("In_Entry","=",$strtime)->get();
-        dd($outentry);
-
+        $out = DB::table("attendace")->where("user_id","=",$uid)->where("In_Entry","=",$stime)->update(["Out_Entry" => $currenttime]);
+        
         return response()->json(['data'=>$currenttime]);
     }
 
     public function WorkHours()
     {
         $currentdate = Carbon::now('Asia/Kolkata')->format('Y-m-d');
-        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date','=',$currentdate)->get();
-
+        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date','=',$currentdate)->latest()->get();
+        $duration1 = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date','=',$currentdate)->first();
+        
         foreach($duration as $row)
         {
-            $start = str_replace("AM","",$row['In_Entry']);
-            $strconvert = strtotime($start);
-
-            $end = strtotime($row['Out_Entry']);
-            
-            if($end != null)
+            if($row['In_Entry'] != Null && $row['Out_Entry'] != Null)
             {
                 
-                $data = $end-$strconvert;
-                $hours = gmdate("h:i:s",$data);
+                $start = str_replace(" AM",":00",$row['In_Entry']);
+                $strconv = new DateTime($start);
+
+                $end = str_replace(" AM",":00",$row['Out_Entry']);
+                $endconv = new DateTime($end);
                 
-                return response()->json($hours);
+                $time_diff = $endconv->diff($strconv);
+                $htime[] = $time_diff->format('%H');
+                $mtime[] = $time_diff->format('%I');
+                $stime[] = $time_diff->format('%S');
             }
             else
             {
-                $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
-                $str = str_replace("AM","",$currenttime);
-                $endtime = strtotime($str);
+                $start = str_replace(" AM",":00",$row['In_Entry']);
+                $strconv = new DateTime($start);
                 
-                $data = $endtime-$strconvert;
-                $hours = gmdate("h:i:s",$data);
+                $end = Carbon::now('Asia/Kolkata');
+                $endconv =  new DateTime($end);
                 
-                return response()->json($hours);
-
+                
+                $time_diff = $endconv->diff($strconv);
+                
+                $htime[] = $time_diff->format('%H');
+                $mtime[] = $time_diff->format('%I');
+                $stime[] = $time_diff->format('%S');
+                
             }
-        }
-    
+            
+        } 
+        
+        $h_sum = array_sum($htime);
+        $m_sum = array_sum($mtime);
+        $s_sum = array_sum($stime);
+        
+        return response()->json($h_sum.":".$m_sum.":".$s_sum);
     }
 }

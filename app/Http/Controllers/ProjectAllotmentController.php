@@ -22,7 +22,7 @@ class ProjectAllotmentController extends Controller
         if ($request->ajax()) 
         {
 
-            $data = ProjectAllotment::where("user_nm",'=',Auth::user()->name)->get();
+            $data = ProjectAllotment::with('user')->where("user_id",'=',Auth::user()->id)->get();
             
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -62,7 +62,7 @@ class ProjectAllotmentController extends Controller
     {
         
         $tech = new ProjectAllotment;
-        $tech->user_nm = Auth::user()->name;
+        $tech->user_id = Auth::user()->id;
         $tech->Project_Name = $request['projectnm'];
         $tech->Technology_Name = implode(' , ',$request->technm );
         $tech->save();
@@ -90,7 +90,7 @@ class ProjectAllotmentController extends Controller
     {
         if ($request->ajax()) 
         {
-            $data = ProjectAllotment::get();
+            $data = ProjectAllotment::with('user')->get();
             
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -130,7 +130,7 @@ class ProjectAllotmentController extends Controller
     public function adminAddPAllotment(Request $request)
     {
         $tech = new ProjectAllotment;
-        $tech->user_nm = $request['unm'];
+        $tech->user_id = $request['unm'];
         $tech->Project_Name = $request['projectnm'];
         $tech->Technology_Name = implode(' , ',$request->technm );
         $tech->save();
