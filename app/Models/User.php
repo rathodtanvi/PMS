@@ -53,4 +53,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    public function pallotment(){
+        return $this->hasMany(ProjectAllotment::class);
+    }
 }

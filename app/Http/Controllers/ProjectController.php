@@ -127,7 +127,7 @@ class ProjectController extends Controller
                 ->addColumn('action', function($row){
                     if($row->Complete_Project == "Complete")
                     {
-                        $actionBtn = "<a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
                     }
                     else
                     {
