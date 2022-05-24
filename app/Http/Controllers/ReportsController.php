@@ -8,6 +8,7 @@ use Hash;
 use DataTables;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
 
 class ReportsController extends Controller
 {
@@ -19,9 +20,22 @@ class ReportsController extends Controller
     public function report_attendancelist(Request $request)
     {
         if ($request->ajax()) {
-            $data=Attendance::where('user_id',Auth::id())->latest()->get();
+            $data=Attendance::where('user_id',Auth::id())->whereDate('created_at',  Carbon::today())->get();
+            //dd($data);
             return DataTables::of($data)
                     ->addIndexColumn()
+                    ->addColumn('Attendance_Date', function($row){
+                        return Carbon::parse($row->Attendance_Date)->format('l, F d,Y');
+                    })  
+                    ->addColumn('mergeColumn', function($row){
+                      
+                                return $row->In_Entry.'AM - '.$row->Out_Entry.'PM<br>';
+                    })
+                    ->addColumn('attendance_duration', function($row){
+                         
+                    })
+                    ->escapeColumns([])
+                    ->rawColumns(['picture', 'confirmed'])
                     ->make(true);
            }
     }
