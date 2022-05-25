@@ -21,10 +21,6 @@ class ReportsController extends Controller
        $entry= Attendance::where('user_id',Auth::id())->whereDate('created_at',  Carbon::today())->pluck('In_Entry','Out_Entry')->toarray();
         $time=Attendance::where('user_id',Auth::id())->whereDate('created_at',  Carbon::today())->get();
        return view('User.Reports.Attendance.index',compact('datas','entry'));
-      // $data=Attendance::where('user_id',Auth::id())->whereDate('created_at',  Carbon::today())->pluck('In_Entry','Out_Entry')->toArray();
-      // $str= implode(" ",$data);
-      // dd($str);
-        return view('User.Reports.Attendance.index');
     }
    
     public function report_attendancelist(Request $request)
