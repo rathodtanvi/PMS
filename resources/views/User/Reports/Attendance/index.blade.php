@@ -28,7 +28,7 @@
               <h5 class="card-title">Attendance Report</h5>
              
               <!-- Table with stripped rows -->
-             
+            
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
@@ -48,7 +48,7 @@
                            <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
                           </div>
                         </div>
-                 
+                  
               <!-- End Table with stripped rows -->
 
             </div>

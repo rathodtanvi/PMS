@@ -78,7 +78,7 @@ Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leav
 
 //Reports Controller
 Route::get('/report_attendance', [ReportsController::class, 'report_attendance'])->name('report_attendance');
-Route::get('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
+Route::post('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
 Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
 Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
 

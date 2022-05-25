@@ -25,6 +25,7 @@ class ReportsController extends Controller
    
     public function report_attendancelist(Request $request)
     {
+       
   
         // if ($request->ajax())
         //  {
