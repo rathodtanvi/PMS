@@ -80,5 +80,11 @@ $(document).ready(function(){
         }
       });
 
-
+    //   $('.project_time').change(function(){
+    //     var project_time = $(".project_time option:selected").val();
+    //        if(project_time == 2)
+    //        {
+              
+    //        }
+    //   });
 });

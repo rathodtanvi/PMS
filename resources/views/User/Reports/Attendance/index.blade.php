@@ -14,7 +14,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('attendance')}}">Attendance</a></li>
+          <li class="breadcrumb-item"><a href="{{url('report_attendance')}}">Attendance Report</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -33,12 +33,14 @@
                 <label class="col-form-label">From Date</label>
                   <div> 
                    <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
+                   <input type="hidden" class="form-control" name="date_start" id="start_date" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
                   </div>
                 </div>
                 <div class="col-4">    
                     <label class="col-form-label">To Date</label>
                       <div> 
                        <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
+                       <input type="hidden" class="form-control" name="date_end"  id="end_date" value="{{date('Y-m-d', time())}}" >
                       </div>
                     </div>
                     <div class="col-4">    
@@ -56,11 +58,11 @@
       </div>
  <!-- Card with header and footer -->
 
- <div class="card" id="data">
+ <div class="card" id="data" style="display:none">
   <div class="card-header  text-white" style="background-color: #00AA9E;">{{Auth::user()->name}}</div>
   <div class="card-body">
     <h5 class="card-title"></h5>
-    <table class="table  yajra-datatable">
+    <table class="table  yajra-datatable" style="width:100%">
       <thead>
         <tr>
             <th>No</th>
@@ -129,14 +131,15 @@
          });
     });
 </script>
+<script>
 
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
  <script type="text/javascript">
  $(function () {
-
   var table = $('.yajra-datatable').DataTable({
     responsive: true,
         ajax: "{{ route('report_attendancelist') }}",
