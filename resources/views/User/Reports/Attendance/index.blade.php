@@ -70,6 +70,28 @@
             <th>Attendance Timing</th>
             <th>Attendance Duration</th>
         </tr>
+          {{-- @if(!$entry) 
+           <tr>
+             <td colspan="4"><center>Data Not Inserted!</center></td>
+           </tr>
+          @else --}}
+            @foreach ($datas as $data)
+            <tr>
+              <td>{{$data->id}}</td>
+              <td>{{$data->Attendance_Date}}</td>
+              <td>
+               @foreach ($entry as $Out_Entry => $In_Entry)
+               {{$In_Entry}}-{{$Out_Entry}}<br>
+               @endforeach        
+              </td>
+              <td> 
+               {{$data->created_at_difference()}}
+               </td>
+            </tr>
+            @break
+        @endforeach
+        
+        {{-- @endif --}}
     </thead>
     <tbody>
     </tbody>
@@ -139,19 +161,19 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
  <script type="text/javascript">
- $(function () {
-  var table = $('.yajra-datatable').DataTable({
-    responsive: true,
-        ajax: "{{ route('report_attendancelist') }}",
-        columns: [ 
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data:'Attendance_Date',name:'Attendance_Date'},
-            {data:'mergeColumn',name:'mergeColumn'},
-            {data:'attendance_duration',name:'attendance_duration'},
-        ]
-    });
-  });
-
+//  $(function () {
+//   var table = $('.yajra-datatable').DataTable({
+//     responsive: true,
+//         ajax: "{{ route('report_attendancelist') }}",
+//         columns: [ 
+//             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+//             {data:'Attendance_Date',name:'Attendance_Date'},
+//             {data:'mergeColumn',name:'mergeColumn'},
+//             {data:'attendance_duration',name:'attendance_duration'},
+//         ]
+//     });
+//   });
+   
 </script>
 </html>
 @endsection
