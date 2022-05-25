@@ -1,5 +1,6 @@
 @extends('layouts.frontend.index')
 @section('content')
+<script src="{{ asset('userpms.js') }}"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('report_daily_work_entry')}}">DailyWorkEntry</a></li>
+          <li class="breadcrumb-item"><a href="{{url('report_daily_work_entry')}}">DailyWorkEntry Report</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -31,7 +32,7 @@
               <div class="col-4">    
                 <label class="col-form-label">Project comp/InComp</label>
                   <div> 
-                    <select class="form-select">
+                    <select class="form-select project_time">
                       <option selected>---select---</option>
                         <option value="1">Both</option>
                         <option value="2">Complete</option>
@@ -42,8 +43,9 @@
                 <div class="col-4">    
                   <label class="col-form-label">Project</label>
                     <div> 
-                      <select class="form-select">
+                      <select class="form-select project_name">
                         <option selected>---select---</option>
+                        
                         @foreach ($projects as $project)
                         <option value="{{$project->id}}">{{$project->Project_Name}}</option>
                         @endforeach
@@ -54,7 +56,7 @@
                   <div class="col-4">    
                     <label class="col-form-label">Techology</label>
                       <div> 
-                        <select class="form-select">
+                        <select class="form-select techology">
                           <option selected>---select---</option>
                           @foreach ($projects as $project)
                           <option value="{{$project->id}}">{{$project->Technology_Name}}</option>
@@ -88,7 +90,7 @@
       </div>
     
        <!-- Card with header and footer -->
- <div class="card" id="data">
+ <div class="card" id="data" style="display:none">
   <div class="card-header">
   <div class="row">
     <div class="col-6">
@@ -103,7 +105,7 @@
   <div class="card-body">
     <h5 class="card-title"></h5>
      <!-- Table with stripped rows -->
-     <table class="table  yajra-datatable ">
+     <table class="table  yajra-datatable" style="width:100%">
       <thead>
         <tr>
             <th>No</th>
@@ -151,7 +153,7 @@
 </body>
 <script>
   $(document).ready(()=>{
-      $('#data').hide();
+      //$('#data').hide();
        $("#getdata").on("click",function(){
           $('#data').show();
        });

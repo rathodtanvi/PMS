@@ -13,8 +13,8 @@
       <h1>Employee Summary Report</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('report_project_total_hour')}}">Total Hour Spent Report</a></li>
+          <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('employee_summary')}}">Employee Summary</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

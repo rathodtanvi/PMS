@@ -17,9 +17,9 @@
           <h1>Employee Details</h1>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active">Data</li>
+              <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="{{url('addemployee')}}">Add Employee</a></li>
+              <li class="breadcrumb-item active"><a href="{{url('employee')}}">View Data</a> </li>
             </ol>
           </nav>
         </div><!-- End Page Title -->

@@ -13,8 +13,8 @@
       <h1>Daily Work Entry Report</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('')}}">DailyWorkEntry</a></li>
+          <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('admin_report_daily_work_entry')}}">DailyWorkEntry</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
