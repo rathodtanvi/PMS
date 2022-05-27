@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.index')
 @section('content')
 <script src="{{ asset('userpms.js') }}"></script>
 <main id="main" class="main">

@@ -1,6 +1,6 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
-    <a href="{{url('userhome')}}" class="logo d-flex align-items-center">
+    <a  class="logo d-flex align-items-center">
       <img src="assets/img/logo.png" alt="" class="rounded-circle" style="background-color:rgb(33, 33, 100);" >
       <span class="d-none d-lg-block">API PM SYSTEM</span>
     </a>
@@ -104,7 +104,6 @@
          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
            <li class="dropdown-header">
             <h6>{{Auth::user()->name}}</h6>
-            <span>Web Designer</span>
           </li>
           <li>
             <hr class="dropdown-divider">
