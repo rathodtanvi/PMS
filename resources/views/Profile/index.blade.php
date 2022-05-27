@@ -100,8 +100,6 @@
                   <form method="POST" action="{{route('updateprofile',$datas->id)}}">
                     @csrf
                    @method('PUT') 
-                    
-
                     <div class="row mb-3">
                       <label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">

@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.backend.index')
 @section('content')
 <!DOCTYPE html>
 <html>
