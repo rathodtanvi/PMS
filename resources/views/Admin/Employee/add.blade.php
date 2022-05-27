@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{url('employee')}}">Employee</a></li>
-            <li class="breadcrumb-item"><a href="{{url('addemployee')}}">Add</a></li>
+            <li class="breadcrumb-item">Add</li>
 
           </ol>
       </nav>
@@ -25,7 +25,7 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Name') }}</label>
 
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                    <label for="email" class="col-md-4 col-form-label ">{{ __('Email Address') }}</label>
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                    <label for="password" class="col-md-4 col-form-label ">{{ __('Password') }}</label>
 
                     <div class="col-md-6">
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"   value="{{ old('password') }}" autocomplete="new-password">
@@ -67,14 +67,14 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                    <label for="password-confirm" class="col-md-4 col-form-label ">{{ __('Confirm Password') }}</label>
 
                     <div class="col-md-6">
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  value="{{ old('password_confirmation') }}" autocomplete="new-password">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="mobilenumber" class="col-md-4 col-form-label text-md-end">{{ __('MobileNumber') }}</label>
+                    <label for="mobilenumber" class="col-md-4 col-form-label ">{{ __('MobileNumber') }}</label>
 
                     <div class="col-md-6">
                         <input id="mobile_number" type="text" class="form-control @error('mobile_number') is-invalid @enderror" value="{{ old('mobile_number') }}" name="mobile_number" >
@@ -87,7 +87,7 @@
                     </div>  
                 </div>
                 <div class="row mb-3">
-                    <label for="dob" class="col-md-4 col-form-label text-md-end">{{ __('Birth Date') }}</label>
+                    <label for="dob" class="col-md-4 col-form-label ">{{ __('Birth Date') }}</label>
 
                     <div class="col-md-6">
                         <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" value="{{ old('dob') }}" name="dob" >
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="joining_date" class="col-md-4 col-form-label text-md-end">{{ __('Joining Date') }}</label>
+                    <label for="joining_date" class="col-md-4 col-form-label ">{{ __('Joining Date') }}</label>
 
                     <div class="col-md-6">
                         <input id="joining_date" type="date" class="form-control @error('joining_date') is-invalid @enderror"  value="{{ old('joining_date') }}" name="joining_date" >
@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
+                    <label for="gender" class="col-md-4 col-form-label ">{{ __('Gender') }}</label>
                     <div class="col-md-2 form-check-inline pl-5">
                         <input id="gender" type="radio" value="0" class=" @error('gender') is-invalid @enderror" value="{{ old('gender') == '0' ? 'checked' : ''}}" name="gender" >
                         <label class="pl-2">Male</label>
@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="qualification" class="col-md-4 col-form-label text-md-end">{{ __('Qualification') }}</label>
+                    <label for="qualification" class="col-md-4 col-form-label ">{{ __('Qualification') }}</label>
 
                     <div class="col-md-6">
                         <input id="qualification" type="text" class="form-control @error('qualification') is-invalid @enderror" value="{{ old('qualification') }}" name="qualification" >
@@ -143,7 +143,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('address') }}</label>
+                    <label for="address" class="col-md-4 col-form-label ">{{ __('address') }}</label>
 
                     <div class="col-md-6">
                         <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror"  name="address"  >
@@ -156,6 +156,7 @@
                         @enderror
                     </div>
                 </div>
+                <br/>
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
@@ -166,7 +167,7 @@
             </form><!-- End General Form Elements -->
 
             </div>
-          </div>
+        </div>
 
         </div>
       </div>

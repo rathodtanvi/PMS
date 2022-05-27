@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{url('employee')}}">Employee</a></li>
-            <li class="breadcrumb-item"><a href="{{url('edit/{id}')}}">Edit</a></li>
+            <li class="breadcrumb-item">Edit</li>
           </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -25,7 +25,7 @@
                 @method("PUT")
 
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Name') }}</label>
 
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $datas->name }}"  autocomplete="name">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                    <label for="email" class="col-md-4 col-form-label ">{{ __('Email Address') }}</label>
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{  $datas->email }}"  autocomplete="email">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="mobilenumber" class="col-md-4 col-form-label text-md-end">{{ __('MobileNumber') }}</label>
+                    <label for="mobilenumber" class="col-md-4 col-form-label ">{{ __('MobileNumber') }}</label>
 
                     <div class="col-md-6">
                         <input id="mobile_number" type="text" class="form-control @error('mobile_number') is-invalid @enderror" value="{{ $datas->mobile_number}}" name="mobile_number" >
@@ -65,7 +65,7 @@
                     </div>  
                 </div>
                 <div class="row mb-3">
-                    <label for="dob" class="col-md-4 col-form-label text-md-end">{{ __('Birth Date') }}</label>
+                    <label for="dob" class="col-md-4 col-form-label ">{{ __('Birth Date') }}</label>
 
                     <div class="col-md-6">
                         <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" value="{{ $datas->dob}}" name="dob" >
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="joining_date" class="col-md-4 col-form-label text-md-end">{{ __('Joining Date') }}</label>
+                    <label for="joining_date" class="col-md-4 col-form-label ">{{ __('Joining Date') }}</label>
 
                     <div class="col-md-6">
                         <input id="joining_date" type="date" class="form-control @error('joining_date') is-invalid @enderror" value="{{ $datas->joining_date}}" name="joining_date" >
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
+                    <label for="gender" class="col-md-4 col-form-label ">{{ __('Gender') }}</label>
                     <div class="col-md-2 form-check-inline pl-5">
                         <input id="gender" type="radio" value="0" class=" @error('gender') is-invalid @enderror" {{$datas->gender == "0" ? 'checked' : ''}} name="gender" >
                         <label class="pl-2">Male</label>
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="qualification" class="col-md-4 col-form-label text-md-end">{{ __('Qualification') }}</label>
+                    <label for="qualification" class="col-md-4 col-form-label ">{{ __('Qualification') }}</label>
 
                     <div class="col-md-6">
                         <input id="qualification" type="text" class="form-control @error('qualification') is-invalid @enderror" value="{{ $datas->qualification}}" name="qualification" >
@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('address') }}</label>
+                    <label for="address" class="col-md-4 col-form-label ">{{ __('address') }}</label>
 
                     <div class="col-md-6">
                         <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror"  value="" name="address"  >
