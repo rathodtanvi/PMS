@@ -16,9 +16,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name'=>'admin',
             'roles_id'=>'1',
-            'name'=>'admin',
+            'name'=>'Admin',
             'email'=>'admin@gmail.com',
             'password'=>bcrypt('admin'),
             'mobile_number'=>'123456789',
@@ -31,9 +30,21 @@ class UserSeeder extends Seeder
             
         ]);
         User::create([
-            'name'=>'user',
             'roles_id'=>'2',
-            'name'=>'user',
+            'name'=>'TeamLeader',
+            'email'=>'tl@gmail.com',
+            'password'=>bcrypt('tl'),
+            'mobile_number'=>'123456789',
+            'dob'=>'2000-01-03',
+            'joining_date'=>'2021-12-03',
+            'gender'=>'1',
+            'qualification'=>'work',
+            'address'=>'rajkot',
+            'status'=>'1',
+        ]);
+        User::create([
+            'roles_id'=>'3',
+            'name'=>'User',
             'email'=>'user@gmail.com',
             'password'=>bcrypt('user'),
             'mobile_number'=>'123456789',

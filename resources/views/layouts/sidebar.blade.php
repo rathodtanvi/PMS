@@ -1,53 +1,49 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-      
       <li class="nav-item">
-        <a class="nav-link " href="{{url('home')}}">
+        <a class="nav-link" href="{{url('home')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
+      @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
       <li class="nav-item">
         <a class="nav-link " href="{{url('employee')}}">
           <i class="bi bi-circle"></i>
           <span>Employee</span>
         </a>
-      </li>
-
+      </li> 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminTechnology')}}">
+        <a class="nav-link collapsed" href="{{url('AdminTechnology')}}">
             <i class="bi bi-menu-button-wide"></i><span> Technology </span>
-            </a>
-        
-    </li>
-
+        </a>       
+    </li> 
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProject')}}">
         <i class="bi bi-card-list"></i><span> Project </span>
         </a>
         
     </li>
-
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
         <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
         </a>
         
     </li>
-	
+	@if (Auth::user()->roles_id == 1)
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
         <i class="bi bi-file-earmark"></i><span> Project Milestones </span>
         </a>    
     </li>
-	
+    @endif
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
         <i class="bi bi-file-earmark"></i><span> Task Allotment </span>
         </a>    
     </li>
-
+    @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
         <i class="bi bi-file-earmark"></i><span> Daily Work Entry </span>
@@ -72,7 +68,7 @@
           </li>
         </ul>
       </li><!-- End Tables Nav -->
-
+   @endif
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-card-list"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>

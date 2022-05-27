@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{url('employee')}}">Employee</a></li>
-            <li class="breadcrumb-item"><a href="{{url('edit/{id}')}}">Edit</a></li>
+            <li class="breadcrumb-item"><a href="">Edit</a></li>
           </ol>
       </nav>
     </div><!-- End Page Title -->

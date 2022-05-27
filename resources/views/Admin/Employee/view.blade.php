@@ -3,12 +3,11 @@
 <main id="main" class="main">
     <div class="pagetitle">
       <h1> Employee Details</h1>
-      {{ Breadcrumbs::render() }}
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{url('employee')}}">Employee</a></li>
-          <li class="breadcrumb-item"><a href="{{url('viewdata')}}">View</a></li>
+          <li class="breadcrumb-item"><a href="">View</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

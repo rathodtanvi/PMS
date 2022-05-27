@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.backend.index')
 @section('content')
 <!DOCTYPE html>
 <html>
@@ -12,8 +12,7 @@
   </head>
 <body>
       <main id="main" class="main">
-
-        <div class="pagetitle">
+        <div class="">
           <h1>Employee Details</h1>
           <nav>
             <ol class="breadcrumb">

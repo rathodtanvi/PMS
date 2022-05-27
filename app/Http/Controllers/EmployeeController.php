@@ -19,13 +19,13 @@ class EmployeeController extends Controller
     {
       if ($request->ajax()) {
          //$data = User::select('*');
-         $data=User::where('roles_id',2)->latest()->get();
+         $data=User::where('roles_id',3)->latest()->get();
          $user = User::latest()->get();
          return DataTables::of($data)
                  ->addIndexColumn()
                  ->addColumn('action', function($row){
     
-                        $btn = '<a href="'.route('viewdata',$row->id).'"  class=" btn btn-info btn-sm m-1">View</a>';
+                        $btn = '<a href="'.route('viewdata',$row->id).'"  class=" btn btn-warning btn-sm m-1">View</a>';
                         $btn = $btn.'<a href="'.route('edit',$row->id).'" class="edit btn btn-primary btn-sm m-1">Edit</a>';
                         if($row->status == 1)
                         {
