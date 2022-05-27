@@ -78,8 +78,8 @@
       <h1>Attendance Report</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('attendance')}}">Attendance</a></li>
+          <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('admin_report_attendance')}}">Attendance Report</a></li>
         </ol>
       </nav>
     </div>
@@ -126,15 +126,15 @@
         
         </div>
       </div>
-      <div id="data" >
-      
+      <div id="data" style="display:none">
+      @foreach ($employee as $emp)
       <div class="row" >
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header  text-white" style="background-color: #00AA9E;"> Bhavya </div>
             <div class="card-body">
-                
-                  <table class="table yajra-datatable" style="width:100%">
+                <!-- Table with stripped rows -->
+                  <table class="table  yajra-datatable " style="width:100%">
                     <thead>
                       <tr>
                           <th>No</th>
@@ -153,7 +153,11 @@
 
         </div>
       </div>
+<<<<<<< HEAD
       
+=======
+      @endforeach
+>>>>>>> 86b37ba3fffd7f36d50a05a9aabd403abb6d0e75
     </div>
     </section>
 

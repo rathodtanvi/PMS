@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Attendance</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
  
@@ -14,7 +13,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('attendance')}}">Attendance</a></li>
+          <li class="breadcrumb-item"><a href="{{url('report_attendance')}}">Attendance Report</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -28,17 +27,17 @@
               <h5 class="card-title">Attendance Report</h5>
              
               <!-- Table with stripped rows -->
-             
+            
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
-                   <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
+                   <input type="date" class="form-control" name="date_start" id="date1" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
                   </div>
                 </div>
                 <div class="col-4">    
                     <label class="col-form-label">To Date</label>
                       <div> 
-                       <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
+                       <input type="date" class="form-control" name="date_end" id="date2" value="{{date('Y-m-d', time())}}" >
                       </div>
                     </div>
                     <div class="col-4">    
@@ -46,21 +45,21 @@
                            <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
                           </div>
                         </div>
-                 
+                  
               <!-- End Table with stripped rows -->
-
             </div>
           </div>
 
         </div>
       </div>
+      
  <!-- Card with header and footer -->
 
- <div class="card" id="data">
+ <div class="card" id="data" style="display:none">
   <div class="card-header  text-white" style="background-color: #00AA9E;">{{Auth::user()->name}}</div>
   <div class="card-body">
     <h5 class="card-title"></h5>
-    <table class="table  yajra-datatable">
+    <table class="table  yajra-datatable" style="width:100%">
       <thead>
         <tr>
             <th>No</th>
@@ -68,9 +67,10 @@
             <th>Attendance Timing</th>
             <th>Attendance Duration</th>
         </tr>
+        <tbody >
+        </tbody>
     </thead>
-    <tbody>
-    </tbody>
+   
   </table>
   </div>
   <div class="card-footer  text-black">
@@ -121,25 +121,35 @@
 
   </main>
 </body>
-<script>
-    $(document).ready(()=>{
-   // $('#data').hide();
-         $("#getdata").on("click",function(){
-            $('#data').show();
-         });
-    });
-</script>
 
+<script>
+
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
  <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    responsive: true,
-        ajax: "{{ route('report_attendancelist') }}",
+ $(document).ready(function(){ 
+  $('#getdata').on('click',function(e){
+    $('#data').show();
+    $(function () {
+      var date1= $('#date1').val();
+      var date2= $('#date2').val();
+     var table = $('.yajra-datatable').DataTable({
+      responsive: true,
+      stateSave: true,
+      "bDestroy": true,
+        "ajax": {
+              type: "POST",
+              url:'report_attendancelist',
+              data:{
+                   date1:date1,
+                   date2:date2,
+                  _token: '{{csrf_token()}}',
+              },
+            },
+            
         columns: [ 
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data:'Attendance_Date',name:'Attendance_Date'},
@@ -148,7 +158,10 @@
         ]
     });
   });
-
+   
+  });
+  });
+ 
 </script>
 </html>
 @endsection

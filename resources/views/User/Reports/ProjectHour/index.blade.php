@@ -65,13 +65,13 @@
       </div>
   
            <!-- Card with header and footer -->
- <div class="card" id="data">
-  <div class="card-header text-white" style="background-color: #00AA9E;">{{$project->Project_Name}}</div>
+ <div class="card" id="data" style="display:none">
+  <div class="card-header text-white" style="background-color: #00AA9E;"></div>
   <div class="card-body">
     <h5 class="card-title"></h5>
 
      <!-- Table with stripped rows -->
-     <table class="table  yajra-datatable table table-bordered table-striped">
+     <table class="table  yajra-datatable table table-bordered table-striped" style="width:100%">
       <thead>
         <tr>
             <th>Employee</th>
@@ -81,7 +81,7 @@
         </tr>
         <tr>
           <td><b>Employee :</b> {{Auth::user()->name}}<br>
-            <b>Techonogy:</b> {{$project->Project_Name}}
+            <b>Techonogy:</b>
           </td>
           <td>
             Days - 0 <br>
@@ -126,7 +126,6 @@
 </body>
 <script>
   $(document).ready(()=>{
-      $('#data').hide();
        $("#getdata").on("click",function(){
           $('#data').show();
        });

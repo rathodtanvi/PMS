@@ -19,7 +19,11 @@ class RoleSeeder extends Seeder
         'name'=>'admin'
     ]);
     Role::create([
-        'name'=>'employee'
+        'name'=>'Team Leader'
+    ]);
+    Role::create([
+        'name'=>'Employee'
     ]);
     }
+    
 }
