@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('attendace', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('In_Entry')->nullable();
-            $table->string('Out_Entry')->nullable();
-            $table->date('Attendance_Date');
+            $table->string('in_entry')->nullable();
+            $table->string('out_entry')->nullable();
+            $table->date('attendance_date');
             $table->timestamps();
         });
     }

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('project_allotment', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('Project_Name');
-            $table->string('Technology_Name');
+            $table->string('project_name');
+            $table->string('technology_name');
             $table->timestamps();
         });
     }

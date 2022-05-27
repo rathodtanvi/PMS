@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.index')
 @section('content')
 <main id="main" class="main">
 

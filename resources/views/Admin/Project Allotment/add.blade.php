@@ -1,5 +1,5 @@
 
-@extends('layouts.backend.index')
+@extends('layouts.index')
 
 @section('content')
 
@@ -11,7 +11,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1> Enter Project </h1>
+        <h1> Enter Project Allotment</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>

@@ -1,4 +1,4 @@
-@extends('layouts.backend.index')
+@extends('layouts.index')
 
 @section('content')
 
@@ -26,7 +26,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Project 
+        <h1>Project Allotment
             <a href='adminAddAllotment' class="new-btn"> New </a><br/><br/>
         </h1>
     </div>  

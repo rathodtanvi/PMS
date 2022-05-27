@@ -8,7 +8,7 @@
       </li><!-- End Dashboard Nav -->
       @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
       <li class="nav-item">
-        <a class="nav-link " href="{{url('employee')}}">
+        <a class="nav-link collapsed" href="{{url('employee')}}">
           <i class="bi bi-circle"></i>
           <span>Employee</span>
         </a>
@@ -33,19 +33,19 @@
     </li>
 	@if (Auth::user()->roles_id == 1)
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
+        <a class="nav-link collapsed"  href="#">
         <i class="bi bi-file-earmark"></i><span> Project Milestones </span>
         </a>    
     </li>
     @endif
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
+        <a class="nav-link collapsed"  href="#">
         <i class="bi bi-file-earmark"></i><span> Task Allotment </span>
         </a>    
     </li>
     @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
+        <a class="nav-link collapsed"  href="{{url('daily_work_entry')}}">
         <i class="bi bi-file-earmark"></i><span> Daily Work Entry </span>
         </a>    
     </li>
@@ -56,19 +56,13 @@
         </a>    
     </li>
 	
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Leave</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{url('all_leave')}}">
-              <i class="bi bi-circle"></i><span>Leave</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-   @endif
+	<li class="nav-item">
+        <a class="nav-link collapsed"  href="{{url('all_leave')}}">
+        <i class="bi bi-file-earmark"></i><span> Leave </span>
+        </a>    
+    </li>
+	
+
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-card-list"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>

@@ -12,12 +12,15 @@
   </head>
 <body>
       <main id="main" class="main">
-        <div class="">
-          <h1>Employee Details</h1>
-          <nav>
+
+        <div class="pagetitle">
+          <h1>Employee Details
+            <a class="btn btn-info mb-3"  href="{{route('addemployee')}}" style="float:right">New</a> 
+          </h1>
+          <nav >
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-              <li class="breadcrumb-item"><a href="{{url('employee')}}">Employee</a></li>
+              <li class="breadcrumb-item">Employee</li>
             </ol>
           </nav>
         </div><!-- End Page Title -->
@@ -29,8 +32,7 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Employee Details</h5>
-                  <a class="btn btn-info mb-3"  href="{{route('addemployee')}}" style="float:right">New</a> 
-
+                  
                   <!-- Table with stripped rows -->
                   <table class="table yajra-datatable">
                     <thead>

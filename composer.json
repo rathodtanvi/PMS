@@ -56,7 +56,7 @@
                 "providers": [
                     "DaveJamesMiller\\Breadcrumbs\\BreadcrumbsServiceProvider"
                 ]
-               
+                
             }
           }
     },

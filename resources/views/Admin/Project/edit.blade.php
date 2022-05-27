@@ -1,5 +1,5 @@
 
-@extends('layouts.backend.index')
+@extends('layouts.index')
 
 @section('content')
 

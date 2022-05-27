@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('project', function (Blueprint $table) {
-            $table->string('Complete_Project');
+            $table->string('complete_project');
         });
     }
 

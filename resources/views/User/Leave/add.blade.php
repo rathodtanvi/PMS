@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.index')
 @section('content')
 <script src="{{ asset('userpms.js') }}"></script>
 <main id="main" class="main">
@@ -26,7 +26,7 @@
               <!-- General Form Elements -->
               <form method="post" action="{{route('inleave')}}">
                 @csrf
-             <div class="row mb-3">
+              <div class="row mb-3">
                 <div class="col-6">
                         <label class="col-form-label">Leave Type</label>
                         <div> 
@@ -38,8 +38,8 @@
                       </select>
                     </div>
                 </div>
-                 <div class="col-6 halfday">
-                 <label class="col-form-label">Half Leave Type</label>
+                <div class="col-6 halfday">
+                <label class="col-form-label">Half Leave Type</label>
                     <div class="col">
                         <select class="form-select" aria-label="Default select example" name="half_leave_type">
                             <option value="1">First Half</option>

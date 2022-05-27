@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.index')
 @section('content')
 <main id="main" class="main">
 
@@ -25,7 +25,7 @@
               <!-- General Form Elements -->
               <form method="post" action="{{route('enter_daily_work_entry')}}">
                 @csrf
-             <div class="row mb-3">
+              <div class="row mb-3">
                 <div class="col-4">
                         <label class="col-form-label">Project Name</label>
                         <div> 
@@ -37,8 +37,8 @@
                       </select>
                     </div>
                 </div>
-                 <div class="col-4">
-                 <label class="col-form-label">Date</label>
+                <div class="col-4">
+                <label class="col-form-label">Date</label>
                     <div class="col">
                       <input type="date" class="form-control" name="entry_date" value="{{date('Y-m-d', time())}}">
                     </div>
@@ -79,8 +79,8 @@
       </div>
                 <div class="row mt-3 pb-2">
                   <div class="col-12">
-                 <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
-                     <textarea class="form-control textarea ckeditor"  name="description"></textarea>   
+                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
+                      <textarea class="form-control textarea ckeditor"  name="description"></textarea>   
                 </div>
                 <div class="row mt-5">
                   <div class="col-sm-10">
