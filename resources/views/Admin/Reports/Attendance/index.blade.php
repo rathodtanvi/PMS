@@ -153,11 +153,7 @@
 
         </div>
       </div>
-<<<<<<< HEAD
-      
-=======
       @endforeach
->>>>>>> 86b37ba3fffd7f36d50a05a9aabd403abb6d0e75
     </div>
     </section>
 
