@@ -61,4 +61,9 @@ class User extends Authenticatable
     public function pallotment(){
         return $this->hasMany(ProjectAllotment::class);
     }
+
+    public function roles()
+    {
+    return $this->belongsTo(Role::class);
+    }
 }

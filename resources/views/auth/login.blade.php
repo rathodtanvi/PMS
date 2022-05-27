@@ -77,8 +77,8 @@
 
             <div class="d-flex justify-content-center py-4">
               <a href="index.html" class="logo d-flex align-items-center w-auto">
-                <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block pl-2">Angel's Pearl Infotech</span>
+                <img src="assets/img/logo.png" alt="" class="rounded-circle" style="background-color:rgb(33, 33, 100);" width='100px' higth='100px;'>
+                <span class="d-none d-lg-block pl-2"><h4>API PM System<h4></span>
               </a>
             </div><!-- End Logo -->
 
@@ -94,7 +94,7 @@
                 <form class="row g-3 needs-validation"  method="POST" action="{{ route('login') }}" novalidate>
                     @csrf
                   <div class="col-12">
-                    <label for="yourUsername" class="form-label">Username</label>
+                    <label for="yourUsername" class="form-label">Email</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
                       <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -118,14 +118,8 @@
                                 @enderror
                   </div>
 
-                  <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                      <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
-                  </div>
-                  <div class="col-12">
+                  
+                  <div class="col-12 pt-2">
                     <button class="btn btn-primary w-100" type="submit">Login</button>
                   </div>
                  

@@ -49,9 +49,18 @@
         ]
     },
     "extra": {
+        
         "laravel": {
-            "dont-discover": []
-        }
+            "laravel": {
+                "dont-discover": [],
+                "providers": [
+                    "DaveJamesMiller\\Breadcrumbs\\BreadcrumbsServiceProvider"
+                ],
+                "aliases": {
+                    "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs"
+                }
+            }
+          }
     },
     "config": {
         "optimize-autoloader": true,

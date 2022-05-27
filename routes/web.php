@@ -38,10 +38,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () { 
 
 //Admin
-Route::get('/home', [AdminController::class, 'home'])->name('home');
-Route::get('/myprofile', [AdminController::class, 'myprofile'])->name('myprofile');
-Route::post('/changepassword', [AdminController::class, 'changepassword'])->name('changepassword');
-Route::get('/employee_list', [AdminController::class, 'employee_list'])->name('employee_list');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/myprofile', [HomeController::class, 'myprofile'])->name('myprofile');
+Route::put('/updateprofile/{id}', [HomeController::class, 'updateprofile'])->name('updateprofile');
+Route::post('/changepassword', [HomeController::class, 'changepassword'])->name('changepassword');
+Route::get('/employee_list', [HomeController::class, 'employee_list'])->name('employee_list');
+Route::get('/overview', [HomeController::class, 'overview'])->name('overview');
+
 
 //EmployeeController
 Route::get('/employee', [EmployeeController::class, 'employee'])->name('employee');
@@ -52,12 +55,10 @@ Route::get('/status/{id}', [EmployeeController::class, 'status'])->name('status'
 Route::get('/viewdata/{id}', [EmployeeController::class, 'viewdata'])->name('viewdata');
 Route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
 Route::put('/update/{id}', [EmployeeController::class, 'update'])->name('update');
-
-
-//User
-Route::get('/userhome', [UserController::class, 'userhome'])->name('userhome');
-Route::get('/userprofile', [UserController::class, 'userprofile'])->name('userprofile');
-Route::post('/userchangepassword', [UserController::class, 'userchangepassword'])->name('userchangepassword');
+// Breadcrumbs::for('viewdata', function (Generator $trail, $id) {
+//     $post = Employee::findOrFail($id);
+//     $trail->parent('home')->push($post->title, route('post', $post));
+// });
 
 //DailyWorkEntry
 Route::get('/daily_work_entry', [DailyWorkEntryController::class, 'daily_work_entry'])->name('daily_work_entry');

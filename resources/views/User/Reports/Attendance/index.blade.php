@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Attendance</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
  
@@ -32,15 +31,13 @@
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
-                   <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
-                   <input type="hidden" class="form-control" name="date_start" id="start_date" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
+                   <input type="date" class="form-control" name="date_start" id="date1" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
                   </div>
                 </div>
                 <div class="col-4">    
                     <label class="col-form-label">To Date</label>
                       <div> 
-                       <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
-                       <input type="hidden" class="form-control" name="date_end"  id="end_date" value="{{date('Y-m-d', time())}}" >
+                       <input type="date" class="form-control" name="date_end" id="date2" value="{{date('Y-m-d', time())}}" >
                       </div>
                     </div>
                     <div class="col-4">    
@@ -50,12 +47,12 @@
                         </div>
                   
               <!-- End Table with stripped rows -->
-
             </div>
           </div>
 
         </div>
       </div>
+      
  <!-- Card with header and footer -->
 
  <div class="card" id="data" style="display:none">
@@ -70,31 +67,10 @@
             <th>Attendance Timing</th>
             <th>Attendance Duration</th>
         </tr>
-          {{-- @if(!$entry) 
-           <tr>
-             <td colspan="4"><center>Data Not Inserted!</center></td>
-           </tr>
-          @else --}}
-            @foreach ($datas as $data)
-            <tr>
-              <td>{{$data->id}}</td>
-              <td>{{$data->Attendance_Date}}</td>
-              <td>
-               @foreach ($entry as $Out_Entry => $In_Entry)
-               {{$In_Entry}}-{{$Out_Entry}}<br>
-               @endforeach        
-              </td>
-              <td> 
-               {{$data->created_at_difference()}}
-               </td>
-            </tr>
-            @break
-        @endforeach
-        
-        {{-- @endif --}}
+        <tbody >
+        </tbody>
     </thead>
-    <tbody>
-    </tbody>
+   
   </table>
   </div>
   <div class="card-footer  text-black">
@@ -145,14 +121,7 @@
 
   </main>
 </body>
-<script>
-    $(document).ready(()=>{
-   // $('#data').hide();
-         $("#getdata").on("click",function(){
-            $('#data').show();
-         });
-    });
-</script>
+
 <script>
 
 </script>
@@ -161,19 +130,38 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
  <script type="text/javascript">
-//  $(function () {
-//   var table = $('.yajra-datatable').DataTable({
-//     responsive: true,
-//         ajax: "{{ route('report_attendancelist') }}",
-//         columns: [ 
-//             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-//             {data:'Attendance_Date',name:'Attendance_Date'},
-//             {data:'mergeColumn',name:'mergeColumn'},
-//             {data:'attendance_duration',name:'attendance_duration'},
-//         ]
-//     });
-//   });
+ $(document).ready(function(){ 
+  $('#getdata').on('click',function(e){
+    $('#data').show();
+    $(function () {
+      var date1= $('#date1').val();
+      var date2= $('#date2').val();
+     var table = $('.yajra-datatable').DataTable({
+      responsive: true,
+      stateSave: true,
+      "bDestroy": true,
+        "ajax": {
+              type: "POST",
+              url:'report_attendancelist',
+              data:{
+                   date1:date1,
+                   date2:date2,
+                  _token: '{{csrf_token()}}',
+              },
+            },
+            
+        columns: [ 
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data:'Attendance_Date',name:'Attendance_Date'},
+            {data:'mergeColumn',name:'mergeColumn'},
+            {data:'attendance_duration',name:'attendance_duration'},
+        ]
+    });
+  });
    
+  });
+  });
+ 
 </script>
 </html>
 @endsection
