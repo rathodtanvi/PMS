@@ -44,7 +44,7 @@
                         <th>Joining Date</th>
                         <th>Qualification</th>
                         <th>Address</th>
-                        <th>Action</th>
+                        <th colspan="2">Action</th>
                     </tr>
                     </thead>
                     <tbody>

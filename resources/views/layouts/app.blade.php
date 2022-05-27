@@ -6,7 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link href="{{asset('assets/img/logo.png')}}" rel="icon">
     {{-- <title>{{ config('app.name', 'API PM System') }}</title> --}}
      <title>API PM System</title>
     <!-- Scripts -->
