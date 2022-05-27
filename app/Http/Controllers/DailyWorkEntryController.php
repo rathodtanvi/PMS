@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\DailyWorkEntry;
 use App\Models\Project;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Hash;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class DailyWorkEntryController extends Controller
     public function daily_work_entry()
     {
 
-       return view('User.DailyWorkEntry.index');
+        return view('User.DailyWorkEntry.index');
     }
     
     public function daily_work_entrylist(Request $request)
@@ -25,16 +25,16 @@ class DailyWorkEntryController extends Controller
         return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                       $btn = '<a href="'.route('workedit',$row->id).'"  class=" btn btn-info btn-sm m-1">Edit</a>';
-                       $btn = $btn.'<a href="'.route('workdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
+                        $btn = '<a href="'.route('workedit',$row->id).'"  class=" btn btn-info btn-sm m-1">Edit</a>';
+                        $btn = $btn.'<a href="'.route('workdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
                         return $btn;
-               })
-               ->addColumn('description',function(DailyWorkEntry $des){
-                return Strip_tags($des->description);
-               })
-               ->addColumn('project_id',function(DailyWorkEntry $project_id){
-                   return $project_id->project->Project_Name;
-               })
+                })
+                ->addColumn('description',function(DailyWorkEntry $des){
+                  return Strip_tags($des->description);
+                })
+                ->addColumn('project_id',function(DailyWorkEntry $project_id){
+                    return $project_id->project->Project_Name;
+                })
                 ->rawColumns(['action'])
                 ->make(true);
     }
@@ -61,8 +61,8 @@ class DailyWorkEntryController extends Controller
     }
     public function addwork()
     {
-       $project=Project::all();
-       return view('User.DailyWorkEntry.add',compact('project'));
+        $project=Project::all();
+        return view('User.DailyWorkEntry.add',compact('project'));
     }
     public function workedit($id)
     {

@@ -90,6 +90,7 @@ Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestat
 Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
 
 //Admin Report
+
 Route::get('/admin_report_attendance', [AdminReportsController::class, 'admin_report_attendance'])->name('admin_report_attendance');
 Route::get('/admin_report_attendancelist', [AdminReportsController::class, 'admin_report_attendancelist'])->name('admin_report_attendancelist');
 Route::get('/admin_report_daily_work_entry', [AdminReportsController::class, 'admin_report_daily_work_entry'])->name('admin_report_daily_work_entry');

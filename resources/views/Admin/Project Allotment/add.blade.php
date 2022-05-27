@@ -30,9 +30,9 @@
                     Employee Name <span class="error" style="margin-right:10%;"> * </span>
                     <select style="width: 40%;" class="selectid" name="unm" >
                         <option></option>
-                        <option value="Bhavya">Bhavya</option>
-                        <option value="Zara">Zara</option>
-                        <option value="John">John</option>
+                        @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
                     </select>
                     <br/><br/>
 

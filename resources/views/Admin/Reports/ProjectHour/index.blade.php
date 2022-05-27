@@ -26,7 +26,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Total Hour Spent Report</h5>
-             
+            
               <!-- Table with stripped rows -->
                 <div class="col-4">    
                   <label class="col-form-label">Project</label>
@@ -42,20 +42,20 @@
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
-                   <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
+                    <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
                   </div>
                 </div>
-                 <div class="col-4">    
+                <div class="col-4">    
                     <label class="col-form-label">To Date</label>
                       <div> 
-                       <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
+                        <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
                       </div>
-                 </div>
-                 <div class="col-4">    
+                </div>
+                <div class="col-4">    
                     <div class="pt-3"> 
-                     <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
+                      <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
                     </div>
-               </div>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
@@ -64,14 +64,14 @@
         </div>
       </div>
   
-           <!-- Card with header and footer -->
- <div class="card" id="data">
+          <!-- Card with header and footer -->
+<div class="card" id="data">
   <div class="card-header text-white" style="background-color: #00AA9E;"></div>
   <div class="card-body">
     <h5 class="card-title"></h5>
 
-     <!-- Table with stripped rows -->
-     <table class="table  yajra-datatable table table-bordered table-striped">
+    <!-- Table with stripped rows -->
+    <table class="table  yajra-datatable table table-bordered table-striped">
       <thead>
         <tr>
             <th>Employee</th>
@@ -115,7 +115,7 @@
             Duration - 0 Hours 0 Minutes
           </td>
         </tr>
-       
+      
     </thead>
     <tbody>
     </tbody>
@@ -132,9 +132,9 @@
 <script>
   $(document).ready(()=>{
       $('#data').hide();
-       $("#getdata").on("click",function(){
+      $("#getdata").on("click",function(){
           $('#data').show();
-       });
+      });
   });
 </script>
 

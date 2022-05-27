@@ -7,7 +7,72 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
- 
+
+  <script>
+    
+    function itemDataTable(empnm,fdate,tdate)
+    {
+      var dataTable = $('.table').DataTable({
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+          url: "{{ route('admin_report_attendancelist') }}",
+          type: 'get',
+          data: {empnm ,fdate ,tdate},
+        },
+      
+        columns: [
+          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+          {data: 'Attendance_Date', name: 'Attendance_Date'},
+          {data: 'mergeColumn', name: 'mergeColumn'},
+        ]
+      });
+
+      return dataTable;
+    }
+
+  $(document).ready(function(){
+    $('#getdata').click(function(){
+    
+        
+        var empnm = $('.empnm').val();
+        var fdate = $('.fromdate').val();
+        var tdate = $('.todate').val();
+
+        /*$.ajax({
+          url: "{{ route('admin_report_attendancelist') }}",
+          type: 'get',
+          data: {empnm ,fdate ,tdate},
+          success : function(res)
+          {
+            $.each(res,function(Index,value)
+            {
+              $("tbody").append("<tr><td>"+ value.id + "</td><td>" + value.Attendance_Date + "</td><td>" + value.In_Entry + " - " + value.Out_Entry);
+            });
+          }
+        });*/
+        itemDataTable(empnm,fdate ,tdate)
+    });
+  });
+  
+
+    /*var table = $('.table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: "{{ url('/admin_report_attendancelist') }}",
+      columns: [
+          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+          {data: 'Attendance_Date', name: 'Attendance_Date'},
+          {data: 'In_Entry', name: 'In_Entry'},
+          {data: 'Out_Entry', name: 'Out_Entry'},
+          {data: 'action', name: 'action', orderable: true, searchable: true},
+      ]
+    });*/
+  
+
+</script>
+
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Attendance Report</h1>
@@ -17,21 +82,20 @@
           <li class="breadcrumb-item"><a href="{{url('attendance')}}">Attendance</a></li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-
+          
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Attendance Report</h5>
-             
-              <!-- Table with stripped rows -->
+                          
               <div class="col-4">    
                 <label class="col-form-label">Employee</label>
                   <div> 
-                    <select class="form-select">
+                    <select class="form-select empnm" name="empnm">
                       <option selected>All</option>
                         @foreach ($employee as $emp)
                         <option value="{{$emp->id}}">{{$emp->name}}</option>
@@ -42,37 +106,35 @@
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
-                   <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
+                    <input type="date" class="form-control fromdate" name="fromdate" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
                   </div>
                 </div>
                 <div class="col-4">    
                     <label class="col-form-label">To Date</label>
                       <div> 
-                       <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
+                        <input type="date" class="form-control todate" name="todate" value="{{date('Y-m-d', time())}}" >
                       </div>
-                    </div>
-                    <div class="col-4">    
-                          <div class="pt-3"> 
-                           <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
-                          </div>
-                        </div>
-                 
-              <!-- End Table with stripped rows -->
-
+                </div>
+              
+                <div class="col-4">    
+                  <div class="pt-3"> 
+                    <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
+                  </div>
+                </div>         
             </div>
           </div>
-
+        
         </div>
       </div>
-
-      @foreach ($employee as $emp)
-      <div class="row" id="data">
+      <div id="data" >
+      
+      <div class="row" >
         <div class="col-lg-12">
           <div class="card">
-            <div class="card-header  text-white" style="background-color: #00AA9E;">  {{$emp->name}}</div>
+            <div class="card-header  text-white" style="background-color: #00AA9E;"> Bhavya </div>
             <div class="card-body">
-                <!-- Table with stripped rows -->
-                  <table class="table  yajra-datatable ">
+                
+                  <table class="table yajra-datatable" style="width:100%">
                     <thead>
                       <tr>
                           <th>No</th>
@@ -82,90 +144,22 @@
                       </tr>
                   </thead>
                   <tbody>
+                    
                   </tbody>
                 </table>
-                <!-- End Table with stripped rows -->
-  
-              </div>
-
-              <div class="card-footer  text-black">
-                <div class="row">
-                  <div class="col-4">
-                       <div class="row">
-                          <div class="col-10">Required Attendance Hours</div>
-                          <div class="col-2 badge bg-warning  text-black">8</div>
-                       </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="row">
-                      <div class="col-10">Actual Attendance Hours</div>
-                      <div class="col-2 badge bg-danger  text-black">Danger</div>
-                   </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="row">
-                      <div class="col-10">Work Duration Hours</div>
-                      <div class="col-2 badge bg-secondary  text-white">Danger</div>
-                   </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-4">
-                    <div class="row pt-2">
-                      <div class="col-10">Required Attendance Days</div>
-                      <div class="col-2 badge bg-warning  text-black">1</div>
-                   </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="row pt-2">
-                      <div class="col-10">Actual Attendance Days</div>
-                      <div class="col-2 badge bg-danger  text-black">Danger</div>
-                   </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="row pt-2">
-                      <div class="col-10">Work Duration Days</div>
-                      <div class="col-2 badge bg-secondary  text-white">Danger</div>
-                   </div>
-                  </div>
-                </div>
+                
               </div>
           </div>
 
         </div>
       </div>
-      @endforeach
+      
+    </div>
     </section>
 
   </main>
+
 </body>
-<script>
-    $(document).ready(()=>{
-         $("#getdata").on("click",function(){
-            $('#data').show();
-         });
-    });
-</script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    responsive: true,
-        ajax: "{{ route('admin_report_attendancelist') }}",
-        columns: [ 
-          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data:'Attendance_Date',name:'Attendance_Date'},
-            {data:'In_Entry',name:'In_Entry'},
-            {data:'In_Entry',name:'In_Entry'},
-        ]
-    });
-  });
-
-</script>
 </html>
 @endsection
