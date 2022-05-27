@@ -1,15 +1,15 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="{{url('home')}}">
-          <i class="bi bi-grid"></i>
+        <a class="nav-link collapsed" href="{{url('home')}}">
+          <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
       @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{url('employee')}}">
-          <i class="bi bi-circle"></i>
+          <i class="fa fa-users"></i>
           <span>Employee</span>
         </a>
       </li> 
@@ -27,14 +27,14 @@
     @endif
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
-        <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
+        <i class="fa fa-book"></i><span> Project Allotment </span>
         </a>
         
     </li>
 	@if (Auth::user()->roles_id == 1)
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="#">
-        <i class="bi bi-file-earmark"></i><span> Project Milestones </span>
+        <i class="fa fa-road"></i><span> Project Milestones </span>
         </a>    
     </li>
     @endif
@@ -46,19 +46,19 @@
     @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('daily_work_entry')}}">
-        <i class="bi bi-file-earmark"></i><span> Daily Work Entry </span>
+        <i class="fa fa-edit"></i><span> Daily Work Entry </span>
         </a>    
     </li>
 
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
-        <i class="bi bi-file-earmark"></i><span> Attendance </span>
+        <i class="fa fa-calendar-check-o"></i><span> Attendance </span>
         </a>    
     </li>
 	
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('all_leave')}}">
-        <i class="bi bi-file-earmark"></i><span> Leave </span>
+        <i class="fa fa fa-comment-o"></i><span> Leave </span>
         </a>    
     </li>
 	@endif
