@@ -10,6 +10,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{url('AdminTechnology')}}">Technology</a></li>
+                <li class="breadcrumb-item">Add</li>
             </ol>
         </nav>
     </div>

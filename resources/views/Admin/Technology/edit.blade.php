@@ -10,6 +10,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{url('AdminTechnology')}}">Technology</a></li>
+                <li class="breadcrumb-item">Edit</li>
             </ol>
         </nav>
     </div>
@@ -21,7 +22,7 @@
             <form method="post" action="{{ url('update-technology/'.$edits->id) }}"> 
                 @csrf
                 Technology Name <span class="error"> * </span>
-                <input type='text' name='technm' class="input-tagspace" placeholder="Enter Technology Name" value="{{$edits->Technology_Name}}"/>
+                <input type='text' name='technm' class="input-tagspace" placeholder="Enter Technology Name" value="{{$edits->technology_name}}"/>
                 <br/>
                 <button type="button"  class="btn-cancel"> Cancel </button>
                 <button type="submit" name="submit" class="btn-submit"> Update </button>

@@ -13,8 +13,8 @@
             columns: [
                 {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'Project_Name', name: 'Project_Name'},
-                {data: 'Technology_Name', name: 'Technology_Name'},
+                {data: 'project_name', name: 'project_name'},
+                {data: 'technology_name', name: 'technology_name'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
             ]
         });
@@ -60,10 +60,15 @@
 
     <div class="pagetitle">
         <h1>Project 
-            <a href='adminAddProject' class="new-btn"> New </a><br/><br/>
+            <a href='adminAddProject' class="btn btn-info mb-3"> New </a>
         </h1>
     </div>  
-    
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+            <li class="breadcrumb-item">Project</li>
+        </ol>
+    </nav>
     <div class="card">
         <div class="card-body">
             <center><button type="button"  class="complete-project-btn" style="display:none"> Complete Project </button></center><br/><br/>

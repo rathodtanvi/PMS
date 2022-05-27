@@ -1,4 +1,4 @@
-@extends('layouts.backend.index')
+@extends('layouts.index')
 @section('content')
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
 
         <div class="pagetitle">
           <h1>Employee Details
-            <a class="btn btn-info mb-3"  href="{{route('addemployee')}}" style="float:right">New</a> 
+            <a class="btn btn-info mb-3"  href="{{route('addemployee')}}" >New</a> 
           </h1>
           <nav >
             <ol class="breadcrumb">

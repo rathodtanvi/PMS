@@ -13,7 +13,7 @@ class TechnologyController extends Controller
 {
     public function AddTech(Request $request)
     {
-        $check = Technology::where("Technology_Name","=",$request['technm'])->pluck('Technology_Name')->toArray();
+        $check = Technology::where("technology_name","=",$request['technm'])->pluck('technology_name')->toArray();
         
         if(in_array($request['technm'],$check))
         {
@@ -43,7 +43,7 @@ class TechnologyController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='edit_tech/".$row['id']."' class='btn-edit btn btn-info'> Edit </a>";
+                    $actionBtn = "<a href='edit_tech/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -62,7 +62,7 @@ class TechnologyController extends Controller
     public function Update(Request $request,$id)
     {
         $update = Technology::find($id);
-        $update->Technology_Name = $request->input('technm');
+        $update->technology_name = $request->input('technm');
         
         $update->update();
         return redirect('Technology');
@@ -88,7 +88,7 @@ class TechnologyController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='admin_EditTech/".$row['id']."' class='btn-edit'> Edit </a>";
+                    $actionBtn = "<a href='admin_EditTech/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -98,7 +98,7 @@ class TechnologyController extends Controller
 
     public function addTechnology(Request $request)
     {
-        $check = Technology::where("Technology_Name","=",$request['technm'])->pluck('Technology_Name')->toArray();
+        $check = Technology::where("technology_name","=",$request['technm'])->pluck('technology_name')->toArray();
         
         if(in_array($request['technm'],$check))
         {
@@ -107,7 +107,7 @@ class TechnologyController extends Controller
         else
         {
             $tech = new Technology;
-            $tech->Technology_Name = $request['technm'];
+            $tech->technology_name = $request['technm'];
             $tech->save();
 
             return redirect('AdminTechnology');
@@ -123,7 +123,7 @@ class TechnologyController extends Controller
     public function UpdateTechnology(Request $request,$id)
     {
         $update = Technology::find($id);
-        $update->Technology_Name = $request->input('technm');
+        $update->technology_name = $request->input('technm');
         
         $update->update();
         return redirect('AdminTechnology');
