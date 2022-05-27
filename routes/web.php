@@ -55,10 +55,7 @@ Route::get('/status/{id}', [EmployeeController::class, 'status'])->name('status'
 Route::get('/viewdata/{id}', [EmployeeController::class, 'viewdata'])->name('viewdata');
 Route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
 Route::put('/update/{id}', [EmployeeController::class, 'update'])->name('update');
-// Breadcrumbs::for('viewdata', function (Generator $trail, $id) {
-//     $post = Employee::findOrFail($id);
-//     $trail->parent('home')->push($post->title, route('post', $post));
-// });
+
 
 //DailyWorkEntry
 Route::get('/daily_work_entry', [DailyWorkEntryController::class, 'daily_work_entry'])->name('daily_work_entry');

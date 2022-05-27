@@ -55,10 +55,8 @@
                 "dont-discover": [],
                 "providers": [
                     "DaveJamesMiller\\Breadcrumbs\\BreadcrumbsServiceProvider"
-                ],
-                "aliases": {
-                    "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs"
-                }
+                ]
+               
             }
           }
     },
