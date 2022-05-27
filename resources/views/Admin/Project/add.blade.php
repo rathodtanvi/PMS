@@ -38,7 +38,7 @@
                     <select style="width: 40%;" id="nameid" name="technm[]" multiple>
                         <option></option>
                         @foreach($technology as $row)
-                            <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
+                            <option value="{{$row->technology_Name}}">{{$row->technology_Name}}</option>
                         @endforeach
                     </select>
                 <br/><br/>

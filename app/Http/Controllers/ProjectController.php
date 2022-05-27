@@ -28,11 +28,11 @@ class ProjectController extends Controller
                 ->addColumn('action', function($row){
                     if($row->Complete_Project == "Complete")
                     {
-                        $actionBtn = "<a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                        $actionBtn = "<a href='edit_project/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
                     }
                     else
                     {
-                        $actionBtn = "<a href='edit_project/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> </div>";
+                        $actionBtn = "<a href='edit_project/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='delete_project/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> </div>";
                     }
                     return $actionBtn;
                 })
@@ -50,7 +50,7 @@ class ProjectController extends Controller
     public function Addproject(Request $request)
     {
 
-        $check = Project::where("Project_Name","=",$request['projectnm'])->pluck('Project_Name')->toArray();
+        $check = Project::where("project_name","=",$request['projectnm'])->pluck('Project_Name')->toArray();
         
         if(in_array($request['projectnm'],$check))
         {
@@ -59,8 +59,8 @@ class ProjectController extends Controller
         else
         {
             $tech = new Project;
-            $tech->Project_Name = $request['projectnm'];
-            $tech->Technology_Name = implode(' , ', $request->technm);
+            $tech->project_name = $request['projectnm'];
+            $tech->technology_name = implode(' , ', $request->technm);
             $tech->save();
 
             return redirect('Project');
@@ -79,8 +79,8 @@ class ProjectController extends Controller
     public function Update(Request $request,$id)
     {
         $update = Project::find($id);
-        $update->Project_Name = $request->input('projectnm');
-        $update->Technology_Name = implode(',', $request->technm);
+        $update->project_name = $request->input('projectnm');
+        $update->technology_name = implode(',', $request->technm);
         
         $update->update();
         return redirect('Project');
@@ -127,11 +127,11 @@ class ProjectController extends Controller
                 ->addColumn('action', function($row){
                     if($row->Complete_Project == "Complete")
                     {
-                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
                     }
                     else
                     {
-                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='btn-edit'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class='btn-delete'> Delete </a> <div class='actiondiv'> </div>";
+                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> </div>";
                     }
                     return $actionBtn;
                 })
@@ -148,7 +148,7 @@ class ProjectController extends Controller
     }
     public function adminAddproject(Request $request)
     {
-        $check = Project::where("Project_Name","=",$request['projectnm'])->pluck('Project_Name')->toArray();
+        $check = Project::where("project_name","=",$request['projectnm'])->pluck('project_name')->toArray();
         
         if(in_array($request['projectnm'],$check))
         {
@@ -157,8 +157,8 @@ class ProjectController extends Controller
         else
         {
             $tech = new Project;
-            $tech->Project_Name = $request['projectnm'];
-            $tech->Technology_Name = implode(' , ', $request->technm);
+            $tech->project_name = $request['projectnm'];
+            $tech->technology_name = implode(' , ', $request->technm);
             $tech->save();
 
             return redirect('AdminProject');
@@ -177,8 +177,8 @@ class ProjectController extends Controller
     public function adminUpdate(Request $request,$id)
     {
         $update = Project::find($id);
-        $update->Project_Name = $request->input('projectnm');
-        $update->Technology_Name = implode(',', $request->technm);
+        $update->project_name = $request->input('projectnm');
+        $update->technology_name = implode(',', $request->technm);
         
         $update->update();
         return redirect('AdminProject');

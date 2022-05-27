@@ -1,49 +1,53 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{url('home')}}">
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
-      @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{url('employee')}}">
           <i class="bi bi-circle"></i>
           <span>Employee</span>
         </a>
-      </li> 
+      </li>
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{url('AdminTechnology')}}">
+        <a class="nav-link collapsed"  href="{{url('AdminTechnology')}}">
             <i class="bi bi-menu-button-wide"></i><span> Technology </span>
-        </a>       
-    </li> 
+            </a>
+        
+    </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProject')}}">
         <i class="bi bi-card-list"></i><span> Project </span>
         </a>
         
     </li>
-    @endif
+
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
         <i class="fa fa-file"></i><span> Project Allotment </span>
         </a>
         
     </li>
-	@if (Auth::user()->roles_id == 1)
+	
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="#">
         <i class="bi bi-file-earmark"></i><span> Project Milestones </span>
         </a>    
     </li>
-    @endif
+	
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="#">
         <i class="bi bi-file-earmark"></i><span> Task Allotment </span>
         </a>    
     </li>
-    @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
+
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('daily_work_entry')}}">
         <i class="fa fa-edit"></i><span> Daily Work Entry </span>
