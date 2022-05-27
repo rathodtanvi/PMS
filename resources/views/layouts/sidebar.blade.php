@@ -1,8 +1,8 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="{{url('home')}}">
-          <i class="bi bi-grid"></i>
+        <a class="nav-link collapsed" href="{{url('home')}}">
+          <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -27,7 +27,7 @@
     @endif
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
-        <i class="bi bi-file-earmark"></i><span> Project Allotment </span>
+        <i class="fa fa-file"></i><span> Project Allotment </span>
         </a>
         
     </li>
@@ -46,19 +46,19 @@
     @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('daily_work_entry')}}">
-        <i class="bi bi-file-earmark"></i><span> Daily Work Entry </span>
+        <i class="fa fa-edit"></i><span> Daily Work Entry </span>
         </a>    
     </li>
 
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
-        <i class="bi bi-file-earmark"></i><span> Attendance </span>
+        <i class="fa fa-calendar-check-o"></i><span> Attendance </span>
         </a>    
     </li>
 	
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('all_leave')}}">
-        <i class="bi bi-file-earmark"></i><span> Leave </span>
+        <i class="fa fa fa-comment-o"></i><span> Leave </span>
         </a>    
     </li>
 	@endif
