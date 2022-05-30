@@ -78,16 +78,15 @@ class AttendanceController extends Controller
                 
                 $end = Carbon::now('Asia/Kolkata');
                 $endconv =  new DateTime($end);
-                
-                
+
                 $time_diff = $endconv->diff($strconv);
-                
+
                 $htime[] = $time_diff->format('%H');
                 $mtime[] = $time_diff->format('%I');
                 $stime[] = $time_diff->format('%S');
                 
             }
-            
+        
         } 
         
         $h_sum = array_sum($htime);
