@@ -6,7 +6,14 @@
 
     <div class="pagetitle">
         <h1> Attendance </h1>
-    </div>  
+          <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+                <li class="breadcrumb-item">Attendance</li>
+              </ol>
+            </nav>
+          </div>
+    
     
     <div class="card">
         <div class="card-body">

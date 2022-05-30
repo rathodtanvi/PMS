@@ -15,7 +15,7 @@
       </h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
           <li class="breadcrumb-item">Daily Work Entry</li>
         </ol>
       </nav>
@@ -64,6 +64,9 @@
  $(function () {
 
   var table = $('.yajra-datatable').DataTable({
+    "sScrollX": "300%",
+    "bScrollCollapse": true,
+    "bAutoWidth": false,
     responsive: true,
         ajax: "{{ route('daily_work_entrylist') }}",
         columns: [

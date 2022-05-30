@@ -59,7 +59,7 @@ class AttendanceController extends Controller
         {
             if($row['in_entry'] != Null && $row['out_entry'] != Null)
             {
-                
+
                 $start = str_replace(" AM",":00",$row['in_entry']);
                 $strconv = new DateTime($start);
 
@@ -80,7 +80,6 @@ class AttendanceController extends Controller
                 $endconv =  new DateTime($end);
 
                 $time_diff = $endconv->diff($strconv);
-
                 $htime[] = $time_diff->format('%H');
                 $mtime[] = $time_diff->format('%I');
                 $stime[] = $time_diff->format('%S');

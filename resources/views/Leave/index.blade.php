@@ -71,6 +71,9 @@
   $(function () {
 
     var table = $('.yajra-datatable').DataTable({
+      "sScrollX": "300%",
+      "bScrollCollapse": true,
+      "bAutoWidth": false,
       responsive: true,
           ajax: "{{ route('leavelist') }}",
           columns: [ 

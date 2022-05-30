@@ -4,7 +4,7 @@
       <img src="assets/img/logo.png" alt="" class="rounded-circle" style="background-color:rgb(33, 33, 100);" >
       <span class="d-none d-lg-block">API PM SYSTEM</span>
     </a>
-    <i class="bi bi-list toggle-sidebar-btn"></i>
+       <i class="bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->
 
   <!-- End Search Bar -->
@@ -12,11 +12,11 @@
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
 
-      <li class="nav-item d-block d-lg-none">
+      {{-- <li class="nav-item d-block d-lg-none">
         <a class="nav-link nav-icon search-bar-toggle " href="#">
           <i class="bi bi-search"></i>
         </a>
-      </li><!-- End Search Icon-->
+      </li><!-- End Search Icon--> --}}
       <li class="nav-item dropdown">
 
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
