@@ -9,7 +9,7 @@
         var table = $('.table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('AdminProject.list') }}",
+            ajax: "{{ route('Project.list') }}",
             columns: [
                 {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -27,11 +27,11 @@
 
         if($('input[type="checkbox"]').is(":checked"))
         {
-            $(".btn-primary").show();
+            $(".completeproject").show();
         }
         else
         {
-            $(".btn-primary").hide();
+            $(".completeproject").hide();
         }
         $("body").on("click",".btn-primary",function()
         {
@@ -47,7 +47,7 @@
                 success: function(res)
                 {
                     tr.find(".actiondiv").html("<i class='bi bi-check-circle'></i>");
-                    $(".complete-project-btn").hide();
+                    $(".completeproject").hide();
                     $('input[type="checkbox"]').prop("checked",false);
                 }
             });
@@ -60,7 +60,7 @@
 
     <div class="pagetitle">
         <h1>Project 
-            <a href='adminAddProject' class="btn btn-info mb-3"> New </a>
+            <a href='AddProject' class="btn btn-info mb-3"> New </a>
         </h1>
     </div>  
     <nav>
@@ -71,7 +71,7 @@
     </nav>
     <div class="card">
         <div class="card-body">
-            <center><button type="button"  class="edit btn btn-primary btn-sm m-1"  style="display:none"> Complete Project </button></center><br/><br/>
+            <center><button type="button"  class="btn btn-primary btn-sm m-1 completeproject"  style="display:none"> Complete Project </button></center><br/><br/>
 
             <table class="table table-hover">
                 <thead>

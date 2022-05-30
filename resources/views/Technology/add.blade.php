@@ -9,7 +9,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{url('AdminTechnology')}}">Technology</a></li>
+                <li class="breadcrumb-item"><a href="{{url('Technology')}}">Technology</a></li>
                 <li class="breadcrumb-item">Add</li>
             </ol>
         </nav>
@@ -19,7 +19,7 @@
         <div class="card-body">
 
             <h4 class="box-form-header"> Add Technology </h4>
-            <form method="post" action="{{url('/')}}/adminAddTechnology"> 
+            <form method="post" action="{{url('/')}}/AddTechnology"> 
                 @csrf
                 Technology Name <span class="error"> * </span>
                 <input type='text' name='technm' class="input-tagspace" placeholder="Enter Technology Name" />

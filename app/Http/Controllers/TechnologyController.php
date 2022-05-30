@@ -11,7 +11,7 @@ use function PHPUnit\Framework\isNull;
 
 class TechnologyController extends Controller
 {
-    public function AddTech(Request $request)
+    /*public function AddTech(Request $request)
     {
         $check = Technology::where("technology_name","=",$request['technm'])->pluck('technology_name')->toArray();
         
@@ -32,7 +32,7 @@ class TechnologyController extends Controller
 
     public function index()
     {
-        return view('Client.Technology.index');
+        return view('Technology.index');
     }
 
     public function ShowTech(Request $request)
@@ -66,7 +66,7 @@ class TechnologyController extends Controller
         
         $update->update();
         return redirect('Technology');
-    }
+    }*/
 
 
     
@@ -88,7 +88,7 @@ class TechnologyController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='admin_EditTech/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>";
+                    $actionBtn = "<a href='EditTech/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -110,7 +110,7 @@ class TechnologyController extends Controller
             $tech->technology_name = $request['technm'];
             $tech->save();
 
-            return redirect('AdminTechnology');
+            return redirect('Technology');
         }
     }
     public function editTechnology($id)
@@ -126,6 +126,6 @@ class TechnologyController extends Controller
         $update->technology_name = $request->input('technm');
         
         $update->update();
-        return redirect('AdminTechnology');
+        return redirect('Technology');
     }
 }

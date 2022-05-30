@@ -15,7 +15,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{url('AdminProject')}}">Project</a></li>
+                <li class="breadcrumb-item"><a href="{{url('Project')}}">Project</a></li>
                 <li class="breadcrumb-item">Add</li>
             </ol>
         </nav>
@@ -25,7 +25,7 @@
         <div class="card-body">
 
             <h4 class="box-form-header"> Add Project </h4>
-            <form method="post" action="{{url('/')}}/adminAddProject"> 
+            <form method="post" action="{{url('/')}}/AddProject"> 
                 @csrf
                 
                     Project Name <span class="error"> * </span>
