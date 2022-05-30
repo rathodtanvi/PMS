@@ -8,6 +8,18 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+.btn-inentry[disabled]
+{
+    cursor: not-allowed;
+    background-color: rgb(85, 217, 144);
+}
+
+.btn-outentry[disabled]
+{
+    cursor: not-allowed;
+    background-color: rgba(232, 106, 78, 0.923);
+}
+
 .bi-check-circle
 {
     font-size: 30px;

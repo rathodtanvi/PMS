@@ -13,26 +13,26 @@ class EmployeeController extends Controller
 {
     public function employee()
     {  
-         return view('Employee.index');
+        return view('Employee.index');
     }
     public function employeelist(Request $request)
     {
       if ($request->ajax()) {
          //$data = User::select('*');
-         $data=User::where('roles_id',2)->orWhere('roles_id',3)->latest()->get();
-         $user = User::latest()->get();
-         return DataTables::of($data)
-                 ->addIndexColumn()
-                 ->addColumn('action', function($row){
+          $data=User::where('roles_id',2)->orWhere('roles_id',3)->latest()->get();
+          $user = User::latest()->get();
+          return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
     
                         $btn = '<a href="'.route('viewdata',$row->id).'"  class="fa fa-eye btn btn-warning btn-sm m-1"></a>';
                         $btn = $btn.'<a href="'.route('edit',$row->id).'" class="fa fa-edit edit btn btn-primary btn-sm m-1"></a>';
                         if($row->status == 1)
                         {
-                        $btn = $btn.'<a href="'.route('status',$row->id).'" class=" btn btn-success btn-sm active">Active</a>';
+                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="bi bi-person-check btn btn-success btn-sm active"></a> ';
                         }else
                         {
-                        $btn = $btn.'<a href="'.route('status',$row->id).'" class=" btn btn-danger btn-sm inactive">Inactive</a>';
+                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-user-times btn btn-danger btn-sm inactive"></a>';
                         }
                         if($row->roles_id == 2)
                         {
@@ -41,57 +41,57 @@ class EmployeeController extends Controller
                         {
                         $btn = $btn.'<a href="'.route('changerole',$row->id).'" class=" btn btn-secondary btn-sm inactive mt-1">Make TL</a>';
                         }
-                         return $btn;
-                 })
-                 ->rawColumns(['action'])
-                 ->make(true);
-     }
-     
+                        return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+      }
+      
     }  
     public function addemployee()
     {
-       return view('Employee.add');
+      return view('Employee.add');
     }
     public function add(UserStoreRequest  $request)
     {
-         $user=new User;
-         $user->name=$request->name;
-         $user->email=$request->email;
-         $user->password= Hash::make($request->password);
-         $user->mobile_number=$request->mobile_number;
-         $user->dob=$request->dob;
-         $user->joining_date=$request->joining_date;
-         $user->gender=$request->gender;
-         $user->qualification=$request->qualification;
-         $user->address=$request->address;
-         $user->save();
-         return redirect('employee');
+        $user=new User;
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password= Hash::make($request->password);
+        $user->mobile_number=$request->mobile_number;
+        $user->dob=$request->dob;
+        $user->joining_date=$request->joining_date;
+        $user->gender=$request->gender;
+        $user->qualification=$request->qualification;
+        $user->address=$request->address;
+        $user->save();
+        return redirect('employee');
     }
     public function status(Request $request,$id)
     {
-       $user = User::find($id);
-       if( $user->status == 0)
-       {
+      $user = User::find($id);
+      if( $user->status == 0)
+      {
         $user->status=1;
-       }
-       else
-       {
+      }
+      else
+      {
         $user->status=0;
-       }
+      }
         $user->save();
         return redirect('employee');
     }
     public function changerole(Request $request,$id)
     {
-       $user = User::find($id);
-       if($user->roles_id == 3)
-       {
+      $user = User::find($id);
+      if($user->roles_id == 3)
+      {
         $user->roles_id=2;
-       }
-       else
-       {
+      }
+      else
+      {
         $user->roles_id=3;
-       }
+      }
         $user->save();
         return redirect('employee');
     }

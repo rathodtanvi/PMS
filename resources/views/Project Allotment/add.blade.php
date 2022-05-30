@@ -25,14 +25,18 @@
         <div class="card-body">
 
             <h4 class="box-form-header"> Add Project Allotment </h4>
-            <form method="post" action="{{url('/')}}/adminAddAllotment"> 
-                @csrf
+            @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
+                <form method="post" action="{{url('/')}}/adminAddAllotment"> 
+                    @csrf
 
                     Employee Name <span class="error" style="margin-right:10%;"> * </span>
                     <select style="width: 40%;" class="selectid" name="unm" >
                         <option></option>
                         @foreach ($users as $user)
-                            <option value={{$user->id}}>{{$user->name}}</option>
+                            @if ($user->roles_id != 1)
+                                <option value={{$user->id}}>{{$user->name}}</option>
+                            @endif
+                            
                         @endforeach
                     </select>
                     <br/><br/>
@@ -54,13 +58,44 @@
                         @endforeach
                     </select>
                     
-                <br/><br/>
-                <div class="row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
-                    </div>
-                </div>   
-            </form>
+                    <br/><br/>
+                    <div class="row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
+                        </div>
+                    </div>   
+                </form>
+            @else
+                
+                <form method="post" action="{{url('/')}}/adminAddAllotment"> 
+                    @csrf
+
+                    Project Name <span class="error" style="margin-right:12.5%;"> * </span>
+                    <select style="width: 40%;" class="selectid" name="projectnm" >
+                        <option></option>
+                        @foreach($projects as $project)
+                            <option value="{{$project->project_name}}">{{$project->project_name}}</option>
+                        @endforeach
+                    </select>
+                    <br/><br/>
+                    
+                    Technology Name <span class="error" style="margin-right:9%;"> * </span>
+                    <select style="width: 40%;" class="selectid" id="nameid" name="technm[]" multiple>
+                        <option></option>
+                        @foreach($technology as $row)
+                            <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                        @endforeach
+                    </select>
+                    
+                    <br/><br/>
+                    <div class="row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
+                        </div>
+                    </div>   
+                </form>
+            @endif
+            
         </div>
     </div>
 </main>

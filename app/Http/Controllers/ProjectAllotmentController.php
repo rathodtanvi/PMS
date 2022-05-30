@@ -65,6 +65,7 @@ class ProjectAllotmentController extends Controller
         $tech->user_id = Auth::user()->id;
         $tech->project_name = $request['projectnm'];
         $tech->technology_name = implode(' , ',$request->technm );
+        
         $tech->save();
 
         return redirect('ProjectAllotment');
@@ -129,11 +130,23 @@ class ProjectAllotmentController extends Controller
 
     public function adminAddPAllotment(Request $request)
     {
-        $tech = new ProjectAllotment;
-        $tech->user_id = $request['unm'];
-        $tech->project_name = $request['projectnm'];
-        $tech->technology_name = implode(' , ',$request->technm );
-        $tech->save();
+        if(Auth::user()->roles_id == 1)
+        {
+            $tech = new ProjectAllotment;
+            $tech->user_id = $request['unm'];
+            $tech->project_name = $request['projectnm'];
+            $tech->technology_name = implode(' , ',$request->technm );
+            $tech->save();
+        }
+        else
+        {
+            $tech = new ProjectAllotment;
+            $tech->user_id = Auth::user()->id;
+            $tech->project_name = $request['projectnm'];
+            $tech->technology_name = implode(' , ',$request->technm );
+            $tech->save();
+        }
+        
 
         return redirect('AdminProjectAllotment');
     }

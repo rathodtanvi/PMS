@@ -148,11 +148,7 @@ tr:nth-child(even) {
     font-size: 17px;
     border-radius: 5px;
 }
-.btn-inentry[disabled]
-{
-    cursor: not-allowed;
-    background-color: rgb(85, 217, 144);
-}
+
 
 .btn-outentry
 {
@@ -166,11 +162,7 @@ tr:nth-child(even) {
     font-size: 17px;
     border-radius: 5px;
 }
-.btn-outentry[disabled]
-{
-    cursor: not-allowed;
-    background-color: rgba(232, 106, 78, 0.923);
-}
+
 
 .btn-workinhours
 {

@@ -50,13 +50,13 @@
     </li>
 
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
+        <a class="nav-link collapsed"  href="{{url('Attendance')}}">
         <i class="fa fa-calendar-check-o"></i><span> Attendance </span>
         </a>    
     </li>
 	
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('all_leave')}}">
+        <a class="nav-link collapsed"  href="{{url('leave')}}">
         <i class="fa fa fa-comment-o"></i><span> Leave </span>
         </a>    
     </li>

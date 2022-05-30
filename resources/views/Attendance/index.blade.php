@@ -1,4 +1,4 @@
-@extends('layouts.frontend.index')
+@extends('layouts.index')
 
 @section('content')
 
@@ -16,24 +16,24 @@
                 
                 @if ($attendance->isEmpty())
                     <div class="mydiv"> </div>
-                    <div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
-                    <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>
+                    <div><button type="button" class="btn btn-success btn-sm active btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
+                    <button type="button" style="display:none" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>
                     
                 @else
                     <div class="mydiv"> </div>
-                    @if($getlatest->Out_Entry != Null)
+                    @if($getlatest->out_entry != Null)
 
-                        <div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
-                        <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>
+                        <div><button type="button" class="btn btn-success btn-sm active btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>
+                        <button type="button" style="display:none" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>
 
                     @endif
                     @foreach ($attendance as $row)
-                        <div ><button type="button" class="btn-inentry" disabled="disabled"> {{$row->In_Entry}} </button>
+                        <div ><button type="button" class="btn btn-success btn-sm active btn-inentry" disabled="disabled"> {{$row->in_entry}} </button>
                         
-                        @if ($row->Out_Entry == Null)
-                            <button type="button" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button>
+                        @if ($row->out_entry == Null)
+                            <button type="button" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button>
                         @else
-                            <button type="button" class="btn-outentry" disabled="disabled"> {{$row->Out_Entry}} </button>
+                            <button type="button" class="btn btn-danger btn-sm inactive btn-outentry" disabled="disabled"> {{$row->out_entry}} </button>
                             
                         @endif
                     </div>
@@ -88,7 +88,7 @@
                 {
                     tr.find(".btn-outentry").html(value);
                     $(".btn-outentry").attr("disabled","disabled");
-                    $(".mydiv").append('<div><button type="button" class="btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>  <button type="button" style="display:none" class="btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>');
+                    $(".mydiv").append('<div><button type="button" class="btn btn-success btn-sm active btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>  <button type="button" style="display:none" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>');
                 });
             }
         });

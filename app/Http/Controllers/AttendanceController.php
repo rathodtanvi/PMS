@@ -16,7 +16,7 @@ class AttendanceController extends Controller
     {
         $todate = Carbon::now()->format('Y-m-d');
         
-        $attendance  = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date',"=",$todate)->latest()->get();
+        $attendance  = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date',"=",$todate)->latest()->get();
         $getlatest = Attendance::where("user_id",'=',Auth::user()->id)->latest()->first();
         
         return view('Attendance.index',compact('attendance','getlatest'));
@@ -27,9 +27,9 @@ class AttendanceController extends Controller
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
         $attend = new Attendance;
         $attend->user_id = Auth::user()->id;
-        $attend->In_Entry = $currenttime;
-        $attend->Out_Entry = null;
-        $attend->Attendance_Date = Carbon::now()->format('Y-m-d');
+        $attend->in_entry = $currenttime;
+        $attend->out_entry = null;
+        $attend->attendance_date = Carbon::now()->format('Y-m-d');
         //dd($attend);
         $attend->save();
 
@@ -44,7 +44,7 @@ class AttendanceController extends Controller
         
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
 
-        $out = DB::table("attendace")->where("user_id","=",$uid)->where("In_Entry","=",$stime)->update(["Out_Entry" => $currenttime]);
+        $out = DB::table("attendace")->where("user_id","=",$uid)->where("in_entry","=",$stime)->update(["out_entry" => $currenttime]);
         
         return response()->json(['data'=>$currenttime]);
     }
@@ -52,18 +52,18 @@ class AttendanceController extends Controller
     public function WorkHours()
     {
         $currentdate = Carbon::now('Asia/Kolkata')->format('Y-m-d');
-        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date','=',$currentdate)->latest()->get();
-        $duration1 = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date','=',$currentdate)->first();
+        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date','=',$currentdate)->latest()->get();
+        //$duration1 = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date','=',$currentdate)->first();
         
         foreach($duration as $row)
         {
-            if($row['In_Entry'] != Null && $row['Out_Entry'] != Null)
+            if($row['in_entry'] != Null && $row['out_entry'] != Null)
             {
                 
-                $start = str_replace(" AM",":00",$row['In_Entry']);
+                $start = str_replace(" AM",":00",$row['in_entry']);
                 $strconv = new DateTime($start);
 
-                $end = str_replace(" AM",":00",$row['Out_Entry']);
+                $end = str_replace(" AM",":00",$row['out_entry']);
                 $endconv = new DateTime($end);
                 
                 $time_diff = $endconv->diff($strconv);
@@ -73,7 +73,7 @@ class AttendanceController extends Controller
             }
             else
             {
-                $start = str_replace(" AM",":00",$row['In_Entry']);
+                $start = str_replace(" AM",":00",$row['in_entry']);
                 $strconv = new DateTime($start);
                 
                 $end = Carbon::now('Asia/Kolkata');
