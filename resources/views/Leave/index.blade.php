@@ -37,7 +37,6 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Leave</h5>
-              <a class="btn btn-info mb-3"  href="{{route('addleave')}}" style="float:right">New</a> 
 
               <!-- Table with stripped rows -->
               <table class="table  yajra-datatable ">

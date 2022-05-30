@@ -53,7 +53,7 @@
 
     $("body").on("click",".btn-inentry",function(){
         var tr = $(this).closest("div");
-
+        
         $.ajax
         ({
             url: "{{url('addatendance')}}",
@@ -75,7 +75,7 @@
     {
         var tr = $(this).closest("div");
         var starttime = tr.find(".btn-inentry").text();
-        
+
         $.ajax
         ({
             url: "{{url('outatendance')}}",
