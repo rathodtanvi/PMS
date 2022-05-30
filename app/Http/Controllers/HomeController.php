@@ -5,29 +5,29 @@ namespace App\Http\Controllers;
  use Illuminate\Http\Request;
  use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
-use Auth;
-use Hash;
-use DataTables;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
 
 class HomeController extends Controller
 {
    public function index()
-    {   
-        return redirect('/home');
-    }
+   {   
+      return redirect('/home');
+   }
 
-    public function home()
-    {
-       $employee=User::all();
-       return view('Admin.home',compact('employee')); 
-    }
-    public function employee_list(Request $request)
-    {
+   public function home()
+   {
+      $employee=User::all();
+      return view('Dashboard.home',compact('employee')); 
+   }
+   public function employee_list(Request $request)
+   {
       if ($request->ajax()) {
-        $data=User::all();
-        return DataTables::of($data)
+      $data=User::all();
+      return DataTables::of($data)
                ->addColumn('attendance_duration',function(User $attendance_duration){
-                return "00";
+               return "00";
                })
                ->addColumn('work_duration',function(User $work_duration){
                   return "00";

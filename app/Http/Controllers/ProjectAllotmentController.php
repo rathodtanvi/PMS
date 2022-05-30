@@ -14,7 +14,7 @@ class ProjectAllotmentController extends Controller
 {
     public function dispPAllot()
     {
-        return view('Client.Project Allotment.index');
+        return view('Project Allotment.index');
     }
 
     public function PAllotment(Request $request)
@@ -27,7 +27,7 @@ class ProjectAllotmentController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class='btn-delete'> Delete </a>";
+                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -38,9 +38,9 @@ class ProjectAllotmentController extends Controller
     public function getPTechnology()
     {
         $nm = $_GET['name'];
-        $technology = Project::where('Project_Name','=',$nm)->get();
-        $getdata = explode(",",$technology[0]->Technology_Name);
-        $count = str_word_count($technology[0]->Technology_Name);
+        $technology = Project::where('project_name','=',$nm)->get();
+        $getdata = explode(",",$technology[0]->technology_name);
+        $count = str_word_count($technology[0]->technology_name);
     
         for($i=0; $i< $count; $i++)
         {
@@ -55,7 +55,7 @@ class ProjectAllotmentController extends Controller
         $technology = Technology::get();
         $projects = Project::get();
 
-        return view('Client.Project Allotment.add',compact('projects','technology'));
+        return view('Project Allotment.add',compact('projects','technology'));
     }
 
     public function AddPAllotment(Request $request)
@@ -63,8 +63,8 @@ class ProjectAllotmentController extends Controller
         
         $tech = new ProjectAllotment;
         $tech->user_id = Auth::user()->id;
-        $tech->Project_Name = $request['projectnm'];
-        $tech->Technology_Name = implode(' , ',$request->technm );
+        $tech->project_name = $request['projectnm'];
+        $tech->technology_name = implode(' , ',$request->technm );
         $tech->save();
 
         return redirect('ProjectAllotment');
@@ -83,7 +83,7 @@ class ProjectAllotmentController extends Controller
 
     public function adminPAllotment()
     {
-        return view('Admin.Project Allotment.index');
+        return view('Project Allotment.index');
     }
 
     public function dispPAllotment(Request $request)
@@ -95,7 +95,7 @@ class ProjectAllotmentController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='admindelete_PAllotment/".$row['id']."' class='btn-delete'> Delete </a>";
+                    $actionBtn = "<a href='admindelete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -106,9 +106,9 @@ class ProjectAllotmentController extends Controller
     public function admingetPTechnology()
     {
         $nm = $_GET['name'];
-        $technology = Project::where('Project_Name','=',$nm)->get();
-        $getdata = explode(",",$technology[0]->Technology_Name);
-        $count = str_word_count($technology[0]->Technology_Name);
+        $technology = Project::where('project_name','=',$nm)->get();
+        $getdata = explode(",",$technology[0]->technology_name);
+        $count = str_word_count($technology[0]->technology_name);
         
         for($i=0; $i< $count; $i++)
         {
@@ -124,15 +124,15 @@ class ProjectAllotmentController extends Controller
         $technology = Technology::get();
         $projects = Project::get();
 
-        return view('Admin.Project Allotment.add',compact('users','projects','technology'));
+        return view('Project Allotment.add',compact('users','projects','technology'));
     }
 
     public function adminAddPAllotment(Request $request)
     {
         $tech = new ProjectAllotment;
         $tech->user_id = $request['unm'];
-        $tech->Project_Name = $request['projectnm'];
-        $tech->Technology_Name = implode(' , ',$request->technm );
+        $tech->project_name = $request['projectnm'];
+        $tech->technology_name = implode(' , ',$request->technm );
         $tech->save();
 
         return redirect('AdminProjectAllotment');

@@ -27,13 +27,13 @@
 
         if($('input[type="checkbox"]').is(":checked"))
         {
-            $(".complete-project-btn").show();
+            $(".btn-primary").show();
         }
         else
         {
-            $(".complete-project-btn").hide();
+            $(".btn-primary").hide();
         }
-        $("body").on("click",".complete-project-btn",function()
+        $("body").on("click",".btn-primary",function()
         {
             var tr = $(x).closest("tr");
             var idval = $(x).val();
@@ -71,7 +71,7 @@
     </nav>
     <div class="card">
         <div class="card-body">
-            <center><button type="button"  class="complete-project-btn" style="display:none"> Complete Project </button></center><br/><br/>
+            <center><button type="button"  class="edit btn btn-primary btn-sm m-1"  style="display:none"> Complete Project </button></center><br/><br/>
 
             <table class="table table-hover">
                 <thead>

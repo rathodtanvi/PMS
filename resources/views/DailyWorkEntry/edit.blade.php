@@ -6,9 +6,9 @@
       <h1>Edit Work Entry</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">edit work</li>
-          <li class="breadcrumb-item active">Elements</li>
+          <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('daily_work_entry')}}">Daily Work Entry</a></li>
+          <li class="breadcrumb-item">Edit</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

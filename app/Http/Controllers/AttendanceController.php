@@ -19,7 +19,7 @@ class AttendanceController extends Controller
         $attendance  = Attendance::where('user_id','=',Auth::user()->id)->where('Attendance_Date',"=",$todate)->latest()->get();
         $getlatest = Attendance::where("user_id",'=',Auth::user()->id)->latest()->first();
         
-        return view('Client.Attendance.index',compact('attendance','getlatest'));
+        return view('Attendance.index',compact('attendance','getlatest'));
     }
 
     public function AddAttendance(Request $request)

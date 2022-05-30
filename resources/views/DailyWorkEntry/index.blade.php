@@ -10,12 +10,13 @@
  
     <main id="main" class="main"> 
     <div class="pagetitle">
-      <h1>Daily Work Entry</h1>
+      <h1>Daily Work Entry
+          <a class="btn btn-info"  href="{{route('addwork')}}" style="float:right">New</a> 
+      </h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('daily_work_entry')}}">DailyWorkEntry</a></li>
-          <li class="breadcrumb-item active"><a href="{{url('addwork')}}">AddWork</li>
+          <li class="breadcrumb-item">Daily Work Entry</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -27,7 +28,6 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Daily Work Entry</h5>
-              <a class="btn btn-info"  href="{{route('addwork')}}" style="float:right">New</a> 
 
               <!-- Table with stripped rows -->
               <table class="table  yajra-datatable ">

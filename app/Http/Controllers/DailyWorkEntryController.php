@@ -14,7 +14,7 @@ class DailyWorkEntryController extends Controller
     public function daily_work_entry()
     {
 
-        return view('User.DailyWorkEntry.index');
+        return view('DailyWorkEntry.index');
     }
     
     public function daily_work_entrylist(Request $request)
@@ -25,7 +25,7 @@ class DailyWorkEntryController extends Controller
         return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                        $btn = '<a href="'.route('workedit',$row->id).'"  class=" btn btn-info btn-sm m-1">Edit</a>';
+                        $btn = '<a href="'.route('workedit',$row->id).'"  class=" edit btn btn-primary btn-sm m-1">Edit</a>';
                         $btn = $btn.'<a href="'.route('workdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
                         return $btn;
                 })
@@ -33,7 +33,7 @@ class DailyWorkEntryController extends Controller
                   return Strip_tags($des->description);
                 })
                 ->addColumn('project_id',function(DailyWorkEntry $project_id){
-                    return $project_id->project->Project_Name;
+                    return $project_id->project->project_name;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -62,12 +62,12 @@ class DailyWorkEntryController extends Controller
     public function addwork()
     {
         $project=Project::all();
-        return view('User.DailyWorkEntry.add',compact('project'));
+        return view('DailyWorkEntry.add',compact('project'));
     }
     public function workedit($id)
     {
         $datas=DailyWorkEntry::find($id);
-        return view('User.DailyWorkEntry.edit',compact('datas'));
+        return view('DailyWorkEntry.edit',compact('datas'));
     }
     public function workupdate(Request $request,$id)
     {

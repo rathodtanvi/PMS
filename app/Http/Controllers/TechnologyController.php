@@ -55,7 +55,7 @@ class TechnologyController extends Controller
     {
         $edits = Technology::find($id);
     
-        return view("Client.Technology.edit",compact('edits'));
+        return view("Technology.edit",compact('edits'));
         
     }
     
@@ -77,7 +77,7 @@ class TechnologyController extends Controller
 
     public function Adminindex()
     {
-        return view('Admin.Technology.index');
+        return view('Technology.index');
     }
 
     public function AdminShowTech(Request $request)
@@ -117,7 +117,7 @@ class TechnologyController extends Controller
     {
         $edits = Technology::find($id);
     
-        return view("Admin.Technology.edit",compact('edits'));
+        return view("Technology.edit",compact('edits'));
     }
 
     public function UpdateTechnology(Request $request,$id)

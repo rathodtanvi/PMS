@@ -16,7 +16,7 @@ class LeaveController extends Controller
 {                                                                
     public function leave()
     {
-        return view('User.Leave.index');
+        return view('Leave.index');
     }
     public function leavelist(Request $request)
     {
@@ -68,7 +68,7 @@ class LeaveController extends Controller
     }
     public function addleave()
     {
-          return view('User.Leave.add');
+          return view('Leave.add');
     }
     public function inleave(Request $request)
     {
@@ -88,7 +88,7 @@ class LeaveController extends Controller
     public function leaveview($id)
     {
         $datas= Leave::find($id);
-        return view('User.Leave.view',compact('datas'));
+        return view('Leave.view',compact('datas'));
     }
 
     public function leavestatus(Request $request,$id)
