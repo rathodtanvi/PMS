@@ -36,10 +36,6 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Leave</h5>
-              <a class="btn btn-info mb-3"  href="{{route('addleave')}}" style="float:right">New</a> 
-
-              <!-- Table with stripped rows -->
               <table class="table  yajra-datatable ">
                   <thead>
                     <tr>
@@ -66,54 +62,52 @@
   </main>
 </body>
 @if (Auth::user()->roles_id == 3)
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+  <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript">
+  $(function () {
 
-  var table = $('.yajra-datatable').DataTable({
-    responsive: true,
-        ajax: "{{ route('leavelist') }}",
-        columns: [ 
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data:'created_at',name:'created_at'},
-            {data:'name',name:'name'},
-            {data: 'leave_type', name: 'leave_type'},
-            {data:'fdate_start',name:'fdate_start'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+    var table = $('.yajra-datatable').DataTable({
+      responsive: true,
+          ajax: "{{ route('leavelist') }}",
+          columns: [ 
+              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data:'created_at',name:'created_at'},
+              {data:'name',name:'name'},
+              {data: 'leave_type', name: 'leave_type'},
+              {data:'fdate_start',name:'fdate_start'},
+              {data: 'action', name: 'action', orderable: false, searchable: false},
+          ]
+      });
     });
-  });
 
-</script>
+  </script>
 @else
-    
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+  <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript">
+  $(function () {
 
-
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    responsive: true,
-        ajax: "{{ route('leavelist') }}",
-        columns: [ 
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data:'created_at',name:'created_at'},
-            {data:'name',name:'name'},
-            {data: 'leave_type', name: 'leave_type'},
-            {data:'fdate_start',name:'fdate_start'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+    var table = $('.yajra-datatable').DataTable({
+      responsive: true,
+          ajax: "{{ route('leavelist') }}",
+          columns: [ 
+              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data:'created_at',name:'created_at'},
+              {data:'name',name:'name'},
+              {data: 'leave_type', name: 'leave_type'},
+              {data:'fdate_start',name:'fdate_start'},
+              {data: 'action', name: 'action', orderable: false, searchable: false},
+          ]
+      });
     });
-  });
 
-</script>
+  </script>
 
 @endif
 

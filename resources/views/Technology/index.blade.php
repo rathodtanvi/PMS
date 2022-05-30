@@ -9,7 +9,7 @@
         var table = $('.table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('AdminTechnology.list') }}",
+            ajax: "{{ route('Technology.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'technology_name', name: 'technology_name'},
@@ -28,7 +28,7 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Technology 
-            <a href='adminAddTechnology' class="btn btn-info mb-3"> New </a>
+            <a href='AddTechnology' class="btn btn-info mb-3"> New </a>
         </h1>
     </div>  
     <nav>

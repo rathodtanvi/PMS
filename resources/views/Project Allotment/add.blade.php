@@ -15,7 +15,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{url('AdminProjectAllotment')}}">Project Allotment</a></li>
+                <li class="breadcrumb-item"><a href="{{url('ProjectAllotment')}}">Project Allotment</a></li>
                 <li class="breadcrumb-item">Add</li>
             </ol>
         </nav>
@@ -26,7 +26,7 @@
 
             <h4 class="box-form-header"> Add Project Allotment </h4>
             @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
-                <form method="post" action="{{url('/')}}/adminAddAllotment"> 
+                <form method="post" action="{{url('/')}}/AddAllotment"> 
                     @csrf
 
                     Employee Name <span class="error" style="margin-right:10%;"> * </span>

@@ -9,7 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
-    public function ShowProject()
+    /*public function ShowProject()
     {
         return view('Project.index');
     }
@@ -90,18 +90,7 @@ class ProjectController extends Controller
     {
         $delete = Project::find($id)->delete();
         return redirect()->back();
-    }
-
-    public function CompletProject()
-    {
-        $getid = $_GET['id'];
-
-        $update = Project::find($getid);
-        $update->Complete_Project = "Complete";
-        $update->update();
-
-        return redirect('Project');
-    }
+    }*/
 
 
     /* -------------------------------- */
@@ -125,13 +114,13 @@ class ProjectController extends Controller
                     return '<input type="checkbox" class="checkbox" value="'.$item->id.'" name="chk[]" onclick="checkboxchecked(this)" />';
                 })
                 ->addColumn('action', function($row){
-                    if($row->Complete_Project == "Complete")
+                    if($row->complete_project == "Complete")
                     {
-                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
                     }
                     else
                     {
-                        $actionBtn = "<a href='admin_Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='admin_DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> </div>";
+                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> </div>";
                     }
                     return $actionBtn;
                 })
@@ -161,7 +150,7 @@ class ProjectController extends Controller
             $tech->technology_name = implode(' , ', $request->technm);
             $tech->save();
 
-            return redirect('AdminProject');
+            return redirect('Project');
         }
     }
 
@@ -181,7 +170,7 @@ class ProjectController extends Controller
         $update->technology_name = implode(',', $request->technm);
         
         $update->update();
-        return redirect('AdminProject');
+        return redirect('Project');
     }
 
     public function adminDelete($id)
@@ -190,4 +179,14 @@ class ProjectController extends Controller
         return redirect()->back();
     }
 
+    public function CompletProject()
+    {
+        $getid = $_GET['id'];
+
+        $update = Project::find($getid);
+        $update->complete_project = "Complete";
+        $update->update();
+
+        return redirect('Project');
+    }
 }

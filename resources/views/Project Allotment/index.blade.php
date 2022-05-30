@@ -9,7 +9,7 @@
         var table = $('.table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('AdminProjectAllotment.list') }}",
+            ajax: "{{ route('ProjectAllotment.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'user.name', name: 'user.name'},
@@ -27,7 +27,7 @@
 
     <div class="pagetitle">
         <h1>Project Allotment
-            <a href='adminAddAllotment' class="btn btn-info mb-3"> New </a>
+            <a href='AddAllotment' class="btn btn-info mb-3"> New </a>
         </h1>
     </div>
     <nav>

@@ -14,18 +14,18 @@
         </a>
       </li> 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{url('AdminTechnology')}}">
+        <a class="nav-link collapsed" href="{{url('Technology')}}">
             <i class="bi bi-menu-button-wide"></i><span> Technology </span>
         </a>       
     </li> 
     <li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminProject')}}">
+        <a class="nav-link collapsed"  href="{{url('Project')}}">
         <i class="bi bi-card-list"></i><span> Project </span>
         </a>
     </li>
     @endif
     <li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
+        <a class="nav-link collapsed"  href="{{url('ProjectAllotment')}}">
         <i class="fa fa-file"></i><span> Project Allotment </span>
         </a>
         

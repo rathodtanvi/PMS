@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectAllotmentController extends Controller
 {
-    public function dispPAllot()
+    /*public function dispPAllot()
     {
         return view('Project Allotment.index');
     }
@@ -75,7 +75,7 @@ class ProjectAllotmentController extends Controller
     {
         $delete = ProjectAllotment::find($id)->delete();
         return redirect()->back();
-    }
+    }*/
 
 
     /* -------------------------------- */
@@ -96,7 +96,7 @@ class ProjectAllotmentController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='admindelete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
+                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -148,7 +148,7 @@ class ProjectAllotmentController extends Controller
         }
         
 
-        return redirect('AdminProjectAllotment');
+        return redirect('ProjectAllotment');
     }
 
     public function DeleteAllotment($id)
