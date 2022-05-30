@@ -88,7 +88,7 @@
                 {
                     tr.find(".btn-outentry").html(value);
                     $(".btn-outentry").attr("disabled","disabled");
-                    $(".mydiv").append('<div><button type="button" class="btn btn-success btn-sm active btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>  <button type="button" style="display:none" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>');
+                    $(".mydiv").prepend('<div><button type="button" class="btn btn-success btn-sm active btn-inentry" ><i class="bi bi-box-arrow-right"></i> In Entry </button>  <button type="button" style="display:none" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="bi bi-box-arrow-right"></i> </button></div>');
                 });
             }
         });
