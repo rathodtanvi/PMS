@@ -74,9 +74,9 @@
                 <option value="2">Client Change</option>
                 <option value="3">Bug Fixing</option>
               </select>
-            </div>
-        </div>
-      </div>
+                </div>
+              </div>
+           </div>
                 <div class="row mt-3 pb-2">
                   <div class="col-12">
                   <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
