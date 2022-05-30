@@ -22,12 +22,11 @@
         <a class="nav-link collapsed"  href="{{url('AdminProject')}}">
         <i class="bi bi-card-list"></i><span> Project </span>
         </a>
-        
     </li>
     @endif
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('AdminProjectAllotment')}}">
-        <i class="fa fa-book"></i><span> Project Allotment </span>
+        <i class="fa fa-file"></i><span> Project Allotment </span>
         </a>
         
     </li>
@@ -40,7 +39,7 @@
     @endif
 	<li class="nav-item">
         <a class="nav-link collapsed"  href="#">
-        <i class="bi bi-file-earmark"></i><span> Task Allotment </span>
+        <i class="fa fa-book"></i><span> Task Allotment </span>
         </a>    
     </li>
     @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
@@ -61,7 +60,7 @@
         <i class="fa fa fa-comment-o"></i><span> Leave </span>
         </a>    
     </li>
-	
+	@endif
 
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">

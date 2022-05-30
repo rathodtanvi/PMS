@@ -52,6 +52,7 @@ Route::get('/employeelist', [EmployeeController::class, 'employeelist'])->name('
 Route::get('/addemployee', [EmployeeController::class, 'addemployee'])->name('addemployee');
 Route::post('/add', [EmployeeController::class, 'add'])->name('add');
 Route::get('/status/{id}', [EmployeeController::class, 'status'])->name('status');
+Route::get('/changerole/{id}', [EmployeeController::class, 'changerole'])->name('changerole');
 Route::get('/viewdata/{id}', [EmployeeController::class, 'viewdata'])->name('viewdata');
 Route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
 Route::put('/update/{id}', [EmployeeController::class, 'update'])->name('update');
@@ -157,7 +158,6 @@ Route::get('outatendance',[AttendanceController::class,'OutAttendance']);
 Route::get('workhour',[AttendanceController::class,'WorkHours']);
 
 // Routes (Admin Side)
-
 Route::get('AdminTechnology', [TechnologyController::class, 'Adminindex']);
 Route::get('AdminTechnology/list', [TechnologyController::class, 'AdminShowTech'])->name('AdminTechnology.list');
 
