@@ -36,10 +36,10 @@ class EmployeeController extends Controller
                         }
                         if($row->roles_id == 2)
                         {
-                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class=" btn btn-dark btn-sm active  mt-1">TL</a>';
+                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class="fa fa-users btn btn-secondary btn-sm active  mt-1"></a>';
                         }else
                         {
-                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class=" btn btn-secondary btn-sm inactive mt-1">Make TL</a>';
+                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class="fa fa-user btn btn-secondary btn-sm inactive mt-1"></a>';
                         }
                         return $btn;
                 })

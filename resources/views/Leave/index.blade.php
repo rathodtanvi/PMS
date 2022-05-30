@@ -36,6 +36,7 @@
 
           <div class="card">
             <div class="card-body">
+              <!-- Table with stripped rows -->
               <table class="table  yajra-datatable ">
                   <thead>
                     <tr>

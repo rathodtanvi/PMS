@@ -105,7 +105,7 @@ class LeaveController extends Controller
     public function all_leavelist(Request $request)
     {
       if ($request->ajax()) {
-        $data=Leave::where('user_id',Auth::id())->latest()->get();
+        $data=Leave::latest()->get();
         //$work = Leave::latest()->get();
         return DataTables::of($data)
                 ->addIndexColumn()
