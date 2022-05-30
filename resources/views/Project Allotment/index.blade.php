@@ -9,6 +9,10 @@
         var table = $('.table').DataTable({
             processing: true,
             serverSide: true,
+            "sScrollX": "300%",
+            "bScrollCollapse": true,
+            "bAutoWidth": false,
+              responsive: true,
             ajax: "{{ route('ProjectAllotment.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},

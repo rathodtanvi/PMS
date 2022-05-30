@@ -7,6 +7,10 @@
     $(function () {
         
         var table = $('.table').DataTable({
+            "sScrollX": "300%",
+            "bScrollCollapse": true,
+            "bAutoWidth": false,
+            responsive: true,
             processing: true,
             serverSide: true,
             ajax: "{{ route('Project.list') }}",
