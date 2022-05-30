@@ -13,7 +13,7 @@ class EmployeeController extends Controller
 {
     public function employee()
     {  
-         return view('Admin.Employee.index');
+         return view('Employee.index');
     }
     public function employeelist(Request $request)
     {
@@ -50,7 +50,7 @@ class EmployeeController extends Controller
     }  
     public function addemployee()
     {
-       return view('Admin.Employee.add');
+       return view('Employee.add');
     }
     public function add(UserStoreRequest  $request)
     {
@@ -98,12 +98,12 @@ class EmployeeController extends Controller
     public function viewdata($id)
     {
       $datas=User::find($id);
-      return view('Admin.Employee.view',compact('datas'));
+      return view('Employee.view',compact('datas'));
     }
     public function edit($id)
     {
       $datas=User::find($id);
-      return view('Admin.Employee.edit',compact('datas'));
+      return view('Employee.edit',compact('datas'));
     }
     public function update(Request $request,$id)
     {

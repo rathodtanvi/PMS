@@ -13,8 +13,8 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'user.name', name: 'user.name'},
-                {data: 'Project_Name', name: 'Project_Name'},
-                {data: 'Technology_Name', name: 'Technology_Name'},
+                {data: 'project_name', name: 'project_name'},
+                {data: 'technology_name', name: 'technology_name'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
             ]
         });
@@ -27,9 +27,15 @@
 
     <div class="pagetitle">
         <h1>Project Allotment
-            <a href='adminAddAllotment' class="new-btn"> New </a><br/><br/>
+            <a href='adminAddAllotment' class="btn btn-info mb-3"> New </a>
         </h1>
-    </div>  
+    </div>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+            <li class="breadcrumb-item">Project Allotment</li>
+        </ol>
+    </nav>  
     <div class="card">
         <div class="card-body">
             <table class="table table-hover">

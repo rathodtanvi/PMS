@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function ShowProject()
     {
-        return view('Client.Project.index');
+        return view('Project.index');
     }
 
     public function DispProject(Request $request)
@@ -45,7 +45,7 @@ class ProjectController extends Controller
     public function InsertProject()
     {
         $technology = Technology::get();
-        return view('Client.Project.add',compact('technology'));
+        return view('Project.add',compact('technology'));
     }
     public function Addproject(Request $request)
     {
@@ -72,7 +72,7 @@ class ProjectController extends Controller
         $technology = Technology::get();
         $edits = Project::find($id);
         
-        return view("Client.Project.edit",compact('edits','technology'));
+        return view("Project.edit",compact('edits','technology'));
         
     }
 
@@ -110,7 +110,7 @@ class ProjectController extends Controller
 
     public function adminProject()
     {
-        return view('Admin.Project.index');
+        return view('Project.index');
     }
 
     public function DispAdminProject(Request $request)
@@ -144,7 +144,7 @@ class ProjectController extends Controller
     public function adminInsertProject()
     {
         $technology = Technology::get();
-        return view('Admin.Project.add',compact('technology'));
+        return view('Project.add',compact('technology'));
     }
     public function adminAddproject(Request $request)
     {
@@ -170,7 +170,7 @@ class ProjectController extends Controller
         $technology = Technology::get();
         $edits = Project::find($id);
         
-        return view("Admin.Project.edit",compact('edits','technology'));
+        return view("Project.edit",compact('edits','technology'));
         
     }
 

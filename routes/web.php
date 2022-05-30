@@ -162,7 +162,7 @@ Route::get('AdminTechnology', [TechnologyController::class, 'Adminindex']);
 Route::get('AdminTechnology/list', [TechnologyController::class, 'AdminShowTech'])->name('AdminTechnology.list');
 
 Route::get('adminAddTechnology', function () {
-    return view('Admin.Technology.add');
+    return view('Technology.add');
 });
 Route::post('/adminAddTechnology',[TechnologyController::class,'addTechnology']);
 

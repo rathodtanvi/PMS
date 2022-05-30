@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{url('daily_work_entry')}}">Daily work entry</a></li>
-          <li class="breadcrumb-item"><a href="{{url('addwork')}}">Add work</a></li>
+          <li class="breadcrumb-item">Add</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -32,7 +32,7 @@
                         <select class="form-select" aria-label="Default select example" name="project_id">
                         <option selected>---select---</option>
                         @foreach ($project as $item)
-                        <option value="{{$item->id}}">{{$item->Project_Name}}</option>
+                        <option value="{{$item->id}}">{{$item->project_name}}</option>
                         @endforeach
                       </select>
                     </div>

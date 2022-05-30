@@ -16,6 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{url('AdminProjectAllotment')}}">Project Allotment</a></li>
+                <li class="breadcrumb-item">Add</li>
             </ol>
         </nav>
     </div>
@@ -30,9 +31,9 @@
                     Employee Name <span class="error" style="margin-right:10%;"> * </span>
                     <select style="width: 40%;" class="selectid" name="unm" >
                         <option></option>
-                         @foreach ($users as $user)
-                             <option value={{$user->id}}>{{$user->name}}</option>
-                         @endforeach
+                        @foreach ($users as $user)
+                            <option value={{$user->id}}>{{$user->name}}</option>
+                        @endforeach
                     </select>
                     <br/><br/>
 
@@ -40,7 +41,7 @@
                     <select style="width: 40%;" class="selectid" name="projectnm" >
                         <option></option>
                         @foreach($projects as $project)
-                            <option value="{{$project->Project_Name}}">{{$project->Project_Name}}</option>
+                            <option value="{{$project->project_name}}">{{$project->project_name}}</option>
                         @endforeach
                     </select>
                     <br/><br/>
@@ -49,14 +50,16 @@
                     <select style="width: 40%;" class="selectid" id="nameid" name="technm[]" multiple>
                         <option></option>
                         @foreach($technology as $row)
-                            <option value="{{$row->Technology_Name}}">{{$row->Technology_Name}}</option>
+                            <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
                         @endforeach
                     </select>
                     
                 <br/><br/>
-
-                <button type="button"  class="btn-cancel"> Cancel </button>
-                <button type="submit" name="submit" class="btn-submit"> Submit </button>
+                <div class="row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
+                    </div>
+                </div>   
             </form>
         </div>
     </div>

@@ -16,6 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{url('AdminProject')}}">Project</a></li>
+                <li class="breadcrumb-item">Edit</li>
             </ol>
         </nav>
     </div>
@@ -23,28 +24,31 @@
     <div class="card">
         <div class="card-body">
 
-            <h4 class="box-form-header"> Add Project </h4>
-            <form method="post" action="{{url('/')}}/adminAddProject"> 
+            <h4 class="box-form-header"> Edit Project </h4>
+            <form method="post" action="{{ url('update-project/'.$edits->id) }}"> 
                 @csrf
                 
                     Project Name <span class="error"> * </span>
-                    <input type='text' name='projectnm' class="input-tagspace" placeholder="Enter Project Name" />
-                    @if($errors->any())
-                        <span class="input-tagspace" style="color:red"> {{$errors->first()}}</span>
-                    @endif
-                    <br/><br/><br/>
-
+                    <input type='text' name='projectnm' value="{{$edits->project_name}}" class="input-tagspace" placeholder="Enter Project Name" />
+                    <br/><br/>
+                    
                     Technology Name <span class="error" style="margin-right:9%;"> * </span>
                     <select style="width: 40%;" id="nameid" name="technm[]" multiple>
-                        <option></option>
                         @foreach($technology as $row)
-                            <option value="{{$row->technology_Name}}">{{$row->technology_Name}}</option>
+                            @if ($edits->technology_name == $row->technology_name)
+                            <option value="{{$row->technology_name}}" selected>{{$row->technology_name}}</option>
+                            @else
+                                <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                            @endif
+                            
                         @endforeach
                     </select>
                 <br/><br/>
-
-                <button type="button"  class="btn-cancel"> Cancel </button>
-                <button type="submit" name="submit" class="btn-submit"> Submit </button>
+                <div class="row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
