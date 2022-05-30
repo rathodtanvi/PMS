@@ -13,7 +13,6 @@ class DailyWorkEntryController extends Controller
 {
     public function daily_work_entry()
     {
-
         return view('DailyWorkEntry.index');
     }
     

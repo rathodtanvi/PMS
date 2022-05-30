@@ -74,6 +74,11 @@ Route::get('/addleave', [LeaveController::class, 'addleave'])->name('addleave');
 Route::post('/inleave', [LeaveController::class, 'inleave'])->name('inleave');
 Route::get('/leavestatus/{id}', [LeaveController::class, 'leavestatus'])->name('leavestatus');
 Route::get('/leaveview/{id}', [LeaveController::class, 'leaveview'])->name('leaveview');
+Route::get('/all_leave', [LeaveController::class, 'all_leave'])->name('all_leave');
+Route::get('/all_leavelist', [LeaveController::class, 'all_leavelist'])->name('all_leavelist');
+Route::get('/all_leavestatus/{id}', [LeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
+Route::get('/all_leaveview/{id}', [LeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
 
 //Reports Controller
 Route::get('/report_attendance', [ReportsController::class, 'report_attendance'])->name('report_attendance');
@@ -82,11 +87,7 @@ Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_
 Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
 
 
-//AdminLeave
-Route::get('/all_leave', [AdminLeaveController::class, 'all_leave'])->name('all_leave');
-Route::get('/all_leavelist', [AdminLeaveController::class, 'all_leavelist'])->name('all_leavelist');
-Route::get('/all_leavestatus/{id}', [AdminLeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
-Route::get('/all_leaveview/{id}', [AdminLeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
 
 //Admin Report
 

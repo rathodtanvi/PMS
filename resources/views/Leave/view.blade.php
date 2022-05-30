@@ -13,7 +13,9 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Leave</h5>
-        
+     
+     
+    
         <!-- Table with hoverable rows -->
         <table class="table table-hover">
           <tbody>
@@ -32,7 +34,10 @@
           </tbody>
         </table>
         <!-- End Table with hoverable rows -->
-
+       
+       
+        
+   
       </div>
     </div>
   </main>

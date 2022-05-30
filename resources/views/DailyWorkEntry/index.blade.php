@@ -38,7 +38,7 @@
                         <th>Entry Date</th>
                         <th>Work Hours</th>
                         <th>Work Details</th>
-                        <th >Manage</th> 
+                        <th>Manage</th> 
                     </tr>
                 </thead>
                 <tbody>

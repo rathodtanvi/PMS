@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('project_name');
             $table->string('technology_name');
+            $table->string('complete_project')->nullable();
             $table->timestamps();
         });
     }
