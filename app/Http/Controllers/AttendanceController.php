@@ -81,7 +81,6 @@ class AttendanceController extends Controller
                 
                 
                 $time_diff = $endconv->diff($strconv);
-                
                 $htime[] = $time_diff->format('%H');
                 $mtime[] = $time_diff->format('%I');
                 $stime[] = $time_diff->format('%S');
