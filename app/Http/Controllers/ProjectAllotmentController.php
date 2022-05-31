@@ -130,7 +130,7 @@ class ProjectAllotmentController extends Controller
 
     public function adminAddPAllotment(Request $request)
     {
-        if(Auth::user()->roles_id == 1)
+        if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
         {
             $tech = new ProjectAllotment;
             $tech->user_id = $request['unm'];
