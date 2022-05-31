@@ -67,7 +67,7 @@
                 </form>
             @else
                 
-                <form method="post" action="{{url('/')}}/adminAddAllotment"> 
+                <form method="post" action="{{url('/')}}/AddAllotment"> 
                     @csrf
 
                     Project Name <span class="error" style="margin-right:12.5%;"> * </span>

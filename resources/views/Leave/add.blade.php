@@ -30,7 +30,7 @@
                         <label class="col-form-label">Leave Type</label>
                         <div> 
                         <select class="form-select leave_type" aria-label="Default select example" name="leave_type">
-                        <option selected>---select---</option>
+                        <option disabled selected value>---select---</option>
                         <option value="1">Half Day Leave</option>
                         <option value="2">Full Day Leave</option>
                         <option value="3">Multipal Days Leave</option>

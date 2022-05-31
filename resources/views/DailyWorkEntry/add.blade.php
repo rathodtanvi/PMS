@@ -17,11 +17,8 @@
       <div class="row">
           <div class="p-2">
         <div class="col-lg-12 col-sm-12 col-sm-12">
-
           <div class="card p-2">
             <div class="card-body">
-
-
               <!-- General Form Elements -->
               <form method="post" action="{{route('enter_daily_work_entry')}}">
                 @csrf
@@ -30,7 +27,7 @@
                         <label class="col-form-label">Project Name</label>
                         <div> 
                         <select class="form-select" aria-label="Default select example" name="project_id">
-                        <option selected>---select---</option>
+                        <option disabled selected value>---select---</option>
                         @foreach ($project as $item)
                         <option value="{{$item->id}}">{{$item->project_name}}</option>
                         @endforeach

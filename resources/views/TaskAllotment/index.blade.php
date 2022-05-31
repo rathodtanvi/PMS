@@ -7,7 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
- 
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Task Allotment
@@ -33,6 +32,9 @@
                   <thead>
                     <tr>
                         <th>No</th>
+                        @if (Auth :: id() != 3)
+                        <th>Employee Name</th>
+                        @endif
                         <th>ProjectName</th>
                         <th>Title</th>
                         <th>Description</th>
@@ -55,8 +57,36 @@
 
   </main>
 </body>
+@if (Auth::id() != 3)
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+ <script type="text/javascript">
+ $(function () {
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+  var table = $('.yajra-datatable').DataTable({
+    "sScrollX": "300%",
+    "bScrollCollapse": true,
+    "bAutoWidth": false,
+    responsive: true,
+        ajax: "{{ route('task_allotment_list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'employeename', name: 'employeename'},
+            {data: 'project_id', name: 'project_id'},
+            {data: 'title', name: 'title'},
+            {data: 'description', name: 'description'},
+            {data: 'days_txt', name: 'days_txt'},
+            {data: 'hours_txt', name: 'hours_txt'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
+
+</script> 
+@else
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
@@ -81,6 +111,9 @@
     });
   });
 
-</script> 
+</script>   
+@endif
+
+
 </html>
 @endsection
