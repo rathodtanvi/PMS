@@ -91,9 +91,11 @@ class ProjectAllotmentController extends Controller
     {
         if ($request->ajax()) 
         {
-            $data = ProjectAllotment::with('user')->get();
+            if(Auth::user()->roles_id == 1)
+            {
+                $data = ProjectAllotment::with('user')->get();
             
-            return Datatables::of($data)
+                return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
@@ -101,6 +103,20 @@ class ProjectAllotmentController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
+            }
+            else
+            {
+                $data = ProjectAllotment::with('user')->where("user_id",'=',Auth::user()->id)->get();
+            
+                return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+            }
         }
     }
 
