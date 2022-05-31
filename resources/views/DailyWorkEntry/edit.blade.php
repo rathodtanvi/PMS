@@ -18,11 +18,9 @@
           <div class="p-2">
         <div class="col-lg-12">
 
-          <div class="card p-5">
+          <div class="card p-2">
             <div class="card-body">
-              <h5 class="card-title">Edit Work Entry</h5>
-
-              <!-- General Form Elements -->
+               <!-- General Form Elements -->
               <form method="post" action="{{route('workupdate',$datas->id)}}">
                 @csrf
                   @method('PUT')

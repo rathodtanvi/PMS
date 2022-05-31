@@ -14,6 +14,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminReportsController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\TaskAllotmentController;
 use Illuminate\support\Facades\Auth;
 
 /*
@@ -78,6 +79,16 @@ Route::get('/all_leave', [LeaveController::class, 'all_leave'])->name('all_leave
 Route::get('/all_leavelist', [LeaveController::class, 'all_leavelist'])->name('all_leavelist');
 Route::get('/all_leavestatus/{id}', [LeaveController::class, 'all_leavestatus'])->name('all_leavestatus');
 Route::get('/all_leaveview/{id}', [LeaveController::class, 'all_leaveview'])->name('all_leaveview');
+
+//Task_Allotment Controller
+Route::get('/add_task', [TaskAllotmentController::class, 'add_task'])->name('add_task');
+Route::post('/enter_task', [TaskAllotmentController::class, 'enter_task'])->name('enter_task');
+Route::get('/task_allotment', [TaskAllotmentController::class, 'task_allotment'])->name('task_allotment');
+Route::get('/task_allotment_list', [TaskAllotmentController::class, 'task_allotment_list'])->name('task_allotment_list');
+Route::get('/taskedit/{id}', [DailyWorkEntryController::class, 'taskedit'])->name('taskedit');
+Route::get('/taskdelete/{id}', [DailyWorkEntryController::class, 'taskdelete'])->name('taskdelete');
+
+
 
 
 //Reports Controller

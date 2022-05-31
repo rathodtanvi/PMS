@@ -13,8 +13,7 @@
     </div><!-- End Page Title -->
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Leave</h5>
-     
+       
      
     
         <!-- Table with hoverable rows -->

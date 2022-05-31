@@ -6,7 +6,7 @@
       <h1>Add Work Entry</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{url('userhome')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{url('daily_work_entry')}}">Daily work entry</a></li>
           <li class="breadcrumb-item">Add</li>
         </ol>
@@ -18,9 +18,9 @@
           <div class="p-2">
         <div class="col-lg-12 col-sm-12 col-sm-12">
 
-          <div class="card p-5">
+          <div class="card p-2">
             <div class="card-body">
-              <h5 class="card-title">Add Work Entry</h5>
+
 
               <!-- General Form Elements -->
               <form method="post" action="{{route('enter_daily_work_entry')}}">

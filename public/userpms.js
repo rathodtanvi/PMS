@@ -80,11 +80,18 @@ $(document).ready(function(){
         }
       });
 
-    //   $('.project_time').change(function(){
-    //     var project_time = $(".project_time option:selected").val();
-    //        if(project_time == 2)
-    //        {
-              
-    //        }
-    //   });
+      $("input[type='radio']").change(function(){
+      
+        if($(this).val()=="hours")
+        {
+            $("#days").hide(); 
+           $("#hours").show();
+        }
+        if($(this).val()=="days")
+        {
+            $("#hours").hide(); 
+            $("#days").show();
+        }
+       
+      });
 });

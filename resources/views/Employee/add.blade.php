@@ -18,8 +18,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Add Employee </h5>
-
+              
               <!-- General Form Elements -->
               <form method="POST" action="{{ route('add') }}">
                 @csrf
