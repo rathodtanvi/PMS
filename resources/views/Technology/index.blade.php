@@ -41,19 +41,21 @@
             <li class="breadcrumb-item">Technology</li>
         </ol>
     </nav>
-    <div class="box-body">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Technology Name</th>
-                    <th>Manage</th>
-                </tr>
-            </thead>
+    <div class="card p-2">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Technology Name</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-            </tbody>
-        </table>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 <main>
 @endsection

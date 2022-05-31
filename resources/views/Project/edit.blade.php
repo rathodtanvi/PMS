@@ -24,26 +24,38 @@
     <div class="card">
         <div class="card-body">
 
-            <h4 class="box-form-header"> Edit Project </h4>
             <form method="post" action="{{ url('update-project/'.$edits->id) }}"> 
                 @csrf
                 
-                    Project Name <span class="error"> * </span>
-                    <input type='text' name='projectnm' value="{{$edits->project_name}}" class="input-tagspace" placeholder="Enter Project Name" />
-                    <br/><br/>
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                        <span class="error"> * </span></label>
+
+                    <div class="col-md-6">
+                        
+                        <input type='text' name='projectnm' value="{{$edits->project_name}}" class="form-control" placeholder="Enter Project Name" />
+                    </div>
+                </div>
                     
-                    Technology Name <span class="error" style="margin-right:9%;"> * </span>
-                    <select style="width: 40%;" id="nameid" name="technm[]" multiple>
-                        @foreach($technology as $row)
-                            @if ($edits->technology_name == $row->technology_name)
-                            <option value="{{$row->technology_name}}" selected>{{$row->technology_name}}</option>
-                            @else
-                                <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
-                            @endif
-                            
-                        @endforeach
-                    </select>
-                <br/><br/>
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                        <span class="error"> * </span></label>
+
+                    <div class="col-md-6">
+
+                        <select class="form-control" id="nameid" name="technm[]" multiple>
+                            @foreach($technology as $row)
+                                @if ($edits->technology_name == $row->technology_name)
+                                <option value="{{$row->technology_name}}" selected>{{$row->technology_name}}</option>
+                                @else
+                                    <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                                @endif
+                                
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" name="submit" class="btn btn-primary"> Submit </button>

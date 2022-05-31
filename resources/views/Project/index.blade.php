@@ -75,7 +75,7 @@
     </nav>
     <div class="card">
         <div class="card-body">
-            <center><button type="button"  class="btn btn-primary btn-sm m-1 completeproject"  style="display:none"> Complete Project </button></center><br/><br/>
+            <center><button type="button"  class="btn btn-primary btn-sm m-1 completeproject"  style="display:none"> Complete Project </button></center>
 
             <table class="table table-hover">
                 <thead>

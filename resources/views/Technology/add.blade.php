@@ -18,15 +18,19 @@
     <div class="card">
         <div class="card-body">
 
-            <h4 class="box-form-header"> Add Technology </h4>
             <form method="post" action="{{url('/')}}/AddTechnology"> 
                 @csrf
-                Technology Name <span class="error"> * </span>
-                <input type='text' name='technm' class="input-tagspace" placeholder="Enter Technology Name" />
-                @if($errors->any())
-                    <span class="input-tagspace" style="color:red"> {{$errors->first()}}</span>
-                @endif
-                <br/><br/>
+
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                        <span class="error"> * </span></label>
+
+                    <div class="col-md-6">
+
+                        <input type='text' name='technm' class="form-control" placeholder="Enter Technology Name" />
+                    </div>
+                </div>
+
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" name="submit" class="btn btn-primary"> Submit </button>

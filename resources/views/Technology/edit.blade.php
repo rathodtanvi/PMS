@@ -15,15 +15,21 @@
         </nav>
     </div>
         
-    <div class="card">
+    <div class="card p-2">
         <div class="card-body">
 
-            <h4 class="box-form-header"> Technology </h4>
             <form method="post" action="{{ url('update-technology/'.$edits->id) }}"> 
                 @csrf
-                Technology Name <span class="error"> * </span>
-                <input type='text' name='technm' class="input-tagspace" placeholder="Enter Technology Name" value="{{$edits->technology_name}}"/>
-                <br/><br/>
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                        <span class="error"> * </span></label>
+
+                    <div class="col-md-6">
+
+                        <input type='text' name='technm' class="form-control" placeholder="Enter Technology Name" value="{{$edits->technology_name}}"/>
+                    </div>
+                </div>
+
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" name="submit" class="btn btn-primary"> Update </button>

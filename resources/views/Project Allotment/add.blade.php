@@ -24,41 +24,56 @@
     <div class="card">
         <div class="card-body">
 
-            <h4 class="box-form-header"> Add Project Allotment </h4>
             @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
                 <form method="post" action="{{url('/')}}/AddAllotment"> 
                     @csrf
 
-                    Employee Name <span class="error" style="margin-right:10%;"> * </span>
-                    <select style="width: 40%;" class="selectid" name="unm" >
-                        <option></option>
-                        @foreach ($users as $user)
-                            @if ($user->roles_id != 1)
-                                <option value={{$user->id}}>{{$user->name}}</option>
-                            @endif
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-form-label ">{{ __('Employee Name') }}
+                            <span class="error"> * </span></label>
+    
+                        <div class="col-md-6">
                             
-                        @endforeach
-                    </select>
-                    <br/><br/>
+                            <select class="selectid form-control" name="unm" style="height:35px;">
+                                <option></option>
+                                @foreach ($users as $user)
+                                    @if ($user->roles_id != 1)
+                                        <option value={{$user->id}}>{{$user->name}}</option>
+                                    @endif
+                                    
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
-                    Project Name <span class="error" style="margin-right:12.5%;"> * </span>
-                    <select style="width: 40%;" class="selectid" name="projectnm" >
-                        <option></option>
-                        @foreach($projects as $project)
-                            <option value="{{$project->project_name}}">{{$project->project_name}}</option>
-                        @endforeach
-                    </select>
-                    <br/><br/>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                            <span class="error"> * </span></label>
+    
+                        <div class="col-md-6">
+                            <select class="selectid form-control" name="projectnm" >
+                                <option></option>
+                                @foreach($projects as $project)
+                                    <option value="{{$project->project_name}}">{{$project->project_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     
-                    Technology Name <span class="error" style="margin-right:9%;"> * </span>
-                    <select style="width: 40%;" class="selectid" id="nameid" name="technm[]" multiple>
-                        <option></option>
-                        @foreach($technology as $row)
-                            <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
-                        @endforeach
-                    </select>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                            <span class="error"> * </span></label>
+    
+                        <div class="col-md-6">
+                            <select class="selectid form-control" id="nameid" name="technm[]" multiple>
+                                <option></option>
+                                @foreach($technology as $row)
+                                    <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     
-                    <br/><br/>
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
@@ -67,7 +82,7 @@
                 </form>
             @else
                 
-                <form method="post" action="{{url('/')}}/adminAddAllotment"> 
+                <form method="post" action="{{url('/')}}/AddAllotment"> 
                     @csrf
 
                     Project Name <span class="error" style="margin-right:12.5%;"> * </span>

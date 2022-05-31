@@ -24,25 +24,34 @@
     <div class="card">
         <div class="card-body">
 
-            <h4 class="box-form-header"> Add Project </h4>
             <form method="post" action="{{url('/')}}/AddProject"> 
                 @csrf
                 
-                    Project Name <span class="error"> * </span>
-                    <input type='text' name='projectnm' class="input-tagspace" placeholder="Enter Project Name" />
-                    @if($errors->any())
-                        <span class="input-tagspace" style="color:red"> {{$errors->first()}}</span>
-                    @endif
-                    <br/><br/><br/>
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                        <span class="error"> * </span></label>
 
-                    Technology Name <span class="error" style="margin-right:9%;"> * </span>
-                    <select style="width: 40%;" id="nameid" name="technm[]" multiple>
-                        <option></option>
-                        @foreach($technology as $row)
-                            <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
-                        @endforeach
-                    </select>
-                <br/><br/>
+                    <div class="col-md-6">
+                        
+                        <select id="nameid" name="technm[]" class="form-control" multiple>
+                            <option></option>
+                            @foreach($technology as $row)
+                                <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                            @endforeach
+                        </select>
+                        
+                    </div>
+                </div>
+                    
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                        <span class="error"> * </span></label>
+
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control" name="projectnm" placeholder="Enter Project Name" >
+                    </div>
+                </div>
+
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
