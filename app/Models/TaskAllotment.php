@@ -13,7 +13,7 @@ class TaskAllotment extends Model
     protected $fillable=['id','user_id','project_id','title','days_txt','hours_txt','created_at','updated_at' ];
     public function project()
     {
-         return $this->belongsTo(Project::class,'project_id','id');
+        return $this->belongsTo(Project::class,'project_id','id');
     }
     
 }
