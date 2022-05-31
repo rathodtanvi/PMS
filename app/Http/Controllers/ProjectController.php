@@ -137,21 +137,14 @@ class ProjectController extends Controller
     }
     public function adminAddproject(Request $request)
     {
-        $check = Project::where("project_name","=",$request['projectnm'])->pluck('project_name')->toArray();
         
-        if(in_array($request['projectnm'],$check))
-        {
-            return redirect()->back()->withErrors(['msg' => 'This Project Name Already exist.']);
-        }
-        else
-        {
             $tech = new Project;
             $tech->project_name = $request['projectnm'];
             $tech->technology_name = implode(' , ', $request->technm);
             $tech->save();
 
             return redirect('Project');
-        }
+    
     }
 
     public function adminEditProject($id)

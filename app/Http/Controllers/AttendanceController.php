@@ -52,46 +52,55 @@ class AttendanceController extends Controller
     public function WorkHours()
     {
         $currentdate = Carbon::now('Asia/Kolkata')->format('Y-m-d');
-        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date','=',$currentdate)->latest()->get();
-        //$duration1 = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date','=',$currentdate)->first();
+        $duration = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date','=',$currentdate)->get();
         
+        $attendance = [];
         foreach($duration as $row)
         {
-            if($row['in_entry'] != Null && $row['out_entry'] != Null)
+            if($row['in_entry'] != Null)
             {
-
-                $start = str_replace(" AM",":00",$row['in_entry']);
-                $strconv = new DateTime($start);
-
-                $end = str_replace(" AM",":00",$row['out_entry']);
-                $endconv = new DateTime($end);
                 
-                $time_diff = $endconv->diff($strconv);
-                $htime[] = $time_diff->format('%H');
-                $mtime[] = $time_diff->format('%I');
-                $stime[] = $time_diff->format('%S');
+                if($row['out_entry'] != Null)
+                {
+                    $start = new DateTime(date("H:i:s", strtotime($row['in_entry'])));
+                    $end =  new DateTime(date("H:i:s", strtotime($row['out_entry'])));
+                    $interval = $start->diff($end);
+                }
+                else
+                {
+                    $start = new DateTime(date("H:i:s", strtotime($row['in_entry'])));
+                    $end =  new DateTime(date("H:i:s", strtotime(Carbon::now('Asia/Kolkata'))));
+                    $interval = $start->diff($end);
+                }
             }
-            else
-            {
-                $start = str_replace(" AM",":00",$row['in_entry']);
-                $strconv = new DateTime($start);
-                
-                $end = Carbon::now('Asia/Kolkata');
-                $endconv =  new DateTime($end);
+    
+            $attendance[] = $interval->format('%h').":".$interval->format('%i').":".$interval->format('%s');
 
-                $time_diff = $endconv->diff($strconv);
-                $htime[] = $time_diff->format('%H');
-                $mtime[] = $time_diff->format('%I');
-                $stime[] = $time_diff->format('%S');
-                
-            }
+        }
+    
+        echo $this->AddPlayTime($attendance);
         
-        } 
+    }
+
+    public function AddPlayTime($times) {
+        $seconds  = 0; //declare minutes either it gives Notice: Undefined variable
+
+        // loop throught all the times
+        foreach ($times as $time) {
+            list($hour, $minute , $second) = explode(':', $time);
+            $seconds  += $hour * 3600;
+            $seconds  += $minute * 60;
+            $seconds  += $second ;
+        }
+    
+        $hours = floor($seconds  / 3600);
+        $seconds  -= $hours * 3600;
+
+        $minutes  = floor($seconds/60);
+        $seconds -= $minutes * 60;
         
-        $h_sum = array_sum($htime);
-        $m_sum = array_sum($mtime);
-        $s_sum = array_sum($stime);
+        // returns the time already formatted
+        return json_encode(sprintf('%02d:%02d:%02d', $hours, $minutes , $seconds)); 
         
-        return response()->json($h_sum.":".$m_sum.":".$s_sum);
     }
 }

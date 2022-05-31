@@ -8,6 +8,11 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+.select2-selection__arrow
+{
+  display:none;
+}
+
 .btn-inentry[disabled]
 {
     cursor: not-allowed;

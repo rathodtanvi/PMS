@@ -91,7 +91,7 @@ class ProjectAllotmentController extends Controller
     {
         if ($request->ajax()) 
         {
-            if(Auth::user()->roles_id == 1)
+            if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
             {
                 $data = ProjectAllotment::with('user')->get();
             
@@ -125,11 +125,12 @@ class ProjectAllotmentController extends Controller
         $nm = $_GET['name'];
         $technology = Project::where('project_name','=',$nm)->get();
         $getdata = explode(",",$technology[0]->technology_name);
-        $count = str_word_count($technology[0]->technology_name);
-        
+    
+        $str = str_replace(" ","",$technology[0]->technology_name);
+        $count = str_word_count($str);
+    
         for($i=0; $i< $count; $i++)
         {
-            
             $data[] = $getdata[$i];
         }
         return response()->json($data);
@@ -163,7 +164,6 @@ class ProjectAllotmentController extends Controller
             $tech->save();
         }
         
-
         return redirect('ProjectAllotment');
     }
 
