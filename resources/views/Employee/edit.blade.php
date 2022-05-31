@@ -17,7 +17,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Edit Employee </h5>
+          
 
               <!-- General Form Elements -->
               <form method="POST" action="{{route('update',$datas->id)}}">
