@@ -39,7 +39,7 @@
                    </div>
                </div> 
               @endif
-                @if(Auth::user()->roles_id !=3)
+                @if(Auth::user()->roles_id ==2)
                  <div class="col-4">
                         <label class="col-form-label">Employee Name</label>
                         <div> 
