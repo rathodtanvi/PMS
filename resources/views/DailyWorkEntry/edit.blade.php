@@ -30,7 +30,7 @@
                         <label class="col-form-label">Project Name</label>
                         <div> 
                         <select class="form-select" aria-label="Default select example" name="project_id">
-                        <option selected>---select---</option>
+                        <option disabled selected value>---select---</option>
                         <option value="1">Training</option>
                       </select>
                     </div>

@@ -13,7 +13,7 @@
     </div><!-- End Page Title -->
     <section class="section">
       <div class="row">
-        <div class="col-lg-12 p-5">
+        <div class="col-lg-12 p-2">
 
           <div class="card">
             <div class="card-body">

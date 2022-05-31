@@ -26,7 +26,20 @@
               <form method="post" action="{{route('enter_task')}}">
                 @csrf
               <div class="row mb-3">
-                @if(Auth::user()->roles_id !=3)
+                @if(Auth::user()->roles_id == 1)
+                <div class="col-4">
+                       <label class="col-form-label">Employee Name</label>
+                       <div> 
+                       <select class="form-select" aria-label="Default select example" name="emp_name">
+                       <option  disabled selected value>---select---</option>
+                        @foreach ($emp as $em)
+                       <option value="{{$em->id }}"> {{$em->name}}</option>
+                       @endforeach
+                     </select>
+                   </div>
+               </div> 
+              @endif
+                @if(Auth::user()->roles_id ==2)
                  <div class="col-4">
                         <label class="col-form-label">Employee Name</label>
                         <div> 
@@ -44,7 +57,7 @@
                   <label class="col-form-label">Project Name</label>
                   <div> 
                   <select class="form-select" aria-label="Default select example" name="project_id">
-                  <option selected>---select---</option>
+                  <option disabled selected value>---select---</option>
                   @foreach ($project as $item)
                   <option value="{{$item->id}}">{{$item->project_name}}</option>
                   @endforeach 
@@ -56,7 +69,7 @@
                 <label class="col-form-label">Project Name</label>
                 <div> 
                 <select class="form-select" aria-label="Default select example" name="project_id">
-                <option selected>---select---</option>
+                <option disabled selected value>---select---</option>
                 @foreach ($allproject as $item)
                 <option value="{{$item->id}}">{{$item->project_name}}</option>
                 @endforeach 
