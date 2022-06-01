@@ -11,4 +11,7 @@ class Technology extends Model
     protected $table = "technology";
     protected $primarykey = "id";
 
+    public function project(){
+        return $this->hasMany(Project::class);
+    }
 }

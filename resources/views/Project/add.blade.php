@@ -28,27 +28,36 @@
                 @csrf
                 
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                    <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
                         <span class="error"> * </span></label>
 
                     <div class="col-md-6">
                         
-                        <select id="nameid" name="technm[]" class="form-control" multiple>
+                        <select id="nameid" name="technology_name[]" class="form-control @error('technology_name') is-invalid @enderror" value="{{ old('technology_name') }}" multiple>
                             <option></option>
                             @foreach($technology as $row)
-                                <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                                <option value="{{$row->id}}">{{$row->technology_name}}</option>
                             @endforeach
                         </select>
-                        
+                        @error('technology_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                     
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                    <label for="project_name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
                         <span class="error"> * </span></label>
 
                     <div class="col-md-6">
-                        <input id="name" type="text" class="form-control" name="projectnm" placeholder="Enter Project Name" >
+                        <input id="project_name" type="text" class="form-control @error('project_name') is-invalid @enderror" value="{{ old('project_name') }}" name="project_name" placeholder="Enter Project Name" >
+                        @error('project_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
 

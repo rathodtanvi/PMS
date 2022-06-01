@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Technology;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\TechnologyRequest;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
@@ -96,22 +97,15 @@ class TechnologyController extends Controller
         }
     }
 
-    public function addTechnology(Request $request)
+    public function addTechnology(TechnologyRequest $request)
     {
-        $check = Technology::where("technology_name","=",$request['technm'])->pluck('technology_name')->toArray();
         
-        if(in_array($request['technm'],$check))
-        {
-            return redirect()->back()->withErrors(['msg' => 'This Technology Already exist.']);
-        }
-        else
-        {
-            $tech = new Technology;
-            $tech->technology_name = $request['technm'];
-            $tech->save();
+        $tech = new Technology;
+        $tech->technology_name = $request->technology_name;
+        $tech->save();
 
-            return redirect('Technology');
-        }
+        return redirect('Technology');
+        
     }
     public function editTechnology($id)
     {
@@ -120,10 +114,10 @@ class TechnologyController extends Controller
         return view("Technology.edit",compact('edits'));
     }
 
-    public function UpdateTechnology(Request $request,$id)
+    public function UpdateTechnology(TechnologyRequest $request,$id)
     {
         $update = Technology::find($id);
-        $update->technology_name = $request->input('technm');
+        $update->technology_name = $request->technology_name;
         
         $update->update();
         return redirect('Technology');

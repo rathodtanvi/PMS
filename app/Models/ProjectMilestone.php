@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class ProjectMilestone extends Model
 {
     use HasFactory;
-    protected $table = "project";
+    protected $table = "project_milestone";
     protected $primarykey = "id";
-
-    public function technology(){
-        return $this->belongsTo(Technology::class, 'technology_id'); 
-        
-    }
 }
