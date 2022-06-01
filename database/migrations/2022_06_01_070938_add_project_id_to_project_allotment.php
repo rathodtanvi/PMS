@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('project', function (Blueprint $table) {
-            $table->id();   
-            $table->string('project_name');
-            $table->string('complete_project')->nullable();
-            $table->timestamps();
+        Schema::table('project_allotment', function (Blueprint $table) {
+            $table->foreignId('project_id')->after('user_id');
+            $table->string('technology_id')->after('project_id');
+            $table->dropColumn('project_name');
+            $table->dropColumn('technology_name');
         });
     }
 
@@ -28,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project');
+        Schema::table('project_allotment', function (Blueprint $table) {
+         
+        });
     }
 };

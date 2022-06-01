@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectAllotment;
 use App\Models\TaskAllotment;
-use App\Models\Project  ;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,9 +40,9 @@ class TaskAllotmentController extends Controller
       $task->days_txt = $request->days_txt; 
       $task->hours_txt = $request->hours_txt; 
       $task->description=$request->description;
-      $task->save();
-      return redirect('task_allotment');
-    }
+      $task->save();                                                                       
+      return redirect('task_allotment');                           
+    }            
     public function task_allotment()
     {
         return view('TaskAllotment.index');
@@ -50,7 +50,7 @@ class TaskAllotmentController extends Controller
     public function task_allotment_list(Request $request)
     {
       if ($request->ajax()) {
-        if(Auth::id() != 3)
+        if(Auth::user()->roles_id != 3)
         {
           $data=TaskAllotment::all();
           return DataTables::of($data)
@@ -69,12 +69,31 @@ class TaskAllotmentController extends Controller
                   ->addColumn('employeename',function(TaskAllotment $emp){
                     return $emp->user->name;
                 })
+                ->addColumn('days_txt',function(TaskAllotment $days){
+                  if($days->hours_txt == '')
+                  {
+                    return $days->days_txt;
+                  }
+                  else
+                  {
+                     $data=$days->hours_txt/8;
+                    return round($data,2);
+                  }
+                 })
+                 ->addColumn('hours_txt',function(TaskAllotment $hours){
+                  if($hours->hours_txt == '')
+                  {
+                    return  $hours->days_txt*8;
+                  }
+                  else{
+                    return $hours->hours_txt;
+                  }
+              })
                   ->rawColumns(['action'])
                   ->make(true);
         }
         else{
 
-       
         $data=TaskAllotment::where('user_id',Auth::id())->get();
         return DataTables::of($data)
                 ->addIndexColumn()
@@ -89,9 +108,48 @@ class TaskAllotmentController extends Controller
                 ->addColumn('project_id',function(TaskAllotment $project_id){
                     return $project_id->project->project_name;
                 })
+                ->addColumn('days_txt',function(TaskAllotment $days){
+                  if($days->hours_txt == '')
+                  {
+                    return $days->days_txt;
+                  }
+                  else
+                  {
+                     $data=$days->hours_txt/8;
+                     return round($data,2);
+                  }
+                 })
+                 ->addColumn('hours_txt',function(TaskAllotment $hours){
+                  if($hours->hours_txt == '')
+                  {
+                    return  $hours->days_txt*8;
+                  }
+                  else{
+                    return $hours->hours_txt;
+                  }
+              })
                 ->rawColumns(['action'])
                 ->make(true);
+        }
+      }
     }
-  }
+
+    public function taskdelete($id)
+    {
+       TaskAllotment::find($id)->delete();
+       return redirect()->back();
     }
+    public function taskedit(Request $request,$id)
+    {
+        
+    }
+    
+     public function empname(Request $request)
+     {
+        $project_allotment=ProjectAllotment::where('id',$request->project_id)->pluck('user_id');
+        dd($project_allotment);
+       
+         
+     }
+    
 }

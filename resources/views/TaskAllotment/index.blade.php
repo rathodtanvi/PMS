@@ -32,10 +32,10 @@
                   <thead>
                     <tr>
                         <th>No</th>
-                        @if (Auth :: id() != 3)
+                        @if (Auth::user()->roles_id != 3)
                         <th>Employee Name</th>
                         @endif
-                        <th>ProjectName</th>
+                        <th>Project Name</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Estimate Days</th>
@@ -57,7 +57,7 @@
 
   </main>
 </body>
-@if (Auth::id() != 3)
+@if (Auth::user()->roles_id != 3)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 <link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

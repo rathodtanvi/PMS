@@ -19,6 +19,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'project_name', name: 'project_name'},
                 {data: 'technology.technology_name', name: 'technology.technology_name'},
+                {data: 'teamleader', name: 'teamleader'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
             ]
         });
@@ -84,6 +85,7 @@
                         <th>No</th>
                         <th>Project Name</th>
                         <th>Technology Name</th>
+                        <th>Team Leader</th>
                         <th>Manage</th>
                     </tr>
                 </thead>

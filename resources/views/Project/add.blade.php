@@ -60,6 +60,20 @@
                         @enderror
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">TeamLeader Name</label>
+                    <div class="col-md-6">
+                        
+                        <select class="form-select" aria-label="Default select example" name="tl_name">
+                            <option  disabled selected value>---select---</option>
+                             @foreach ($tls as $tl)
+                            <option value="{{$tl->id}}"> {{$tl->name}}</option>
+                            @endforeach
+                          </select>
+                    </div>
+                </div>
+
+              
 
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">

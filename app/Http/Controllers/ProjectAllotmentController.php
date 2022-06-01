@@ -83,18 +83,16 @@ class ProjectAllotmentController extends Controller
         {
             $tech = new ProjectAllotment;
             $tech->user_id = $request['unm'];
-            $tech->project_name = $request['projectnm'];
-            $tech->technology_name = implode(' , ',$request->technm );
-            
+            $tech->project_id = $request['project_id'];
+            $tech->technology_id = implode(' , ',$request->technology_id );
             $tech->save();
         }
         else
         {
             $tech = new ProjectAllotment;
             $tech->user_id = Auth::user()->id;
-            $tech->project_name = $request['projectnm'];
-            $tech->technology_name = implode(' , ',$request->technm );
-            
+            $tech->project_id = $request['project_id'];
+            $tech->technology_id = implode(' , ',$request->technology_id );
             $tech->save();
         }
         

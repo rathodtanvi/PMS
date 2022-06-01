@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use App\Http\Requests\ProjectRequest;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\User;
 
 class ProjectController extends Controller
 {
@@ -38,6 +39,9 @@ class ProjectController extends Controller
                     }
                     return $actionBtn;
                 })
+                ->addColumn('teamleader',function(Project $emp){
+                    return $emp->user->name;
+                })
                 ->rawColumns(['action'])
                 ->rawColumns(['action', 'checkbox'])
                 ->make(true);
@@ -47,14 +51,16 @@ class ProjectController extends Controller
     public function adminInsertProject()
     {
         $technology = Technology::get();
-        return view('Project.add',compact('technology'));
+        $tls=User::where('roles_id','2')->get();
+        return view('Project.add',compact('technology','tls'));
     }
     public function adminAddproject(ProjectRequest $request)
     {
         
             $tech = new Project;
-            $tech->technology_id = implode(",",$request->technology_name);
+            $tech->technology_id= implode(' , ', $request->technology_name);
             $tech->project_name = $request->project_name;
+            $tech->user_id=$request->tl_name;
             
             $tech->save();
 
@@ -64,11 +70,10 @@ class ProjectController extends Controller
 
     public function adminEditProject($id)
     {
+        $tls=User::where('roles_id','2')->get();
         $technology = Technology::get();
         $edits = Project::find($id);
-        
-        return view("Project.edit",compact('edits','technology'));
-        
+        return view("Project.edit",compact('edits','technology','tls'));   
     }
 
     public function adminUpdate(ProjectRequest $request,$id)
@@ -76,7 +81,8 @@ class ProjectController extends Controller
         $update = Project::find($id);
         $update->technology_id = implode(",",$request->technology_name);
         $update->project_name = $request->project_name;
-        
+        $update->user_id=$request->tl_name;
+
         $update->update();
         return redirect('Project');
     }

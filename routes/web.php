@@ -86,8 +86,9 @@ Route::get('/add_task', [TaskAllotmentController::class, 'add_task'])->name('add
 Route::post('/enter_task', [TaskAllotmentController::class, 'enter_task'])->name('enter_task');
 Route::get('/task_allotment', [TaskAllotmentController::class, 'task_allotment'])->name('task_allotment');
 Route::get('/task_allotment_list', [TaskAllotmentController::class, 'task_allotment_list'])->name('task_allotment_list');
-Route::get('/taskedit/{id}', [DailyWorkEntryController::class, 'taskedit'])->name('taskedit');
-Route::get('/taskdelete/{id}', [DailyWorkEntryController::class, 'taskdelete'])->name('taskdelete');
+Route::get('/taskedit/{id}', [TaskAllotmentController::class, 'taskedit'])->name('taskedit');
+Route::get('/taskdelete/{id}', [TaskAllotmentController::class, 'taskdelete'])->name('taskdelete');
+Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
 
 // Project Milestones 
 Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
