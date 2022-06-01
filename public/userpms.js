@@ -85,13 +85,35 @@ $(document).ready(function(){
         if($(this).val()=="hours")
         {
             $("#days").hide(); 
+          
            $("#hours").show();
         }
         if($(this).val()=="days")
         {
             $("#hours").hide(); 
+        
             $("#days").show();
         }
        
       });
+
+      $('select.projectname').change(function(){
+         project_id=$(this).val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },  
+                type: "post",
+                url: "empname",
+                data: {
+                    'project_id':project_id,
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
+                dataType:"json",
+                success: function (response) {
+                    
+                }
+            });
+      });
+
 });

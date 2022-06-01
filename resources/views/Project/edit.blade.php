@@ -55,7 +55,22 @@
                         </select>
                     </div>
                 </div>
-
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label ">TeamLeader Name</label>
+                    <div class="col-md-6">
+                        
+                        <select class="form-select" aria-label="Default select example" name="tl_name">
+                            <option  disabled selected value>---select---</option>
+                             @foreach ($tls as $tl)
+                             @if ($edits->user_id == $tl->id)
+                            <option value="{{$tl->id}}" selected> {{$tl->name}}</option>
+                            @else
+                            <option value="{{$tl->id}}"> {{$tl->name}}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                    </div>
+                </div>
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" name="submit" class="btn btn-primary"> Submit </button>

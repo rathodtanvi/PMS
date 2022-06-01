@@ -51,10 +51,10 @@
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control" name="projectnm" >
+                            <select class="selectid form-control" name="project_id" >
                                 <option></option>
                                 @foreach($projects as $project)
-                                    <option value="{{$project->project_name}}">{{$project->project_name}}</option>
+                                    <option value="{{$project->id}}">{{$project->project_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -65,10 +65,10 @@
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control" id="nameid" name="technm[]" multiple>
+                            <select class="selectid form-control" id="nameid" name="technology_id[]" multiple>
                                 <option></option>
                                 @foreach($technology as $row)
-                                    <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                                    <option value="{{$row->id}}">{{$row->technology_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -86,22 +86,21 @@
                     @csrf
 
                     Project Name <span class="error" style="margin-right:12.5%;"> * </span>
-                    <select style="width: 40%;" class="selectid" name="projectnm" >
+                    <select style="width: 40%;" class="selectid" name="project_id" >
                         <option></option>
                         @foreach($projects as $project)
-                            <option value="{{$project->project_name}}">{{$project->project_name}}</option>
+                            <option value="{{$project->id}}">{{$project->project_name}}</option>
                         @endforeach
                     </select>
                     <br/><br/>
                     
                     Technology Name <span class="error" style="margin-right:9%;"> * </span>
-                    <select style="width: 40%;" class="selectid" id="nameid" name="technm[]" multiple>
+                    <select style="width: 40%;" class="selectid" id="nameid" name="technology_id[]" multiple>
                         <option></option>
                         @foreach($technology as $row)
-                            <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                            <option value="{{$row->id}}">{{$row->technology_name}}</option>
                         @endforeach
                     </select>
-                    
                     <br/><br/>
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4">

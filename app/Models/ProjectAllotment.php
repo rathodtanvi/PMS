@@ -15,4 +15,8 @@ class ProjectAllotment extends Model
         return $this->belongsTo(User::class, 'user_id'); 
         
     }
+    public function project(){
+        return $this->belongsTo(Project::class, 'id'); 
+        
+    }
 }
