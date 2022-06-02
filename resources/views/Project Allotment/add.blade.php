@@ -30,12 +30,12 @@
                 
 
                     <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label ">{{ __('Employee Name') }}
+                        <label for="unm" class="col-md-4 col-form-label ">{{ __('Employee Name') }}
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
                             
-                            <select class="selectid form-control" name="unm" style="height:35px;">
+                            <select class="selectid form-control @error('unm') is-invalid @enderror" name="unm" >
                                 <option></option>
                                 @foreach ($users as $user)
                                     @if ($user->roles_id != 1)
@@ -44,34 +44,43 @@
                                     
                                 @endforeach
                             </select>
+                            @error('unm')
+                                <span style="color:red"> {{$message }} </span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                        <label for="projectnm" class="col-md-4 col-form-label ">{{ __('Project Name') }}
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control " name="projectnm" >
+                            <select class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
                                 <option></option>
                                 @foreach($projects as $project)
                                     <option value="{{$project->id}}">{{$project->project_name}}</option>
                                 @endforeach
                             </select>
+                            @error('projectnm')
+                                <span style="color:red"> {{$message }} </span>
+                            @enderror
                         </div>
                     </div>
                     
                     <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                        <label for="technology_id" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control" id="nameid" name="technology_id[]" multiple>
+                            <select class="selectid form-control @error('technology_id') is-invalid @enderror" id="nameid" name="technology_id[]" multiple>
                                 <option></option>
                                 @foreach($technology as $row)
                                     <option value="{{$row->id}}">{{$row->technology_name}}</option>
                                 @endforeach
                             </select>
+                            @error('technology_id')
+                                <span style="color:red"> {{$message }} </span>
+                            @enderror
                         </div>
                     </div>
                                         
@@ -82,12 +91,15 @@
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid selectheight form-control " name="projectnm" >
+                            <select class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
                                 <option></option>
                                 @foreach($projects as $project)
                                     <option value="{{$project->id}}">{{$project->project_name}}</option>
                                 @endforeach
                             </select>
+                            @error('projectnm')
+                                <span style="color:red"> {{$message }} </span>
+                            @enderror
                         </div>
                     </div>
                     
@@ -96,12 +108,15 @@
                             <span class="error"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control" id="nameid" name="technm[]" multiple>
+                            <select class="selectid form-control @error('technology_id') is-invalid @enderror" id="nameid" name="technology_id[]" multiple>
                                 <option></option>
                                 @foreach($technology as $row)
                                     <option value="{{$row->id}}">{{$row->technology_name}}</option>
                                 @endforeach
                             </select>
+                            @error('technology_id')
+                                <span style="color:red"> {{$message }} </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -139,7 +154,7 @@
                         $('select[id="nameid"]').empty();
                         $.each(res,function(Index,value)
                         {
-                            $('select[id="nameid"]').append("<option>"+value+"</option>");
+                            $('select[id="nameid"]').append("<option value='"+ value.id +"'>"+value.technology_name+"</option>");
                         });
                     }
                 });

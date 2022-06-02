@@ -11,7 +11,7 @@ use App\Models\User;
 
 class ProjectController extends Controller
 {
-    
+
     public function adminProject()
     {
         return view('Project.index');
@@ -29,7 +29,7 @@ class ProjectController extends Controller
                     return '<input type="checkbox" class="checkbox" value="'.$item->id.'" name="chk[]" onclick="checkboxchecked(this)" />';
                 })
                 ->addColumn('action', function($row){
-                    if($row->complete_project == "Complete")
+                    if($row->status == 1)
                     {
                         $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
                     }
@@ -39,15 +39,26 @@ class ProjectController extends Controller
                     }
                     return $actionBtn;
                 })
+                ->addColumn('technology_id', function ($tid) {
+                    $arr = explode(",",$tid->technology_id);
+                    $data = Technology::whereIn('id',$arr)->get();
+                    
+                    foreach($data as $row)
+                    {
+                        $tdata[] = $row->technology_name;
+                    } 
+                    return $tdata;                    
+                })
+
                 ->addColumn('teamleader',function(Project $emp){
-                    if($emp->user_id == '')
+                    if($emp->user_id == 0)
                     {
                         return '';
                     }
-                    else{
+                    else
+                    {
                         return $emp->user->name;
                     }
-                  
                 })
                 ->rawColumns(['action'])
                 ->rawColumns(['action', 'checkbox'])
@@ -67,8 +78,9 @@ class ProjectController extends Controller
             $tech = new Project;
             $tech->technology_id= implode(' , ', $request->technology_name);
             $tech->project_name = $request->project_name;
-            $tech->user_id=$request->tl_name;
-            
+            $tech->user_id = $request->tl_name;
+            $tech->status = 0;
+
             $tech->save();
 
             return redirect('Project');
@@ -89,7 +101,7 @@ class ProjectController extends Controller
         $update->technology_id = implode(",",$request->technology_name);
         $update->project_name = $request->project_name;
         $update->user_id=$request->tl_name;
-
+        
         $update->update();
         return redirect('Project');
     }
@@ -105,7 +117,7 @@ class ProjectController extends Controller
         $getid = $_GET['id'];
 
         $update = Project::find($getid);
-        $update->complete_project = "Complete";
+        $update->status = 1;
         $update->update();
 
         return redirect('Project');

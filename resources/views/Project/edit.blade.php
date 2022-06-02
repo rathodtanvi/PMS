@@ -64,8 +64,8 @@
                     <label for="name" class="col-md-4 col-form-label ">TeamLeader Name</label>
                     <div class="col-md-6">
                         
-                        <select class="form-select" aria-label="Default select example" name="tl_name">
-                            <option  disabled selected value>---select---</option>
+                        <select id="selecttl" class="form-control" aria-label="Default select example" name="tl_name">
+                            <option></option>
                             @foreach ($tls as $tl)
                             @if ($edits->user_id == $tl->id)
                             <option value="{{$tl->id}}" selected> {{$tl->name}}</option>
@@ -90,6 +90,10 @@
 
     $("#nameid").select2({
         placeholder: "Select a Technology",
+        allowClear: true
+    });
+    $("#selecttl").select2({
+        placeholder: "Select a TeamLeader Name",
         allowClear: true
     });
 </script>

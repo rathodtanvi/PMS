@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectAllotmentRequest extends FormRequest
 {
@@ -23,18 +24,39 @@ class ProjectAllotmentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'unm' => ['required'],
-            'projectnm' => ['required'],
-            'technm' => ['required'],
-        ];
+        if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
+        {
+            return [
+                'unm' => ['required'],
+                'projectnm' => ['required'],
+                'technology_id' => ['required'],
+            ];
+        }
+        else
+        {
+            return [
+                'projectnm' => ['required'],
+                'technology_id' => ['required'],
+            ];
+        }
+        
     }
     public function messages()
     {
-        return [
-            'unm.required' => 'Employee Name is Required!',
-            'projectnm.required' => 'Project Name is Required!',
-            'technm.required' => 'Technology Name is Required!',
-        ];
+        if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
+        {
+            return [
+                'unm.required' => 'Employee Name is Required!',
+                'projectnm.required' => 'Project Name is Required!',
+                'technology_id.required' => 'Technology Name is Required!',
+            ];
+        }
+        else
+        {
+            return [
+                'projectnm.required' => 'Project Name is Required!',
+                'technology_id.required' => 'Technology Name is Required!',
+            ];
+        }
     }
 }

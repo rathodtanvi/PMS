@@ -25,7 +25,7 @@ class ProjectAllotmentController extends Controller
         {
             if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
             {
-                $data = ProjectAllotment::with('user')->get();
+                $data = ProjectAllotment::with('project')->with('user')->get();
             
                 return Datatables::of($data)
                 ->addIndexColumn()
@@ -33,18 +33,39 @@ class ProjectAllotmentController extends Controller
                     $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
+                ->addColumn('technology_id', function ($tid) {
+                    $arr = explode(",",$tid->technology_id);
+                    $data = Technology::whereIn('id',$arr)->get();
+                    
+                    foreach($data as $row)
+                    {
+                        $tdata[] = $row->technology_name;
+                    } 
+                    return $tdata;                    
+                })
                 ->rawColumns(['action'])
                 ->make(true);
             }
             else
             {
-                $data = ProjectAllotment::with('user')->where("user_id",'=',Auth::user()->id)->get();
+                $data = ProjectAllotment::with('project')->with('user')->where("user_id",'=',Auth::user()->id)->get();
             
                 return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
+                })
+                ->addColumn('technology_id', function ($tid) {
+                    $arr = explode(",",$tid->technology_id);
+                    $data = Technology::whereIn('id',$arr)->get();
+                    
+                    foreach($data as $row)
+                    {
+                        $tdata[] = $row->technology_name;
+                        
+                    } 
+                    return $tdata;                    
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -55,17 +76,11 @@ class ProjectAllotmentController extends Controller
     public function admingetPTechnology()
     {
         $nm = $_GET['name'];
-        $technology = Project::where('project_name','=',$nm)->get();
-        $getdata = explode(",",$technology[0]->technology_name);
-    
-        $str = str_replace(" ","",$technology[0]->technology_name);
-        $count = str_word_count($str);
-    
-        for($i=0; $i< $count; $i++)
-        {
-            $data[] = $getdata[$i];
-        }
-        return response()->json($data);
+        $technology = Project::find($nm);
+        $tech = explode(',',$technology->technology_id);
+        $data = Technology::whereIn('id',$tech)->get();
+        
+        return json_encode($data);
     }
 
     public function adminInsertPAllotment()
@@ -73,27 +88,32 @@ class ProjectAllotmentController extends Controller
         $users = User::get();
         $technology = Technology::get();
         $projects = Project::get();
-
+        
         return view('Project Allotment.add',compact('users','projects','technology'));
     }
 
-    public function adminAddPAllotment(Request $request)
+    public function adminAddPAllotment(ProjectAllotmentRequest $request)
     {
         if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
         {
+            
             $tech = new ProjectAllotment;
             $tech->user_id = $request['unm'];
-            $tech->project_id = $request['project_id'];
-            $tech->technology_id = implode(' , ',$request->technology_id );
+            $tech->project_id = $request['projectnm'];
+            $tech->technology_id = implode(',',$request->technology_id );
             $tech->save();
+            
         }
         else
         {
+            
             $tech = new ProjectAllotment;
             $tech->user_id = Auth::user()->id;
-            $tech->project_id = $request['project_id'];
-            $tech->technology_id = implode(' , ',$request->technology_id );
+            $tech->project_id = $request['projectnm'];
+            $tech->technology_id = implode(',',$request->technology_id );
+            
             $tech->save();
+            
         }
         
         return redirect('ProjectAllotment');
