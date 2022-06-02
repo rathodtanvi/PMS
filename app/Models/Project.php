@@ -21,4 +21,9 @@ class Project extends Model
         return $this->belongsTo(User::class, 'user_id'); 
         
     }
+
+    public function projectallotment()
+    {
+        return $this->hasMany(ProjectAllotment::class,'project_id');
+    }
 }

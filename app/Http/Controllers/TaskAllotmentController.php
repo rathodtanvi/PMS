@@ -14,11 +14,15 @@ class TaskAllotmentController extends Controller
 {
     public function add_task()
     {
-        $employee=User::where('roles_id','!=','1')->where('roles_id','!=','2')->get();
-        $emp=User::where('roles_id','!=','1')->get();
-        $project=ProjectAllotment::where('user_id',Auth::id())->get();   
+        //$employee=User::where('roles_id','!=','1')->where('roles_id','!=','2')->get();
+       // $emp=User::where('roles_id','!=','1')->get();
+        $project=Project::pluck('id');
+        $projectAllotment=ProjectAllotment::pluck('project_id');
+       
+        $project=ProjectAllotment::where('user_id',Auth::id())->get();
+        $pros=Project::where('user_id',Auth::id())->get(); 
         $allproject=Project::all();
-        return view('TaskAllotment.add',compact('project','employee','allproject','emp'));
+        return view('TaskAllotment.add',compact('project','allproject','pros'));
     }
     public function enter_task(Request $request)
     {
@@ -56,8 +60,15 @@ class TaskAllotmentController extends Controller
           return DataTables::of($data)
                   ->addIndexColumn()
                   ->addColumn('action', function($row){
-                          $btn = '<a href="'.route('taskedit',$row->id).'"  class=" edit btn btn-primary btn-sm m-1">Edit</a>';
-                          $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
+                         if($row->status == 1)
+                         {
+                          $btn = '<a class="fa fa-check  btn btn-success btn-sm m-1" style="color:white"></a>';
+                         }
+                         else
+                         {
+                          $btn = '<a href="'.route('taskcomplete',$row->id).'"  class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
+                         }
+                          $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a>';
                           return $btn;
                   })
                   ->addColumn('description',function(TaskAllotment $des){
@@ -98,8 +109,15 @@ class TaskAllotmentController extends Controller
         return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                        $btn = '<a href="'.route('taskedit',$row->id).'"  class=" edit btn btn-primary btn-sm m-1">Edit</a>';
-                        $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
+                  if($row->status == 1)
+                  {
+                   $btn = '<a class="fa fa-check  btn btn-success btn-sm m-1" style="color:white"></a>';
+                  }
+                  else
+                  {
+                   $btn = '<a href="'.route('taskcomplete',$row->id).'"  class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
+                  }
+                        $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a>';
                         return $btn;
                 })
                 ->addColumn('description',function(TaskAllotment $des){
@@ -142,9 +160,12 @@ class TaskAllotmentController extends Controller
        TaskAllotment::find($id)->delete();
        return redirect()->back();
     }
-    public function taskedit(Request $request,$id)
+    public function taskcomplete(Request $request,$id)
     {
-        
+      $user = TaskAllotment::find($id);
+      $user->status=1;
+      $user->save();
+      return redirect('task_allotment');
     }
 
      public function empname(Request $request)

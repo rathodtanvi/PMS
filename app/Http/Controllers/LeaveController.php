@@ -163,7 +163,7 @@ class LeaveController extends Controller
       $user = Leave::find($id);
       $user->leave_status=1;
         $user->save();
-        return redirect('leave')->with('status', 'Approved Leave!');;
+        return redirect('leave')->with('status', 'Approved Leave!');
     }
     public function all_leaveview($id)
     {

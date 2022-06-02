@@ -26,8 +26,8 @@
               <form method="post" action="{{route('enter_task')}}">
                 @csrf
               <div class="row mb-3">
-             
-               @if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
+          
+               @if( Auth::user()->roles_id == 3)
                 <div class="col-4">
                   <label class="col-form-label">Project Name</label>
                   <div> 
@@ -39,6 +39,23 @@
                 </select>
               </div>
             </div>
+            @elseif(Auth::user()->roles_id == 2)
+            <div class="col-4">
+              <label class="col-form-label">Project Name</label>
+              <div> 
+              <select class="form-select project_tl" aria-label="Default select example" name="project_id">
+              <option disabled selected value>---select---</option>
+              @foreach ($project as $item)
+              <option value="{{$item->id}}">{{$item->project->project_name}}</option>
+              @endforeach 
+              @foreach ($pros as $item)
+                  
+                 <option value="{{$item->id}}">{{$item->project_name}}</option>
+             
+              @endforeach 
+            </select>
+             </div>
+           </div>
                @else
                <div class="col-4">
                 <label class="col-form-label">Project Name</label>

@@ -24,7 +24,14 @@ class LeaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_start' => ['required'],
+            'leave_type' => ['leave_type'],
+            'half_leave_type' => ['half_leave_type'],
+            'subject'=>['subject'],
+            'date_start'=>['date_start'],
+            'date_end'=>['date_end'],
+            'leave_status'=>['leave_status'],
+            'message'=>['message'],
+            'approve'=>['approve'],
         ];
     }
     public function messages()
