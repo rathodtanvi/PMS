@@ -12,7 +12,7 @@
             "sScrollX": "300%",
             "bScrollCollapse": true,
             "bAutoWidth": false,
-              responsive: true,
+            responsive: true,
             ajax: "{{ route('ProjectAllotment.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},

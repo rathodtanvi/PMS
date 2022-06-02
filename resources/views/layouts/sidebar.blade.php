@@ -32,7 +32,7 @@
     </li>
 	@if (Auth::user()->roles_id == 1)
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="#">
+        <a class="nav-link collapsed"  href="{{url('ProjectMilestones')}}">
         <i class="fa fa-road"></i><span> Project Milestones </span>
         </a>    
     </li>

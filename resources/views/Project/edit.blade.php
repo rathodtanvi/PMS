@@ -28,47 +28,52 @@
                 @csrf
                 
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
-                        <span class="error"> * </span></label>
-
-                    <div class="col-md-6">
-                        
-                        <input type='text' name='projectnm' value="{{$edits->project_name}}" class="form-control" placeholder="Enter Project Name" />
-                    </div>
-                </div>
-                    
-                <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                    <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
                         <span class="error"> * </span></label>
 
                     <div class="col-md-6">
 
-                        <select class="form-control" id="nameid" name="technm[]" multiple>
+                        <select class="form-control @error('technology_name') is-invalid @enderror" value="{{ old('technology_name') }}" id="nameid" name="technology_name[]" multiple>
                             @foreach($technology as $row)
-                                @if ($edits->technology_name == $row->technology_name)
-                                <option value="{{$row->technology_name}}" selected>{{$row->technology_name}}</option>
+                                @if ($edits->technology_id == $row->id)
+                                <option value="{{$row->id}}" selected>{{$row->technology_name}}</option>
                                 @else
-                                    <option value="{{$row->technology_name}}">{{$row->technology_name}}</option>
+                                    <option value="{{$row->id}}">{{$row->technology_name}}</option>
                                 @endif
                                 
                             @endforeach
                         </select>
                     </div>
                 </div>
+
+                <div class="row mb-3">
+                    <label for="project_name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                        <span class="error"> * </span></label>
+
+                    <div class="col-md-6">
+                        <input id="project_name" type='text' name='project_name' value="{{$edits->project_name}}" class="form-control @error('project_name') is-invalid @enderror" placeholder="Enter Project Name" />
+                        @error('project_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label ">TeamLeader Name</label>
                     <div class="col-md-6">
                         
                         <select class="form-select" aria-label="Default select example" name="tl_name">
                             <option  disabled selected value>---select---</option>
-                             @foreach ($tls as $tl)
-                             @if ($edits->user_id == $tl->id)
+                            @foreach ($tls as $tl)
+                            @if ($edits->user_id == $tl->id)
                             <option value="{{$tl->id}}" selected> {{$tl->name}}</option>
                             @else
                             <option value="{{$tl->id}}"> {{$tl->name}}</option>
                             @endif
                             @endforeach
-                          </select>
+                        </select>
                     </div>
                 </div>
                 <div class="row mb-0">

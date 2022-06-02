@@ -15,6 +15,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminReportsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\TaskAllotmentController;
+use App\Http\Controllers\ProjectMilestoneController;
 use Illuminate\support\Facades\Auth;
 
 /*
@@ -90,7 +91,8 @@ Route::get('/taskdelete/{id}', [TaskAllotmentController::class, 'taskdelete'])->
 Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
 Route::post('/emptl', [TaskAllotmentController::class, 'emptl'])->name('emptl');
 
-
+// Project Milestones 
+Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
 
 
 //Reports Controller
@@ -157,9 +159,6 @@ Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
 
 Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
 Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');
-
-Route::get('AddAllotment',[ProjectAllotmentController::class,'InsertPAllotment']);
-Route::post('AddAllotment',[ProjectAllotmentController::class,'AddPAllotment']);
 
 Route::get('getprojectnm',[ProjectAllotmentController::class,'getPTechnology']); // get technology based on projectname
 

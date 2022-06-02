@@ -11,6 +11,10 @@ class Project extends Model
     use HasFactory;
     protected $table = "project";
     protected $primarykey = "id";
+
+    public function technology(){
+        return $this->belongsTo(Technology::class, 'technology_id');
+    } 
     protected $fillable=['id','project_id','user_id','technology_name','complete_project','created_at','updated_at' ];
 
     public function user(){

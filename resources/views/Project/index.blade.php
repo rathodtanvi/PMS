@@ -18,7 +18,7 @@
                 {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'project_name', name: 'project_name'},
-                {data: 'technology_name', name: 'technology_name'},
+                {data: 'technology.technology_name', name: 'technology.technology_name'},
                 {data: 'teamleader', name: 'teamleader'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
             ]

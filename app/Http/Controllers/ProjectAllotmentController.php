@@ -9,78 +9,10 @@ use App\Models\Technology;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProjectAllotmentRequest;
 
 class ProjectAllotmentController extends Controller
 {
-    /*public function dispPAllot()
-    {
-        return view('Project Allotment.index');
-    }
-
-    public function PAllotment(Request $request)
-    {
-        if ($request->ajax()) 
-        {
-
-            $data = ProjectAllotment::with('user')->where("user_id",'=',Auth::user()->id)->get();
-            
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-    }
-
-    public function getPTechnology()
-    {
-        $nm = $_GET['name'];
-        $technology = Project::where('project_name','=',$nm)->get();
-        $getdata = explode(",",$technology[0]->technology_name);
-        $count = str_word_count($technology[0]->technology_name);
-    
-        for($i=0; $i< $count; $i++)
-        {
-            
-            $data[] = $getdata[$i];
-        }
-        return response()->json($data);
-    }
-
-    public function InsertPAllotment()
-    {
-        $technology = Technology::get();
-        $projects = Project::get();
-
-        return view('Project Allotment.add',compact('projects','technology'));
-    }
-
-    public function AddPAllotment(Request $request)
-    {
-        
-        $tech = new ProjectAllotment;
-        $tech->user_id = Auth::user()->id;
-        $tech->project_name = $request['projectnm'];
-        $tech->technology_name = implode(' , ',$request->technm );
-        
-        $tech->save();
-
-        return redirect('ProjectAllotment');
-    }
-
-    public function Delete($id)
-    {
-        $delete = ProjectAllotment::find($id)->delete();
-        return redirect()->back();
-    }*/
-
-
-    /* -------------------------------- */
-    /* Admin side Technology Controller */
-
 
     public function adminPAllotment()
     {

@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('project', function (Blueprint $table) {
-            $table->id();   
-            $table->string('project_name');
-            $table->string('complete_project')->nullable();
-            $table->timestamps();
+        Schema::table('project', function (Blueprint $table) {
+            $table->integer("technology_id")->after('id');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project');
+        Schema::table('project', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -21,12 +21,17 @@
             <form method="post" action="{{ url('update-technology/'.$edits->id) }}"> 
                 @csrf
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
+                    <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
                         <span class="error"> * </span></label>
 
                     <div class="col-md-6">
 
-                        <input type='text' name='technm' class="form-control" placeholder="Enter Technology Name" value="{{$edits->technology_name}}"/>
+                        <input id="technology_name" type='text' name='technology_name' class="form-control @error('technology_name') is-invalid @enderror" placeholder="Enter Technology Name" value="{{ old('technology_name') }}" value="{{$edits->technology_name}}"/>
+                        @error('technology_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
 

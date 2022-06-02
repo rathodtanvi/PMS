@@ -55,8 +55,8 @@ class User extends Authenticatable
 
     public function attendances()
     {
-    return $this->belongsToMany(Attendance::class);
-      }
+        return $this->belongsToMany(Attendance::class);
+    }
     
     public function pallotment(){
         return $this->hasMany(ProjectAllotment::class);
