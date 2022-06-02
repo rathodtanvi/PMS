@@ -17,8 +17,8 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'user.name', name: 'user.name'},
-                {data: 'project_name', name: 'project_name'},
-                {data: 'technology_name', name: 'technology_name'},
+                {data: 'project.project_name', name: 'project.project_name'},
+                {data: 'technology_id', name: 'technology_id'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
             ]
         });

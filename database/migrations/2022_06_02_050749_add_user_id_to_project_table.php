@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('project_allotment', function (Blueprint $table) {
-            $table->foreignId('project_id')->after('user_id');
-            $table->string('technology_id')->after('project_id');
-            $table->dropColumn('project_name');
-            $table->dropColumn('technology_name');
+        Schema::table('project', function (Blueprint $table) {
+            $table->integer("user_id")->after('id');
         });
     }
 
@@ -28,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('project_allotment', function (Blueprint $table) {
-        
+        Schema::table('project', function (Blueprint $table) {
+            //
         });
     }
 };
