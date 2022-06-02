@@ -89,6 +89,7 @@ Route::get('/task_allotment_list', [TaskAllotmentController::class, 'task_allotm
 Route::get('/taskedit/{id}', [TaskAllotmentController::class, 'taskedit'])->name('taskedit');
 Route::get('/taskdelete/{id}', [TaskAllotmentController::class, 'taskdelete'])->name('taskdelete');
 Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
+Route::post('/emptl', [TaskAllotmentController::class, 'emptl'])->name('emptl');
 
 // Project Milestones 
 Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
