@@ -64,16 +64,14 @@
                     <label for="name" class="col-md-4 col-form-label ">TeamLeader Name</label>
                     <div class="col-md-6">
                         
-                        <select class="form-select" aria-label="Default select example" name="tl_name">
-                            <option  disabled selected value>---select---</option>
-                             @foreach ($tls as $tl)
-                            <option value="{{$tl->id}}"> {{$tl->name}}</option>
+                        <select id="selecttl" class="form-control" name="tl_name">
+                            <option></option>
+                            @foreach ($tls as $tl)
+                                <option value="{{$tl->id}}"> {{$tl->name}}</option>
                             @endforeach
-                          </select>
+                        </select>
                     </div>
                 </div>
-
-              
 
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
@@ -89,6 +87,10 @@
 
     $("#nameid").select2({
         placeholder: "Select a Technology",
+        allowClear: true
+    });
+    $("#selecttl").select2({
+        placeholder: "Select a TeamLeader Name",
         allowClear: true
     });
 </script>

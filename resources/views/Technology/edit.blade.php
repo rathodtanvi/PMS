@@ -26,7 +26,7 @@
 
                     <div class="col-md-6">
 
-                        <input id="technology_name" type='text' name='technology_name' class="form-control @error('technology_name') is-invalid @enderror" placeholder="Enter Technology Name" value="{{ old('technology_name') }}" value="{{$edits->technology_name}}"/>
+                        <input id="technology_name" type='text' name='technology_name' class="form-control @error('technology_name') is-invalid @enderror" placeholder="Enter Technology Name" value="{{ $edits->technology_name }}" />
                         @error('technology_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

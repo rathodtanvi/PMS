@@ -78,8 +78,9 @@ class ProjectController extends Controller
             $tech = new Project;
             $tech->technology_id= implode(' , ', $request->technology_name);
             $tech->project_name = $request->project_name;
-            $tech->user_id=$request->tl_name;
-            
+            $tech->user_id = $request->tl_name;
+            $tech->status = 0;
+
             $tech->save();
 
             return redirect('Project');
@@ -100,7 +101,7 @@ class ProjectController extends Controller
         $update->technology_id = implode(",",$request->technology_name);
         $update->project_name = $request->project_name;
         $update->user_id=$request->tl_name;
-
+        
         $update->update();
         return redirect('Project');
     }

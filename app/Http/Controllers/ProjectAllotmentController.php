@@ -80,12 +80,7 @@ class ProjectAllotmentController extends Controller
         $tech = explode(',',$technology->technology_id);
         $data = Technology::whereIn('id',$tech)->get();
         
-        foreach($data as $row)
-        {
-            $tdata[] = $row->technology_name;     
-        } 
-
-        return response()->json($tdata);
+        return json_encode($data);
     }
 
     public function adminInsertPAllotment()
@@ -93,27 +88,32 @@ class ProjectAllotmentController extends Controller
         $users = User::get();
         $technology = Technology::get();
         $projects = Project::get();
-
+        
         return view('Project Allotment.add',compact('users','projects','technology'));
     }
 
-    public function adminAddPAllotment(Request $request)
+    public function adminAddPAllotment(ProjectAllotmentRequest $request)
     {
         if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
         {
+            
             $tech = new ProjectAllotment;
             $tech->user_id = $request['unm'];
             $tech->project_id = $request['projectnm'];
             $tech->technology_id = implode(',',$request->technology_id );
             $tech->save();
+            
         }
         else
         {
+            
             $tech = new ProjectAllotment;
             $tech->user_id = Auth::user()->id;
             $tech->project_id = $request['projectnm'];
             $tech->technology_id = implode(',',$request->technology_id );
+            
             $tech->save();
+            
         }
         
         return redirect('ProjectAllotment');

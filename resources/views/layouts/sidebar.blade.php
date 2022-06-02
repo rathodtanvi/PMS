@@ -15,12 +15,12 @@
       </li> 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{url('Technology')}}">
-            <i class="bi bi-menu-button-wide"></i><span> Technology </span>
+            <i class="fa fa-bars"></i><span> Technology </span>
         </a>       
     </li> 
     <li class="nav-item">
         <a class="nav-link collapsed"  href="{{url('Project')}}">
-        <i class="bi bi-card-list"></i><span> Project </span>
+        <i class="fa fa-list-alt"></i><span> Project </span>
         </a>
     </li>
     @endif

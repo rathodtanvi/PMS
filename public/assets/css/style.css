@@ -8,11 +8,23 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+th, td {
+  text-align: left;
+  padding: 16px;
+  border: 1px solid rgba(236, 233, 233, 0.889);
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
 .select2-selection__arrow
 {
   display:none;
 }
-
+.select2-container .select2-selection--single 
+{
+  height: 35px !important;
+}
 .btn-inentry[disabled]
 {
     cursor: not-allowed;
