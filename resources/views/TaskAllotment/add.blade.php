@@ -31,10 +31,10 @@
                 <div class="col-4">
                   <label class="col-form-label">Project Name</label>
                   <div> 
-                  <select class="form-select" aria-label="Default select example" name="project_id">
+                  <select class="form-select project_tl" aria-label="Default select example" name="project_id">
                   <option disabled selected value>---select---</option>
                   @foreach ($project as $item)
-                  <option value="{{$item->id}}">{{$item->project_name}}</option>
+                  <option value="{{$item->id}}">{{$item->project->project_name}}</option>
                   @endforeach 
                 </select>
               </div>
@@ -57,11 +57,11 @@
                <div class="col-4">
                       <label class="col-form-label">Employee Name</label>
                       <div> 
-                      <select class="form-select" aria-label="Default select example" name="emp_name">
+                      <select class="form-select empname" aria-label="Default select example" name="emp_name">
                       <option  disabled selected value>---select---</option>
-                       @foreach ($emp as $em)                 
+                       {{-- @foreach ($emp as $em)                 
                         <option value="{{$em->id }}"> {{$em->name}}</option>
-                      @endforeach
+                      @endforeach --}}
                     </select>
                   </div>
               </div> 
@@ -70,11 +70,11 @@
                 <div class="col-4">
                        <label class="col-form-label">Employee Name</label>
                        <div> 
-                       <select class="form-select" aria-label="Default select example" name="emp_name">
+                       <select class="form-select emp_tl" aria-label="Default select example" name="emp_name">
                        <option  disabled selected value>---select---</option>
-                        @foreach ($employee as $emp)
+                        {{-- @foreach ($employee as $emp)
                        <option value="{{$emp->id }}{{ $emp->id == Auth::id()  ? 'selected' : '' }}"> {{$emp->name}}</option>
-                       @endforeach
+                       @endforeach --}}
                      </select>
                    </div>
                </div> 
@@ -85,8 +85,7 @@
                       <input type="text" class="form-control" name="title"  placeholder="Enter Title">
                     </div>
                   </div>
-            </div>
-          
+               </div>
            <div class="row mt-3">
                 <div class="col-4">
                   <label class="col-form-label">Select This</label>

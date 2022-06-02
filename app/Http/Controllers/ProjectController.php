@@ -38,7 +38,14 @@ class ProjectController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('teamleader',function(Project $emp){
-                    return $emp->user->name;
+                    if($emp->user_id == '')
+                    {
+                        return '';
+                    }
+                    else{
+                        return $emp->user->name;
+                    }
+                  
                 })
                 ->rawColumns(['action'])
                 ->rawColumns(['action', 'checkbox'])

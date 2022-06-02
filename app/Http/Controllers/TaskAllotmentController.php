@@ -16,7 +16,7 @@ class TaskAllotmentController extends Controller
     {
         $employee=User::where('roles_id','!=','1')->where('roles_id','!=','2')->get();
         $emp=User::where('roles_id','!=','1')->get();
-        $project=ProjectAllotment::where('user_id',Auth::id())->get();
+        $project=ProjectAllotment::where('user_id',Auth::id())->get();   
         $allproject=Project::all();
         return view('TaskAllotment.add',compact('project','employee','allproject','emp'));
     }
@@ -50,7 +50,7 @@ class TaskAllotmentController extends Controller
     public function task_allotment_list(Request $request)
     {
       if ($request->ajax()) {
-        if(Auth::user()->roles_id != 3)
+        if(Auth::user()->roles_id == 1)
         {
           $data=TaskAllotment::all();
           return DataTables::of($data)
@@ -108,6 +108,9 @@ class TaskAllotmentController extends Controller
                 ->addColumn('project_id',function(TaskAllotment $project_id){
                     return $project_id->project->project_name;
                 })
+                ->addColumn('employeename',function(TaskAllotment $emp){
+                  return $emp->user->name;
+              })
                 ->addColumn('days_txt',function(TaskAllotment $days){
                   if($days->hours_txt == '')
                   {
@@ -143,13 +146,22 @@ class TaskAllotmentController extends Controller
     {
         
     }
-    
+
      public function empname(Request $request)
      {
-        $project_allotment=ProjectAllotment::where('id',$request->project_id)->pluck('user_id');
-        dd($project_allotment);
-       
-         
+      $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
+      $data['user']=User::whereIn('id', $data['employeename'])->get();            
+      return response()->json($data);
      }
+
+     
+     public function emptl(Request $request)
+     {
+      $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
+      $data['user']=User::whereIn('id', $data['employeename'])->get();            
+      return response()->json($data);
+     }
+
+
     
 }

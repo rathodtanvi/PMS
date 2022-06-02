@@ -98,6 +98,7 @@ $(document).ready(function(){
       });
 
       $('select.projectname').change(function(){
+        $('.empname').html('');
          project_id=$(this).val();
             $.ajax({
                 headers: {
@@ -110,10 +111,35 @@ $(document).ready(function(){
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
                 dataType:"json",
-                success: function (response) {
-                    
-                }
+                success: function (result) {
+                    $('.empname').html('<option disabled selected value>---select---</option>'); 
+                    $.each(result.user,function(key,value){
+                        $('.empname').append('<option value="'+value.id+'">'+value.name+'</option>');
+                  });
+                 }
             });
       });
+        
 
+       $('select.project_tl').change(function(){
+        project_id=$(this).val();
+           $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },  
+               type: "post",
+               url: "emptl",
+               data: {
+                'project_id':project_id,
+                _token: $('meta[name="csrf-token"]').attr('content'),
+               },
+               dataType: "json",
+               success: function (result) {
+                $('.emp_tl').html('<option disabled selected value>---select---</option>'); 
+                $.each(result.user,function(key,value){
+                    $('.emp_tl').append('<option value="'+value.id+'">'+value.name+'</option>');
+              }); 
+               }
+           });
+       });
 });
