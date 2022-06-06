@@ -46,7 +46,7 @@
                <div class="col-4">
                       <label class="col-form-label">Employee Name</label>
                       <div> 
-                      <select class="form-select empname" aria-label="Default select example" name="emp_name">
+                      <select class="form-select empname" aria-label="Default select example" name="user_id">
                       <option  disabled selected value>---select---</option>
                        {{-- @foreach ($emp as $em)                 
                         <option value="{{$em->id }}"> {{$em->name}}</option>
@@ -62,7 +62,7 @@
                 <div class="col-4">
                        <label class="col-form-label">Employee Name</label>
                        <div> 
-                       <select class="form-select emp_tl" aria-label="Default select example" name="emp_name">
+                       <select class="form-select emp_tl" aria-label="Default select example" name="user_id">
                        <option  disabled selected value>---select---</option>
                         {{-- @foreach ($employee as $emp)
                        <option value="{{$emp->id }}{{ $emp->id == Auth::id()  ? 'selected' : '' }}"> {{$emp->name}}</option>

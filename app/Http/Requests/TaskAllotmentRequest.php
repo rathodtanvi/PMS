@@ -24,22 +24,22 @@ class TaskAllotmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required'],
+            //'user_id' => ['required'],
             'project_id' => ['required'],
             'title' => ['required'], 
-            'days_txt' => ['required'],
-            'hours_txt' => ['required'],
+            'days_txt' => ['required_without:hours_txt'],
+            'hours_txt' => ['required_without:days_txt'],
             'description' => ['required'],
         ];
     }
     public function messages()
     {
         return [
-            'user_id.required'=>'Employee Name is required!',   
+           // 'user_id.required'=>'Employee Name is required!',   
             'project_id.required'=>'Project Name is required!',
             'title.required'=>'title required!',
-            'days_txt.required'=>'Days is required!',
-            'hours_txt.required' => 'Hours is required!',
+            'days_txt.required_without'=>'Days is required!',
+             'hours_txt.required_without' => 'Hours is required!',
             'description.required'=>'Description is required!',
         ];
     }

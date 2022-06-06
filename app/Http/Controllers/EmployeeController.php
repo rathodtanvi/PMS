@@ -29,10 +29,10 @@ class EmployeeController extends Controller
                         $btn = $btn.'<a href="'.route('edit',$row->id).'" class="fa fa-edit edit btn btn-primary btn-sm m-1"></a>';
                         if($row->status == 1)
                         {
-                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-check-circle btn btn-success btn-sm active"></a> ';
+                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-check btn btn-success btn-sm active"></a> ';
                         }else
                         {
-                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-times-circle btn btn-danger btn-sm inactive"></a>';
+                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-close btn btn-danger btn-sm inactive mr-1"></a>';
                         }
                         if($row->roles_id == 2)
                         {
@@ -105,7 +105,7 @@ class EmployeeController extends Controller
       $datas=User::find($id);
       return view('Employee.edit',compact('datas'));
     }
-    public function update(Request $request,$id)
+    public function update(UserStoreRequest $request,$id)
     {
       $updatedata=User::find($id);
       $updatedata->name=$request->name;

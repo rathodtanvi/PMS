@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\DailyWorkEntry;
 use App\Models\Project;
+use App\Models\User;
 use App\Http\Requests\DailyworkentryRequest;
 use Illuminate\Support\Facades\Auth;
 use Hash;
@@ -30,7 +31,8 @@ class DailyWorkEntryController extends Controller
                         return $btn;
                 })
                 ->addColumn('description',function(DailyWorkEntry $des){
-                  return Strip_tags($des->description);
+                  $des= Strip_tags($des->description);
+                  return str_replace('&nbsp;','',$des);
                 })
                 ->addColumn('project_id',function(DailyWorkEntry $project_id){
                     return $project_id->project->project_name;
@@ -66,10 +68,11 @@ class DailyWorkEntryController extends Controller
     }
     public function workedit($id)
     {
+        $work=User::where('roles_id','3')->get();
         $datas=DailyWorkEntry::find($id);
-        return view('DailyWorkEntry.edit',compact('datas'));
+        return view('DailyWorkEntry.edit',compact('datas','work'));
     }
-    public function workupdate(Request $request,$id)
+    public function workupdate(DailyworkentryRequest $request,$id)
     {
       $hours=$request->entry_duration_hours;
       $minutes=$request->entry_duration_minutes;

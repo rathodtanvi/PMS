@@ -28,7 +28,6 @@ class LeaveRequest extends FormRequest
             'leave_type' => ['required'],
             'subject'=>['required'],
             'date_start'=>['required'],
-            'date_end'=>['required'],
             'message'=>['required'],
         ];
     }
@@ -38,7 +37,6 @@ class LeaveRequest extends FormRequest
             'leave_type.required'=>'leave type is required!',
             'subject.required'=>'subject is required!',
             'date_start.required' => 'date is required!',
-            'date_end.required'=>'date is required!',
             'message.required'=>'message is required!',
         ];
     }

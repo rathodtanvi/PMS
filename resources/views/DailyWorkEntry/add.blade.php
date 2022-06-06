@@ -82,9 +82,7 @@
                   <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
                       <textarea  class="form-control textarea ckeditor"  name="description"></textarea>   
                 </div>
-                @error('description')
-                <span style="color:red"> {{$message }} </span>
-              @enderror
+              
                 <div class="row mt-5">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit</button>
