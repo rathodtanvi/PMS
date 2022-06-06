@@ -26,7 +26,7 @@ class TaskAllotmentController extends Controller
           $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
            //dd($allotment);
           $project=Project::where('tl_id',Auth::id())->join('project_allotment','project.id','=','project_allotment.project_id')->pluck('project_name','project_id')->toarray();
-         //  dd($project);
+          // dd($project);
         }
          else
          {
