@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\LeaveRequest;
 use Carbon\Carbon;
-
-
 use Illuminate\Http\Request;
 
 class LeaveController extends Controller
@@ -70,7 +68,7 @@ class LeaveController extends Controller
     {
           return view('Leave.add');
     }
-    public function inleave(Request $request)
+    public function inleave(LeaveRequest $request)
     {
         $leave=new Leave();
         $leave->user_id=Auth::id();
@@ -82,7 +80,7 @@ class LeaveController extends Controller
         $leave->leave_status=$request->leave_status ?? 0;
         $leave->message=$request->message;
         $leave->approve=$request->approve ?? 0;
-        $leave->save();
+        $leave->save();    
         return redirect('leave');
     }
     public function leaveview($id)

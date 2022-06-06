@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('days_txt')->nullable();
             $table->integer('hours_txt')->nullable();
             $table->longText('description');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

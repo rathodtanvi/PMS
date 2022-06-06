@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\DailyWorkEntry;
 use App\Models\Project;
+use App\Http\Requests\DailyworkentryRequest;
 use Illuminate\Support\Facades\Auth;
 use Hash;
 use Yajra\DataTables\DataTables;
@@ -39,7 +40,7 @@ class DailyWorkEntryController extends Controller
     }
       // return view('User.daily_work_entry');
     }
-    public function enter_daily_work_entry(Request $request)
+    public function enter_daily_work_entry(DailyworkentryRequest $request)
     {
       $hours=$request->entry_duration_hours;
       $minutes=$request->entry_duration_minutes;

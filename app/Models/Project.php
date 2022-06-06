@@ -15,7 +15,7 @@ class Project extends Model
     public function technology(){
         return $this->belongsTo(Technology::class, 'technology_id');
     } 
-    protected $fillable=['id','project_id','user_id','technology_name','complete_project','created_at','updated_at' ];
+    protected $fillable=['id','project_id','tl_id','technology_name','complete_project','created_at','updated_at' ];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id'); 

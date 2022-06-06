@@ -17,8 +17,8 @@
             columns: [
                 {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'project_name', name: 'project_name'},
                 {data: 'technology_id', name: 'technology_id'},
+                {data: 'project_name', name: 'project_name'},  
                 {data: 'teamleader', name: 'teamleader'},
                 {data: 'action', name: 'action', orderable: true, searchable: true},
             ]
@@ -82,9 +82,9 @@
                 <thead>
                     <tr>
                         <th>Select</th>
-                        <th>No</th>
-                        <th>Project Name</th>
+                        <th>No</th>                     
                         <th>Technology Name</th>
+                        <th>Project Name</th>
                         <th>Team Leader</th>
                         <th>Manage</th>
                     </tr>

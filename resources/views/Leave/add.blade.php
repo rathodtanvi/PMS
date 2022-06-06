@@ -4,7 +4,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Add Work Entry</h1>
+      <h1>Add Leave</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
@@ -35,9 +35,13 @@
                         <option value="2">Full Day Leave</option>
                         <option value="3">Multipal Days Leave</option>
                       </select>
+                      @error('leave_type')
+                      <span style="color:red"> {{$message }} </span>
+                      @enderror
                     </div>
                 </div>
-                <div class="col-6 halfday">
+
+                <div class="col-6 halfday" style="display: none">
                 <label class="col-form-label">Half Leave Type</label>
                     <div class="col">
                         <select class="form-select" aria-label="Default select example" name="half_leave_type">
@@ -61,13 +65,11 @@
                     <div> 
                      <input type="date" class="form-control" name="date_start" >
                      @error('date_start')
-                     <span class="invalid-feedback" role="alert">
-                         <strong>{{ $message }}</strong>
-                     </span>
-                    @enderror
+                     <span style="color:red"> {{$message }} </span>
+                     @enderror
                     </div>
                     </div>
-                    <div class="col-4  todate">
+                    <div class="col-4  todate" style="display:none">
                         <label class="col-form-label">To</label>
                         <div> 
                          <input type="date" class="form-control"  name="date_end">
@@ -81,6 +83,9 @@
                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Message</label></div>
                      <textarea class="form-control textarea ckeditor"  name="message"></textarea>   
                 </div>
+                @error('description')
+                <span style="color:red"> {{$message }} </span>
+                @enderror
                 <div class="row mt-5">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit</button>

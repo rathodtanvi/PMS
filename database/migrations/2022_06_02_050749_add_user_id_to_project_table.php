@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('project', function (Blueprint $table) {
-            $table->integer("user_id")->after('id')->nullable();
+            $table->integer("tl_id")->after('id')->default(0);
         });
     }
 

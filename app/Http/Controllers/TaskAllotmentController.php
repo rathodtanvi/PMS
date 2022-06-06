@@ -9,22 +9,34 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use App\Http\Requests\TaskAllotmentRequest;
 
 class TaskAllotmentController extends Controller
 {
     public function add_task()
     {
-        //$employee=User::where('roles_id','!=','1')->where('roles_id','!=','2')->get();
-       // $emp=User::where('roles_id','!=','1')->get();
-        $project=Project::pluck('id');
-        $projectAllotment=ProjectAllotment::pluck('project_id');
-       
-        $project=ProjectAllotment::where('user_id',Auth::id())->get();
-        $pros=Project::where('user_id',Auth::id())->get(); 
-        $allproject=Project::all();
-        return view('TaskAllotment.add',compact('project','allproject','pros'));
+  
+        if(Auth::user()->roles_id ==1)
+        {
+          $project=Project::pluck('project_name','id')->toarray();
+         // dd($project);
+        }
+        else if(Auth::user()->roles_id == 2)
+        {
+          $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+         // dd($allotment);
+          $project=Project::where('tl_id',Auth::id())->join('project_allotment','project.id','=','project_allotment.project_id')->pluck('project_name','project_id')->toarray();
+        // dd($project);
+        }
+         else
+         {
+            $allotment = ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+            $project = Project::select('id','project_name')->whereIn('id', $allotment)->pluck('project_name','id')->toarray(); 
+           // dd($project);
+         }
+        return view('TaskAllotment.add',compact('project'));
     }
-    public function enter_task(Request $request)
+    public function enter_task(TaskAllotmentRequest $request)
     {
       $task=new TaskAllotment();
       if($request->emp_name)
@@ -44,6 +56,7 @@ class TaskAllotmentController extends Controller
       $task->days_txt = $request->days_txt; 
       $task->hours_txt = $request->hours_txt; 
       $task->description=$request->description;
+      $task->status=0;
       $task->save();                                                                       
       return redirect('task_allotment');                           
     }            
@@ -74,8 +87,8 @@ class TaskAllotmentController extends Controller
                   ->addColumn('description',function(TaskAllotment $des){
                     return Strip_tags($des->description);
                   })
-                  ->addColumn('project_id',function(TaskAllotment $project_id){
-                      return $project_id->project->project_name;
+                  ->addColumn('project_name',function(TaskAllotment $project_name){
+                      return $project_name->projectallotment->project_id;
                   })
                   ->addColumn('employeename',function(TaskAllotment $emp){
                     return $emp->user->name;
@@ -123,8 +136,8 @@ class TaskAllotmentController extends Controller
                 ->addColumn('description',function(TaskAllotment $des){
                   return Strip_tags($des->description);
                 })
-                ->addColumn('project_id',function(TaskAllotment $project_id){
-                    return $project_id->project->project_name;
+                ->addColumn('project_name',function(TaskAllotment $project_name){
+                    return $project_name->projectallotment->project_id;
                 })
                 ->addColumn('employeename',function(TaskAllotment $emp){
                   return $emp->user->name;
