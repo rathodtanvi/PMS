@@ -90,6 +90,8 @@ Route::get('/taskcomplete/{id}', [TaskAllotmentController::class, 'taskcomplete'
 Route::get('/taskdelete/{id}', [TaskAllotmentController::class, 'taskdelete'])->name('taskdelete');
 Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
 Route::post('/emptl', [TaskAllotmentController::class, 'emptl'])->name('emptl');
+Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('rating');
+
 
 // Project Milestones 
 Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);

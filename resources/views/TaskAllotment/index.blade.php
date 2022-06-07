@@ -36,6 +36,7 @@
                         <th>Employee Name</th>
                         @endif
                         <th>Project Name</th>
+                        <th>Task Allocate By</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Estimate Days</th>
@@ -74,7 +75,9 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'employeename', name: 'employeename'},
+           
             {data: 'project_name', name: 'project_name'},
+             {data:'tl_id',name:'tl_id'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'days_txt', name: 'days_txt'},
@@ -102,6 +105,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'project_name', name: 'project_name'},
+            {data:'tl_id',name:'tl_id'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'days_txt', name: 'days_txt'},
@@ -117,3 +121,28 @@
 
 </html>
 @endsection
+
+<script>
+   $(".change").click(function(){
+           alert("hello");
+        // $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
+        // $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o");
+        // var post_id = $(this).closest('.post_data').find('.post_id').val();
+        // $ratingvalue=$(this).attr('id');
+        // $.ajax({
+        //   type: "GET",
+        //   url: "rating",
+        //   data: {
+        //     'ratingvalue':$ratingvalue,
+        //     'post_id':post_id,
+        //   },
+        //   success: function (response) {
+        //     if(response.status == true)
+        //     {
+                
+        //     }
+        //   }
+        // });
+      });
+     
+</script>
