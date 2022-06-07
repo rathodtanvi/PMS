@@ -1,10 +1,16 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
-      <img src="assets/img/logo.png" alt="" class="rounded-circle" style="background-color:rgb(33, 33, 100);" >
+      <img src="/assets/img/logo.png" alt="" class="rounded-circle" style="background-color:rgb(33, 33, 100);" >
       <span class="d-none d-lg-block">API PM SYSTEM</span>
     </a>
-       <i class="bi bi-list toggle-sidebar-btn"></i>
+       <i class="bi bi-list toggle-sidebar-btn"></i> 
+<script>
+// $('.toggle-sidebar-btn').on('click', function(){
+//     $('#sidebar').toggle('slide');
+// });
+
+</script>
   </div><!-- End Logo -->
 
   <!-- End Search Bar -->

@@ -74,7 +74,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'employeename', name: 'employeename'},
-            {data: 'project_id', name: 'project_id'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'days_txt', name: 'days_txt'},
@@ -101,7 +101,7 @@
         ajax: "{{ route('task_allotment_list') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'project_id', name: 'project_id'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'days_txt', name: 'days_txt'},

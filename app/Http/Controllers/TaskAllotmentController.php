@@ -9,22 +9,34 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use App\Http\Requests\TaskAllotmentRequest;
 
 class TaskAllotmentController extends Controller
 {
     public function add_task()
     {
-        //$employee=User::where('roles_id','!=','1')->where('roles_id','!=','2')->get();
-       // $emp=User::where('roles_id','!=','1')->get();
-        $project=Project::pluck('id');
-        $projectAllotment=ProjectAllotment::pluck('project_id');
-       
-        $project=ProjectAllotment::where('user_id',Auth::id())->get();
-        $pros=Project::where('user_id',Auth::id())->get(); 
-        $allproject=Project::all();
-        return view('TaskAllotment.add',compact('project','allproject','pros'));
+  
+        if(Auth::user()->roles_id ==1)
+        {
+          $project=Project::pluck('project_name','id')->toarray();
+         // dd($project);
+        }
+        else if(Auth::user()->roles_id == 2)
+        {
+          $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+           //dd($allotment);
+          $project=Project::where('tl_id',Auth::id())->join('project_allotment','project.id','=','project_allotment.project_id')->pluck('project_name','project_id')->toarray();
+          // dd($project);
+        }
+         else
+         {
+            $allotment = ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+            $project = Project::select('id','project_name')->whereIn('id', $allotment)->pluck('project_name','id')->toarray(); 
+           // dd($project);
+         }
+        return view('TaskAllotment.add',compact('project'));
     }
-    public function enter_task(Request $request)
+    public function enter_task(TaskAllotmentRequest $request)
     {
       $task=new TaskAllotment();
       if($request->emp_name)
@@ -35,15 +47,17 @@ class TaskAllotmentController extends Controller
       {
         $task->user_id=Auth::id();
       }
-      else
+      if(Auth::user()->roles_id == 1 && $request->emp_name == '')
       {
-        $task->user_id=Auth::id();
+        $task->user_id=0;
       }
+      //$task->user_id=$request->user_id;
       $task->project_id = $request->project_id; 
       $task->title = $request->title; 
       $task->days_txt = $request->days_txt; 
       $task->hours_txt = $request->hours_txt; 
       $task->description=$request->description;
+      $task->status=0;
       $task->save();                                                                       
       return redirect('task_allotment');                           
     }            
@@ -55,8 +69,13 @@ class TaskAllotmentController extends Controller
     {
       if ($request->ajax()) {
         if(Auth::user()->roles_id == 1)
+        { 
+          $data=TaskAllotment::latest()->get();
+        }
+        else
         {
-          $data=TaskAllotment::all();
+          $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
+        }   
           return DataTables::of($data)
                   ->addIndexColumn()
                   ->addColumn('action', function($row){
@@ -72,13 +91,22 @@ class TaskAllotmentController extends Controller
                           return $btn;
                   })
                   ->addColumn('description',function(TaskAllotment $des){
-                    return Strip_tags($des->description);
+                     $des =Strip_tags($des->description);
+                     return str_replace('&nbsp;','',$des);
                   })
-                  ->addColumn('project_id',function(TaskAllotment $project_id){
-                      return $project_id->project->project_name;
+                  ->addColumn('project_name',function(TaskAllotment $project_name){
+                    return $project_name->project->project_name;
                   })
                   ->addColumn('employeename',function(TaskAllotment $emp){
-                    return $emp->user->name;
+                     if($emp->user_id == 0)
+                     {
+                       return '';
+                     }
+                     else
+                     {
+                      return $emp->user->name;
+                     }
+                  
                 })
                 ->addColumn('days_txt',function(TaskAllotment $days){
                   if($days->hours_txt == '')
@@ -88,7 +116,7 @@ class TaskAllotmentController extends Controller
                   else
                   {
                      $data=$days->hours_txt/8;
-                    return round($data,2);
+                    return round($data,1);
                   }
                  })
                  ->addColumn('hours_txt',function(TaskAllotment $hours){
@@ -103,56 +131,6 @@ class TaskAllotmentController extends Controller
                   ->rawColumns(['action'])
                   ->make(true);
         }
-        else{
-
-        $data=TaskAllotment::where('user_id',Auth::id())->get();
-        return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                  if($row->status == 1)
-                  {
-                   $btn = '<a class="fa fa-check  btn btn-success btn-sm m-1" style="color:white"></a>';
-                  }
-                  else
-                  {
-                   $btn = '<a href="'.route('taskcomplete',$row->id).'"  class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
-                  }
-                        $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a>';
-                        return $btn;
-                })
-                ->addColumn('description',function(TaskAllotment $des){
-                  return Strip_tags($des->description);
-                })
-                ->addColumn('project_id',function(TaskAllotment $project_id){
-                    return $project_id->project->project_name;
-                })
-                ->addColumn('employeename',function(TaskAllotment $emp){
-                  return $emp->user->name;
-              })
-                ->addColumn('days_txt',function(TaskAllotment $days){
-                  if($days->hours_txt == '')
-                  {
-                    return $days->days_txt;
-                  }
-                  else
-                  {
-                     $data=$days->hours_txt/8;
-                     return round($data,2);
-                  }
-                 })
-                 ->addColumn('hours_txt',function(TaskAllotment $hours){
-                  if($hours->hours_txt == '')
-                  {
-                    return  $hours->days_txt*8;
-                  }
-                  else{
-                    return $hours->hours_txt;
-                  }
-              })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-      }
     }
 
     public function taskdelete($id)

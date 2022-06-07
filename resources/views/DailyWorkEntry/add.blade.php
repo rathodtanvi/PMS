@@ -32,6 +32,9 @@
                         <option value="{{$item->id}}">{{$item->project_name}}</option>
                         @endforeach
                       </select>
+                      @error('project_id')
+                      <span style="color:red"> {{$message }} </span>
+                    @enderror
                     </div>
                 </div>
                 <div class="col-4">
@@ -79,6 +82,7 @@
                   <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
                       <textarea  class="form-control textarea ckeditor"  name="description"></textarea>   
                 </div>
+              
                 <div class="row mt-5">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit</button>

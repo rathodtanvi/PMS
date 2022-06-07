@@ -61,8 +61,7 @@ $(document).ready(function(){
                 },        
             });
         });
-        $('.halfday').hide();
-        $('.todate').hide();
+     
       $('select.leave_type').change(function(){
         var leave = $(".leave_type option:selected").val();
         if(leave == 1)
@@ -72,6 +71,10 @@ $(document).ready(function(){
         }
         else{
             $('.halfday').hide();
+        }
+        if(leave == 2)
+        {
+            $('.todate').hide();
         }
 
         if(leave == 3)
@@ -97,7 +100,7 @@ $(document).ready(function(){
        
       });
 
-      $('select.projectname').change(function(){
+      $('select.project_tl').change(function(){
         $('.empname').html('');
          project_id=$(this).val();
             $.ajax({

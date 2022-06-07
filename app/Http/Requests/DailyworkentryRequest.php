@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LeaveRequest extends FormRequest
+class DailyworkentryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,21 +23,17 @@ class LeaveRequest extends FormRequest
      */
     public function rules()
     {
-     
+       
         return [
-            'leave_type' => ['required'],
-            'subject'=>['required'],
-            'date_start'=>['required'],
-            'message'=>['required'],
+            'project_id' => ['required'],
+            'description' => ['required'],
         ];
     }
     public function messages()
     {
         return [
-            'leave_type.required'=>'leave type is required!',
-            'subject.required'=>'subject is required!',
-            'date_start.required' => 'date is required!',
-            'message.required'=>'message is required!',
+            'project_id.required' => 'Project  Name is Required!',
+            'description.required' => 'Description is required!',
         ];
     }
 }

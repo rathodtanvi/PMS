@@ -51,7 +51,7 @@ class ProjectController extends Controller
                 })
 
                 ->addColumn('teamleader',function(Project $emp){
-                    if($emp->user_id == 0)
+                    if($emp->tl_id == 0)
                     {
                         return '';
                     }
@@ -78,7 +78,15 @@ class ProjectController extends Controller
             $tech = new Project;
             $tech->technology_id= implode(' , ', $request->technology_name);
             $tech->project_name = $request->project_name;
-            $tech->user_id = $request->tl_name;
+            if( $request->tl_name == '')
+            {
+                $tech->tl_id = 0;
+            }
+            else
+            {
+                $tech->tl_id = $request->tl_name;
+            }
+           
             $tech->status = 0;
 
             $tech->save();
@@ -100,10 +108,16 @@ class ProjectController extends Controller
         $update = Project::find($id);
         $update->technology_id = implode(",",$request->technology_name);
         $update->project_name = $request->project_name;
-        $update->user_id=$request->tl_name;
-        
-        $update->update();
-        return redirect('Project');
+        if( $request->tl_name == '')
+            {
+                $update->tl_id = 0;
+            }
+            else
+            {
+                $update->tl_id = $request->tl_name;
+            }
+           $update->update();
+           return redirect('Project');
     }
 
     public function adminDelete($id)

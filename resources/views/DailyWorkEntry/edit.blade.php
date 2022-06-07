@@ -24,15 +24,17 @@
               <form method="post" action="{{route('workupdate',$datas->id)}}">
                 @csrf
                   @method('PUT')
-              
              <div class="row mb-3">
                 <div class="col-4">
                         <label class="col-form-label">Project Name</label>
                         <div> 
                         <select class="form-select" aria-label="Default select example" name="project_id">
                         <option disabled selected value>---select---</option>
-                        <option value="1">Training</option>
+                        <option value={{$datas->project_id}} selected>{{$datas->project->project_name}}</option>      
                       </select>
+                      @error('project_id')
+                      <span style="color:red"> {{$message }} </span>
+                     @enderror
                     </div>
                 </div>
                  <div class="col-4">
@@ -82,6 +84,9 @@
                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
                      <textarea class="form-control textarea ckeditor"  name="description">{{$datas->description}}</textarea>   
                 </div>
+                @error('description')
+                <span style="color:red"> {{$message }} </span>
+               @enderror
                 <div class="row mt-5">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-success">Update</button>

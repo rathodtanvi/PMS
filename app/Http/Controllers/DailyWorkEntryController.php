@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\DailyWorkEntry;
 use App\Models\Project;
+use App\Models\User;
+use App\Http\Requests\DailyworkentryRequest;
 use Illuminate\Support\Facades\Auth;
 use Hash;
 use Yajra\DataTables\DataTables;
@@ -29,7 +31,8 @@ class DailyWorkEntryController extends Controller
                         return $btn;
                 })
                 ->addColumn('description',function(DailyWorkEntry $des){
-                  return Strip_tags($des->description);
+                  $des= Strip_tags($des->description);
+                  return str_replace('&nbsp;','',$des);
                 })
                 ->addColumn('project_id',function(DailyWorkEntry $project_id){
                     return $project_id->project->project_name;
@@ -39,7 +42,7 @@ class DailyWorkEntryController extends Controller
     }
       // return view('User.daily_work_entry');
     }
-    public function enter_daily_work_entry(Request $request)
+    public function enter_daily_work_entry(DailyworkentryRequest $request)
     {
       $hours=$request->entry_duration_hours;
       $minutes=$request->entry_duration_minutes;
@@ -65,10 +68,11 @@ class DailyWorkEntryController extends Controller
     }
     public function workedit($id)
     {
+        $work=User::where('roles_id','3')->get();
         $datas=DailyWorkEntry::find($id);
-        return view('DailyWorkEntry.edit',compact('datas'));
+        return view('DailyWorkEntry.edit',compact('datas','work'));
     }
-    public function workupdate(Request $request,$id)
+    public function workupdate(DailyworkentryRequest $request,$id)
     {
       $hours=$request->entry_duration_hours;
       $minutes=$request->entry_duration_minutes;
