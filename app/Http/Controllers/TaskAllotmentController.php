@@ -19,10 +19,11 @@ class TaskAllotmentController extends Controller
         if(Auth::user()->roles_id ==1)
         {
           $project=Project::pluck('project_name','id')->toarray();
-         // dd($project);
+          // dd($project);
         }
         else if(Auth::user()->roles_id == 2)
         {
+
           $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
            //dd($allotment);
           $project=Project::where('tl_id',Auth::id())->join('project_allotment','project.id','=','project_allotment.project_id')->pluck('project_name','project_id')->toarray();
@@ -39,18 +40,18 @@ class TaskAllotmentController extends Controller
     public function enter_task(TaskAllotmentRequest $request)
     {
       $task=new TaskAllotment();
-      if($request->emp_name)
+      if($request->user_id)
       {
-        $task->user_id=$request->emp_name;
+        $task->user_id=$request->user_id;
       }
-      elseif($request->emp_name == '')
+      elseif($request->user_id == '')
       {
         $task->user_id=Auth::id();
       }
-      if(Auth::user()->roles_id == 1 && $request->emp_name == '')
-      {
-        $task->user_id=0;
-      }
+     if(Auth::user()->roles_id ==1)
+     {
+       $task->user_id=0;
+     }
       //$task->user_id=$request->user_id;
       $task->project_id = $request->project_id; 
       $task->title = $request->title; 
@@ -95,7 +96,7 @@ class TaskAllotmentController extends Controller
                      return str_replace('&nbsp;','',$des);
                   })
                   ->addColumn('project_name',function(TaskAllotment $project_name){
-                    return $project_name->project->project_name;
+                    return $project_name->projectallotment->project->project_name;
                   })
                   ->addColumn('employeename',function(TaskAllotment $emp){
                      if($emp->user_id == 0)
@@ -151,6 +152,7 @@ class TaskAllotmentController extends Controller
       $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
       $data['user']=User::whereIn('id', $data['employeename'])->get();            
       return response()->json($data);
+     
      }
 
      

@@ -105,7 +105,7 @@ class EmployeeController extends Controller
       $datas=User::find($id);
       return view('Employee.edit',compact('datas'));
     }
-    public function update(UserStoreRequest $request,$id)
+    public function update(Request $request,$id)
     {
       $updatedata=User::find($id);
       $updatedata->name=$request->name;
