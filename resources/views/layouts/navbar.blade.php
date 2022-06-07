@@ -1,18 +1,14 @@
+
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
       <img src="/assets/img/logo.png" alt="" class="rounded-circle" style="background-color:rgb(33, 33, 100);" >
       <span class="d-none d-lg-block">API PM SYSTEM</span>
     </a>
-       <i class="bi bi-list toggle-sidebar-btn"></i> 
-<script>
-// $('.toggle-sidebar-btn').on('click', function(){
-//     $('#sidebar').toggle('slide');
-// });
+      <i class="bi bi-list toggle-sidebar-btn" data-toggle="push-menu"></i> 
 
-</script>
   </div><!-- End Logo -->
-
+  
   <!-- End Search Bar -->
 
   <nav class="header-nav ms-auto">
@@ -107,8 +103,8 @@
           <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
           @endif
-         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-           <li class="dropdown-header">
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
             <h6>{{Auth::user()->name}}</h6>
           </li>
           <li>
@@ -117,7 +113,7 @@
 
           <li>
             <a class="dropdown-item d-flex align-items-center" href="{{url('myprofile')}}">
-              <i class="bi bi-person"></i>
+              <i class="fa fa-user-o"></i>
               <span>My Profile</span>
             </a>
           </li>
@@ -126,14 +122,14 @@
             <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
-              <i class="bi bi-box-arrow-right"></i>
+              <i class="fa fa-sign-out"></i>
               <span>Sign Out</span>
               {{-- <a class="dropdown-item" href="{{ route('logout') }}"
               onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-               {{ __('Logout') }}
-             </a> --}}
-           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              {{ __('Logout') }}
+              </a> --}}
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
             </a>

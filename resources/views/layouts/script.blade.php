@@ -18,7 +18,6 @@
 <!-- Template Main CSS File -->
 <link href="/assets/css/style.css" rel="stylesheet">
 
-
 <!-- yajra links -->
 
 <meta name="csrf-token" content="{{ csrf_token() }}">

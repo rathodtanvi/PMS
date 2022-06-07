@@ -12,7 +12,7 @@
             "sScrollX": "300%",
             "bScrollCollapse": true,
             "bAutoWidth": false,
-              responsive: true,
+            responsive: true,
             ajax: "{{ route('Technology.list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -29,6 +29,7 @@
     });
     
 </script>
+
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Technology 
@@ -57,5 +58,5 @@
             </table>
         </div>
     </div>
-<main>
+</main>
 @endsection
