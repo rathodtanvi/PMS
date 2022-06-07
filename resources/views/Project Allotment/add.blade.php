@@ -31,7 +31,7 @@
 
                     <div class="row mb-3">
                         <label for="unm" class="col-md-4 col-form-label ">{{ __('Employee Name') }}
-                            <span class="error"> * </span></label>
+                            <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
                             
@@ -52,7 +52,7 @@
 
                     <div class="row mb-3">
                         <label for="projectnm" class="col-md-4 col-form-label ">{{ __('Project Name') }}
-                            <span class="error"> * </span></label>
+                            <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
                             <select class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
@@ -69,7 +69,7 @@
                     
                     <div class="row mb-3">
                         <label for="technology_id" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
-                            <span class="error"> * </span></label>
+                            <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
                             <select class="selectid form-control @error('technology_id') is-invalid @enderror" id="nameid" name="technology_id[]" multiple>
@@ -88,7 +88,7 @@
                 
                     <div class="row mb-3">
                         <label class="col-md-4 col-form-label ">{{ __('Project Name') }}
-                            <span class="error"> * </span></label>
+                            <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
                             <select class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
@@ -105,7 +105,7 @@
                     
                     <div class="row mb-3">
                         <label class="col-md-4 col-form-label ">{{ __('Technology Name') }}
-                            <span class="error"> * </span></label>
+                            <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
                             <select class="selectid form-control @error('technology_id') is-invalid @enderror" id="nameid" name="technology_id[]" multiple>

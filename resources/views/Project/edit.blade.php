@@ -29,7 +29,7 @@
                 
                 <div class="row mb-3">
                     <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
-                        <span class="error"> * </span></label>
+                        <span style="color:red"> * </span></label>
 
                     <div class="col-md-6">
 
@@ -48,7 +48,7 @@
 
                 <div class="row mb-3">
                     <label for="project_name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
-                        <span class="error"> * </span></label>
+                        <span style="color:red"> * </span></label>
 
                     <div class="col-md-6">
                         <input id="project_name" type='text' name='project_name' value="{{$edits->project_name}}" class="form-control @error('project_name') is-invalid @enderror" placeholder="Enter Project Name" />
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label ">TeamLeader Name</label>
+                    <label for="name" class="col-md-4 col-form-label ">TeamLeader Name <span style="color:red"> * </span></label>
                     <div class="col-md-6">
                         
                         <select id="selecttl" class="form-control" aria-label="Default select example" name="tl_name">

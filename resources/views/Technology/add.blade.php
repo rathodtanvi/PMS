@@ -23,7 +23,7 @@
 
                 <div class="row mb-3">
                     <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
-                        <span class="error"> * </span></label>
+                        <span style="color:red"> * </span></label>
 
                     <div class="col-md-6">
                         <input id="technology_name" type='text' name='technology_name' class="form-control @error('technology_name') is-invalid @enderror" value="{{ old('technology_name') }}"  placeholder="Enter Technology Name" />
