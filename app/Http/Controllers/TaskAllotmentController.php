@@ -25,9 +25,8 @@ class TaskAllotmentController extends Controller
         {
 
           $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
-           //dd($allotment);
-          $project=Project::where('tl_id',Auth::id())->join('project_allotment','project.id','=','project_allotment.project_id')->pluck('project_name','project_id')->toarray();
-          // dd($project);
+          $project=Project::select('id','project_name')->where('tl_id',Auth::id())->orWhereIn('id', $allotment)->pluck('project_name','id')->toarray();
+          //dd($project);
         }
          else
          {
@@ -53,6 +52,7 @@ class TaskAllotmentController extends Controller
        $task->user_id=0;
      }
       //$task->user_id=$request->user_id;
+      $task->tl_id=Auth::id();
       $task->project_id = $request->project_id; 
       $task->title = $request->title; 
       $task->days_txt = $request->days_txt; 
@@ -64,19 +64,25 @@ class TaskAllotmentController extends Controller
     }            
     public function task_allotment()
     {
-        return view('TaskAllotment.index');
+          return view('TaskAllotment.index');
     }
     public function task_allotment_list(Request $request)
     {
+     
       if ($request->ajax()) {
         if(Auth::user()->roles_id == 1)
         { 
           $data=TaskAllotment::latest()->get();
         }
+        elseif(Auth::user()->roles_id == 2)
+        {
+          $data=TaskAllotment::where('tl_id',Auth::id())->get();
+        }
         else
         {
           $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
         }   
+       
           return DataTables::of($data)
                   ->addIndexColumn()
                   ->addColumn('action', function($row){
@@ -86,14 +92,19 @@ class TaskAllotmentController extends Controller
                          }
                          else
                          {
-                          $btn = '<a href="'.route('taskcomplete',$row->id).'"  class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
-                         }
-                          $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a>';
+                          $btn = '<a href="'.route('taskcomplete',$row->id).'"class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
+                         }    
+                          $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a><br/>';
+                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class=" btn btn-warning btn-sm m-1">rating</a><br/>';
+                         
                           return $btn;
-                  })
+                         })
                   ->addColumn('description',function(TaskAllotment $des){
                      $des =Strip_tags($des->description);
                      return str_replace('&nbsp;','',$des);
+                  })
+                  ->addColumn('tl_id',function(TaskAllotment $tl_id){
+                    return $tl_id->username->name;
                   })
                   ->addColumn('project_name',function(TaskAllotment $project_name){
                     return $project_name->projectallotment->project->project_name;
@@ -163,6 +174,9 @@ class TaskAllotmentController extends Controller
       return response()->json($data);
      }
 
-
+    public function rating($id)
+    {
+        return view('TaskAllotment.rating');
+    }
     
 }
