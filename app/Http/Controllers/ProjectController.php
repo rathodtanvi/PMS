@@ -86,7 +86,7 @@ class ProjectController extends Controller
             {
                 $tech->tl_id = $request->tl_name;
             }
-           
+            
             $tech->status = 0;
 
             $tech->save();

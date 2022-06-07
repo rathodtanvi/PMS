@@ -22,7 +22,7 @@
                 @csrf
                 <div class="row mb-3">
                     <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
-                        <span class="error"> * </span></label>
+                        <span style="color:red"> * </span></label>
 
                     <div class="col-md-6">
 
