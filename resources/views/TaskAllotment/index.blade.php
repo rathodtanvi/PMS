@@ -1,12 +1,99 @@
 @extends('layouts.index')
 @section('content')
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title></title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-  </head>
-<body>
+  </head> 
+<body> -->
+  <style>
+
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      padding-top: 100px; 
+      left:30%;
+      top:20%;
+      width:50%;
+      height: 100%; 
+      overflow: auto;
+    }
+    .modal-content 
+    {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+  @if (Auth::user()->roles_id != 3)
+
+  <script type="text/javascript">
+  $(function () {
+
+  var table = $('.yajra-datatable').DataTable({
+    "sScrollX": "300%",
+    "bScrollCollapse": true,
+    "bAutoWidth": false,
+    responsive: true,
+        ajax: "{{ route('task_allotment_list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'employeename', name: 'employeename'},
+            {data: 'project_name', name: 'project_name'},
+            {data:'tl_id',name:'tl_id'},
+            {data: 'title', name: 'title'},
+            {data: 'description', name: 'description'},
+            {data: 'days_txt', name: 'days_txt'},
+            {data: 'hours_txt', name: 'hours_txt'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
+  </script>
+
+@else
+
+  <script type="text/javascript">
+  $(function () {
+
+  var table = $('.yajra-datatable').DataTable({
+    "sScrollX": "300%",
+    "bScrollCollapse": true,
+    "bAutoWidth": false,
+    responsive: true,
+        ajax: "{{ route('task_allotment_list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'project_name', name: 'project_name'},
+            {data:'tl_id',name:'tl_id'},
+            {data: 'title', name: 'title'},
+            {data: 'description', name: 'description'},
+            {data: 'days_txt', name: 'days_txt'},
+            {data: 'hours_txt', name: 'hours_txt'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
+  </script>
+  @endif
+  
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Task Allotment
@@ -19,14 +106,14 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+    
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-       
+              
               <!-- Table with stripped rows -->
               <table class="table  yajra-datatable ">
                   <thead>
@@ -49,6 +136,30 @@
               </table>
               <!-- End Table with stripped rows -->
 
+              <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Modal Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      Modal body..
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -57,92 +168,7 @@
     </section>
 
   </main>
-</body>
-@if (Auth::user()->roles_id != 3)
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    "sScrollX": "300%",
-    "bScrollCollapse": true,
-    "bAutoWidth": false,
-    responsive: true,
-        ajax: "{{ route('task_allotment_list') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'employeename', name: 'employeename'},
-           
-            {data: 'project_name', name: 'project_name'},
-             {data:'tl_id',name:'tl_id'},
-            {data: 'title', name: 'title'},
-            {data: 'description', name: 'description'},
-            {data: 'days_txt', name: 'days_txt'},
-            {data: 'hours_txt', name: 'hours_txt'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-  });
-
-</script> 
-@else
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    "sScrollX": "300%",
-    "bScrollCollapse": true,
-    "bAutoWidth": false,
-    responsive: true,
-        ajax: "{{ route('task_allotment_list') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'project_name', name: 'project_name'},
-            {data:'tl_id',name:'tl_id'},
-            {data: 'title', name: 'title'},
-            {data: 'description', name: 'description'},
-            {data: 'days_txt', name: 'days_txt'},
-            {data: 'hours_txt', name: 'hours_txt'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-  });
-
-</script>   
-@endif
 
 
-</html>
 @endsection
 
-<script>
-   $(".change").click(function(){
-           alert("hello");
-        // $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
-        // $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o");
-        // var post_id = $(this).closest('.post_data').find('.post_id').val();
-        // $ratingvalue=$(this).attr('id');
-        // $.ajax({
-        //   type: "GET",
-        //   url: "rating",
-        //   data: {
-        //     'ratingvalue':$ratingvalue,
-        //     'post_id':post_id,
-        //   },
-        //   success: function (response) {
-        //     if(response.status == true)
-        //     {
-                
-        //     }
-        //   }
-        // });
-      });
-     
-</script>
