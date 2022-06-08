@@ -6,6 +6,7 @@ use App\Models\ProjectAllotment;
 use App\Models\TaskAllotment;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -51,6 +52,7 @@ class TaskAllotmentController extends Controller
       {
         $task->user_id=0;
       }
+    
       //$task->user_id=$request->user_id;
       $task->tl_id=Auth::id();
       $task->project_id = $request->project_id; 
@@ -95,8 +97,12 @@ class TaskAllotmentController extends Controller
                           $btn = '<a href="'.route('taskcomplete',$row->id).'"class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
                         }    
                           $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a><br/>';
-                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class=" btn btn-warning btn-sm m-1">rating</a><button class="btn btn-secondary btn-sm m-1" value="'.$row->id.'"onclick="reviewbtn(this)" data-target="#myModal">Review</button><br/>';
+                          //$btn = $btn.'<a href="'.route('rating',$row->id).'" class=" btn btn-warning btn-sm m-1">rating</a><button class="btn btn-secondary btn-sm m-1" value="'.$row->id.'"onclick="reviewbtn(this)" data-target="#myModal">Review</button><br/>';
                         
+                          if(Auth::user()->roles_id != 3 && $row->user_id != $row->tl_id)
+                          {
+                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class="fa fa-star btn btn-warning btn-sm m-1 "data-toggle="modal" data-target="#exampleModalCenter"></a><br/>';
+                          }  
                           return $btn;
                         })
                   ->addColumn('description',function(TaskAllotment $des){
@@ -174,9 +180,19 @@ class TaskAllotmentController extends Controller
       return response()->json($data);
     }
 
-    public function rating($id)
+
+    public function rating(Request $request,$id)
     {
-        return view('TaskAllotment.rating');
+     // dd($id);
+      $rating=$request->input('ratingvalue');
+      $rate=new Rating();
+      $rate->user_id=Auth::id();
+      $rate->task_id= 1;
+      $rate->star_rated=$rating;
+      $rate->save();
+      return response()->json([
+        'status'=>true,
+    ]);
     }
     
 }

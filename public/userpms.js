@@ -146,8 +146,29 @@ $(document).ready(function(){
            });
        });
 
-      
-    
+       $('.change').click(function(){
+         
+           $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
+           $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o").addClass('rating');
+           $ratingvalue=$(this).attr('id');
+           $.ajax({
+            type: "GET",
+            url: "rating/id",
+            data: {
+              'ratingvalue':$ratingvalue,
+            },
+            success: function (response) {
+              if(response.status == true)
+              {
+                $('.message').html(`<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                   Done!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`);
+              }
+            }
+          });
+        });
+     
      
 });
 
