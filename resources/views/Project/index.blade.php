@@ -51,7 +51,7 @@
                 data: {id : idval },
                 success: function(res)
                 {
-                    tr.find(".actiondiv").html("<i class='bi bi-check-circle'></i>");
+                    tr.find(".actiondiv").html("<i class='fa fa-check-circle-o' style='font-size:36px;color:green;'></i> ");
                     $(".completeproject").hide();
                     $('input[type="checkbox"]').prop("checked",false);
                 }

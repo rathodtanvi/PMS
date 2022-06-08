@@ -31,11 +31,11 @@ class ProjectController extends Controller
                 ->addColumn('action', function($row){
                     if($row->status == 1)
                     {
-                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> <i class='bi bi-check-circle'></i> </div>";
+                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a><span class='actiondiv'> <i class='fa fa-check-circle-o' style='font-size:36px;color:green;'></i> </span>";
                     }
                     else
                     {
-                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>&nbsp;<a href='DeleteProject/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a> <div class='actiondiv'> </div>";
+                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a> <span class='actiondiv'> </span>";
                     }
                     return $actionBtn;
                 })

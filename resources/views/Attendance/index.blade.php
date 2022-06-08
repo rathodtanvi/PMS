@@ -6,15 +6,15 @@
 
     <div class="pagetitle">
         <h1> Attendance </h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                <li class="breadcrumb-item">Attendance</li>
-            </ol>
-        </nav>
     </div>
-        
-    <div class="card">
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
+            <li class="breadcrumb-item">Attendance</li>
+        </ol>
+    </nav>
+    
+    <div class="card ">
         <div class="card-body">
 
             <center>
@@ -69,7 +69,7 @@
             {
                 $.each(res,function(Index,value)
                 {
-                    tr.find(".btn-inentry").html("<i class='fa fa-clock-o'> </i>" + value);
+                    tr.find(".btn-inentry").html("<i class='fa fa-clock-o'></i> " + value);
                     $(".btn-inentry").attr("disabled","disabled");
                     $(".btn-outentry").show();
                 });
@@ -92,7 +92,7 @@
             {
                 $.each(res,function(Index,value)
                 {
-                    tr.find(".btn-outentry").html("<i class='fa fa-clock-o'> </i>" + value);
+                    tr.find(".btn-outentry").html("<i class='fa fa-clock-o'></i> " + value);
                     $(".btn-outentry").attr("disabled","disabled");
                     $(".mydiv").prepend('<div style="margin-bottom:5px;"><button type="button" class="btn btn-success btn-sm active btn-inentry" style="font-size:18px;"><i class="fa fa-sign-in"></i> In Entry </button>  <button type="button" style="display:none;font-size:18px;" class="btn btn-danger btn-sm inactive btn-outentry"> Out Entry <i class="fa fa-sign-out"></i> </button></div>');
                 });
