@@ -1,5 +1,7 @@
 @extends('layouts.index')
 @section('content')
+<script src="{{ asset('userpms.js') }}"></script>
+<link href="{{ asset('rating.css') }}" rel="stylesheet">
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,25 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Task Rating</h5>
+          </div>
+          <div class="message"></div>
+          <div class="modal-body">
+            @for($i = 1; $i <= 5; $i++)
+            <li class="fa fa-star-o change rating-css" id={{$i}}></li>
+            @endfor
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> 
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -121,28 +141,3 @@
 
 </html>
 @endsection
-
-<script>
-   $(".change").click(function(){
-           alert("hello");
-        // $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
-        // $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o");
-        // var post_id = $(this).closest('.post_data').find('.post_id').val();
-        // $ratingvalue=$(this).attr('id');
-        // $.ajax({
-        //   type: "GET",
-        //   url: "rating",
-        //   data: {
-        //     'ratingvalue':$ratingvalue,
-        //     'post_id':post_id,
-        //   },
-        //   success: function (response) {
-        //     if(response.status == true)
-        //     {
-                
-        //     }
-        //   }
-        // });
-      });
-     
-</script>

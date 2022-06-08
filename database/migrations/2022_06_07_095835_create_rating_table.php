@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('rating', function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('user_id');
-            $table->foreignId('tl_id');
             $table->foreignId('task_id');
             $table->integer('star_rated');
             $table->timestamps();
