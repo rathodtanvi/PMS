@@ -146,7 +146,7 @@ $(document).ready(function(){
            });
        });
    
- 
+    });
        
 
        $('.change').click(function(){ 
@@ -213,12 +213,3 @@ $(document).on("click", ".star1", function () {
         }
     });
 });
-
-
-
-
-
-     
-
-
-
