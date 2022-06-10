@@ -178,8 +178,9 @@ $(document).ready(function(){
                </div>`);
               }
             }
-            }
+            
         });
+   
      
         $('#exampleModalCenter').on('click','#close', function () {
             console.log("close");
