@@ -13,7 +13,7 @@
             "bScrollCollapse": true,
             "bAutoWidth": false,
             responsive: true,
-            ajax: "{{ route('ProjectAllotment.list') }}",
+            ajax: "{{ route('ProjectAllotment.getdata') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'user.name', name: 'user.name'},
@@ -31,7 +31,7 @@
 
     <div class="pagetitle">
         <h1>Project Allotment
-            <a href='AddAllotment' class="btn btn-info mb-3"> New </a>
+            <a href='{{route('projectAllotement.create')}}' class="btn btn-info mb-3"> New </a>
         </h1>
     </div>
     <nav>

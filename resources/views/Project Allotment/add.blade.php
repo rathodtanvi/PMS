@@ -23,7 +23,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="post" action="{{url('/')}}/AddAllotment"> 
+            <form method="post" action="{{ route('projectAllotement.store') }}"> 
                 @csrf
 
             @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
@@ -145,7 +145,7 @@
             {
                 $.ajax
                 ({
-                    url: "{{url('admingetprojectnm')}}",
+                    url: "{{url('gettechnology')}}",
                     type: "GET",
                     dataType: "json",
                     data: {name : pnm },

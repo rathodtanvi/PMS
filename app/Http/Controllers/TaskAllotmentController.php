@@ -7,11 +7,13 @@ use App\Models\TaskAllotment;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 use App\Http\Requests\TaskAllotmentRequest;
+use Illuminate\Support\Facades\DB;
 
 class TaskAllotmentController extends Controller
 {
@@ -21,7 +23,7 @@ class TaskAllotmentController extends Controller
         if(Auth::user()->roles_id ==1)
         {
           $project=Project::pluck('project_name','id')->toarray();
-          // dd($project);
+          //dd($project);
         }
         else if(Auth::user()->roles_id == 2)
         {
@@ -30,12 +32,12 @@ class TaskAllotmentController extends Controller
           $project=Project::select('id','project_name')->where('tl_id',Auth::id())->orWhereIn('id', $allotment)->pluck('project_name','id')->toarray();
           //dd($project);
         }
-         else
-         {
+        else
+        {
             $allotment = ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
             $project = Project::select('id','project_name')->whereIn('id', $allotment)->pluck('project_name','id')->toarray(); 
            // dd($project);
-         }
+        }
         return view('TaskAllotment.add',compact('project'));
     }
     public function store(TaskAllotmentRequest $request)
@@ -89,31 +91,32 @@ class TaskAllotmentController extends Controller
         else
         {
           $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
-        }   
-       
+        }  
+        
           return DataTables::of($data)
                   ->addIndexColumn()
                   ->addColumn('action', function($row){
-                         if($row->status == 1)
-                         {
+                        if($row->status == 1)
+                        {
                           $btn = '<a class="fa fa-check  btn btn-success btn-sm m-1" style="color:white"></a>';
-                         }
-                         else
-                         {
+                        }
+                        else
+                        {
                           $btn = '<a href="'.route('taskcomplete',$row->id).'"class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
-                         }    
+                        }    
                           $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a><br/>';
+                                                  
                           if(Auth::user()->roles_id != 3 && $row->user_id != $row->tl_id)
                           {
-                          $btn = $btn.'<button class="fa fa-star star star1 btn btn-warning btn-sm m-1   "data-toggle="modal" data-target="#exampleModalCenter"  data-id="'.$row->id.'"></button><br/>';
-                          //$btn = $btn.'<button class="star">Star</button><br/>';
-                        
-                        }  
+                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class="fa fa-star btn btn-warning btn-sm m-1 " data-toggle="modal" data-target="#exampleModalCenter"></a><button type="button" class="fa fa-review review btn btn-primary" data-id ="'.$row->id.'" data-toggle="modal" data-target="#myModal">
+                          Review </button>';
+                            
+                          }  
                           return $btn;
-                         })
+                        })
                   ->addColumn('description',function(TaskAllotment $des){
-                     $des =Strip_tags($des->description);
-                     return str_replace('&nbsp;','',$des);
+                    $des =Strip_tags($des->description);
+                    return str_replace('&nbsp;','',$des);
                   })
                   ->addColumn('tl_id',function(TaskAllotment $tl_id){
                     return $tl_id->username->name;
@@ -122,14 +125,14 @@ class TaskAllotmentController extends Controller
                     return $project_name->projectallotment->project->project_name;
                   })
                   ->addColumn('employeename',function(TaskAllotment $emp){
-                     if($emp->user_id == 0)
-                     {
-                       return '';
-                     }
-                     else
-                     {
+                    if($emp->user_id == 0)
+                    {
+                      return '';
+                    }
+                    else
+                    {
                       return $emp->user->name;
-                     }
+                    }
                   
                 })
                 ->addColumn('days_txt',function(TaskAllotment $days){
@@ -139,11 +142,11 @@ class TaskAllotmentController extends Controller
                   }
                   else
                   {
-                     $data=$days->hours_txt/8;
+                    $data=$days->hours_txt/8;
                     return round($data,1);
                   }
-                 })
-                 ->addColumn('hours_txt',function(TaskAllotment $hours){
+                })
+                ->addColumn('hours_txt',function(TaskAllotment $hours){
                   if($hours->hours_txt == '')
                   {
                     return  $hours->days_txt*8;
@@ -155,12 +158,13 @@ class TaskAllotmentController extends Controller
                   ->rawColumns(['action'])
                   ->make(true);
         }
+        
     }
 
     public function taskdelete($id)
     {
-       TaskAllotment::find($id)->delete();
-       return redirect()->back();
+      TaskAllotment::find($id)->delete();
+      return redirect()->back();
     }
     public function taskcomplete(Request $request,$id)
     {
@@ -170,21 +174,21 @@ class TaskAllotmentController extends Controller
       return redirect('TaskAllotment');
     }
 
-     public function empname(Request $request)
-     {
+    public function empname(Request $request)
+    {
       $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
       $data['user']=User::whereIn('id', $data['employeename'])->get();            
       return response()->json($data);
-     
-     }
+    
+    }
 
-     
-     public function emptl(Request $request)
-     {
+    
+    public function emptl(Request $request)
+    {
       $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
       $data['user']=User::whereIn('id', $data['employeename'])->get();            
       return response()->json($data);
-     }
+    }
 
 
     public function rating(Request $request,$id)
@@ -226,4 +230,41 @@ class TaskAllotmentController extends Controller
       dd($request->input('taskid'));
    }
   
+      
+    
+    
+    public function AddReview(Request $request)
+    {
+        $tid = $_GET['tid'];
+        $rtxt = $_GET['rtxt'];
+        
+        $getid = Review::where('user_id',Auth::user()->id)->where('task_id',$tid)->exists();
+        
+        if($getid)
+        {
+          
+          DB::table('review')->where('user_id',Auth::user()->id)->where('task_id',$tid)->update(['task_review'=>$rtxt]);
+
+          
+        }
+        else
+        {
+          $review = new Review;
+          $review->user_id = Auth::user()->id;
+          $review->task_id = $tid;
+          $review->task_review = $rtxt;
+          //dd($review);
+          $review->save();
+        }
+        return redirect('task_allotment');
+    }
+
+    public function ReviewUpdate()
+    {
+        $tid = $_GET['tid'];
+
+        $review = Review::where('user_id',Auth::user()->id)->where('task_id',$tid)->pluck('task_review')->toArray();
+
+        return $review;
+    }
 }

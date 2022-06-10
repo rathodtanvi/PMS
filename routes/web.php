@@ -80,9 +80,15 @@ Route::get('/taskdelete/{id}', [TaskAllotmentController::class, 'taskdelete'])->
 Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
 Route::post('/emptl', [TaskAllotmentController::class, 'emptl'])->name('emptl');
 // Route::get('/rating', [TaskAllotmentController::class, 'rating'])->name('rating');
-Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('rating');;
+Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('rating');
+
+
 Route::get('/ratingdisplay/{id}', [TaskAllotmentController::class, 'ratingdisplay'])->name('ratingdisplay');
 Route::resource('/TaskAllotment',TaskAllotmentController::class);
+Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('rating');
+
+Route::get('/reviewadd', [TaskAllotmentController::class, 'AddReview']);  //Task review Button
+Route::get('reviewupd', [TaskAllotmentController::class, 'task_allotment']);
 
 // Project Milestones 
 Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
@@ -118,10 +124,17 @@ Route::get('addatendance',[AttendanceController::class,'AddAttendance']);
 Route::get('outatendance',[AttendanceController::class,'OutAttendance']);
 Route::get('workhour',[AttendanceController::class,'WorkHours']);
 Route::resource('/Attendance',AttendanceController::class);
+//Project
 
-/*Route::get('/', function () {
-    return view('Client.Dashboard.index');
-});*/
+Route::resource('/project', ProjectController::class);
+Route::get('Project/getdata', [ProjectController::class, 'getdata'])->name('Project.getdata');
+Route::get('statuschange',[ProjectController::class,'statuschange']);
+
+//Project Allotment
+Route::resource('/projectAllotement', ProjectAllotmentController::class);
+Route::get('ProjectAllotment/getdata', [ProjectAllotmentController::class, 'getdata'])->name('ProjectAllotment.getdata');
+Route::get('gettechnology',[ProjectAllotmentController::class,'gettechnology']); // get technology based on projectname
+
 
 Route::get('/Dashboard', function () {
     return view('Client.Dashboard.index');
@@ -136,8 +149,8 @@ Route::get('AddTechnology', function () {
 });
 
 
-Route::get('/Project',[ProjectController::class,'ShowProject'])->name('Project');
-Route::get('Project/list', [ProjectController::class, 'DispProject'])->name('Project.list');
+//Route::get('/Project',[ProjectController::class,'ShowProject'])->name('Project');
+//Route::get('Project/list', [ProjectController::class, 'DispProject'])->name('Project.list');
 
 Route::get('/completeproject',[ProjectController::class,'CompletProject']);    //complete project checkbox
 
@@ -149,10 +162,10 @@ Route::post('update-project/{id}',[ProjectController::class,'Update']);
 
 Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
 
-Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
-Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');
+/*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
+Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');*/
 
-Route::get('getprojectnm',[ProjectAllotmentController::class,'getPTechnology']); // get technology based on projectname
+
 
 Route::get('delete_PAllotment/{id}',[ProjectAllotmentController::class,'Delete']);
 
@@ -173,8 +186,8 @@ Route::get('DeleteProject/{id}',[ProjectController::class,'adminDelete']);
 
 Route::get('/completeproject',[ProjectController::class,'CompletProject']); 
 
-Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'adminPAllotment']);
-Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'dispPAllotment'])->name('ProjectAllotment.list');
+/*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'adminPAllotment']);
+Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'dispPAllotment'])->name('ProjectAllotment.list');*/
 
 Route::get('AddAllotment',[ProjectAllotmentController::class,'adminInsertPAllotment']);
 Route::post('AddAllotment',[ProjectAllotmentController::class,'adminAddPAllotment']);

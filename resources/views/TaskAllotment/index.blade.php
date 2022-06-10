@@ -1,19 +1,77 @@
 @extends('layouts.index')
 @section('content')
+
 <script src="{{ asset('userpms.js') }}"></script>
 <link href="{{ asset('rating.css') }}" rel="stylesheet">
+
 <!DOCTYPE html>
 <html>
 <head>
     <title></title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-  </head>
-<body>
+  </head> 
+<body> 
+  
+  @if (Auth::user()->roles_id != 3)
+
+  <script type="text/javascript">
+  $(function () {
+
+  var table = $('.yajra-datatable').DataTable({
+    "sScrollX": "300%",
+    "bScrollCollapse": true,
+    "bAutoWidth": false,
+    responsive: true,
+        ajax: "{{ route('task_allotment_list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'employeename', name: 'employeename'},
+            {data: 'project_name', name: 'project_name'},
+            {data:'tl_id',name:'tl_id'},
+            {data: 'title', name: 'title'},
+            {data: 'description', name: 'description'},
+            {data: 'days_txt', name: 'days_txt'},
+            {data: 'hours_txt', name: 'hours_txt'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
+  </script>
+
+@else
+
+  <script type="text/javascript">
+  $(function () {
+
+  var table = $('.yajra-datatable').DataTable({
+    "sScrollX": "300%",
+    "bScrollCollapse": true,
+    "bAutoWidth": false,
+    responsive: true,
+        ajax: "{{ route('task_allotment_list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'project_name', name: 'project_name'},
+            {data:'tl_id',name:'tl_id'},
+            {data: 'title', name: 'title'},
+            {data: 'description', name: 'description'},
+            {data: 'days_txt', name: 'days_txt'},
+            {data: 'hours_txt', name: 'hours_txt'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
+  
+  </script>
+  @endif
+
+    
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Task Allotment
           <a class="btn btn-info"  href="{{route('TaskAllotment.create')}}" style="float:right">New</a> 
       </h1>
+      
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
@@ -76,7 +134,7 @@
 
           <div class="card">
             <div class="card-body">
-       
+              
               <!-- Table with stripped rows -->
               <table class="table  yajra-datatable ">
                   <thead>
@@ -98,6 +156,33 @@
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
+              
+              <!-- The Modal -->
+              <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <div class="pagetitle"><h1> Review For Task <span class="tid" style="display:none"></span> </h1></div>
+                      <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      
+                        <textarea placeholder="Enter Review" id="reviewtxt" style="width:100%"></textarea>
+                      
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary btn-sm m-1 sub-review"> Submit </button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -107,67 +192,8 @@
     </section>
 
   </main>
+  
 </body>
-@if (Auth::user()->roles_id != 3)
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    "sScrollX": "300%",
-    "bScrollCollapse": true,
-    "bAutoWidth": false,
-    responsive: true,
-        ajax: "{{ route('task_allotment_list') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'employeename', name: 'employeename'},
-           
-            {data: 'project_name', name: 'project_name'},
-             {data:'tl_id',name:'tl_id'},
-            {data: 'title', name: 'title'},
-            {data: 'description', name: 'description'},
-            {data: 'days_txt', name: 'days_txt'},
-            {data: 'hours_txt', name: 'hours_txt'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-  });
-
-</script> 
-@else
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
- <script type="text/javascript">
- $(function () {
-
-  var table = $('.yajra-datatable').DataTable({
-    "sScrollX": "300%",
-    "bScrollCollapse": true,
-    "bAutoWidth": false,
-    responsive: true,
-        ajax: "{{ route('task_allotment_list') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'project_name', name: 'project_name'},
-            {data:'tl_id',name:'tl_id'},
-            {data: 'title', name: 'title'},
-            {data: 'description', name: 'description'},
-            {data: 'days_txt', name: 'days_txt'},
-            {data: 'hours_txt', name: 'hours_txt'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-  });
-
-</script>   
-@endif
-
-
 </html>
 @endsection
+

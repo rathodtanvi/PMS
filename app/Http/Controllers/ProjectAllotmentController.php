@@ -14,12 +14,12 @@ use App\Http\Requests\ProjectAllotmentRequest;
 class ProjectAllotmentController extends Controller
 {
 
-    public function adminPAllotment()
+    public function index()
     {
         return view('Project Allotment.index');
     }
 
-    public function dispPAllotment(Request $request)
+    public function getdata(Request $request)
     {
         if ($request->ajax()) 
         {
@@ -30,7 +30,7 @@ class ProjectAllotmentController extends Controller
                 return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
+                    $actionBtn = "<a href='{{route('projectAllotement.destroy')}}' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->addColumn('technology_id', function ($tid) {
@@ -53,7 +53,7 @@ class ProjectAllotmentController extends Controller
                 return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='delete_PAllotment/".$row['id']."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
+                    $actionBtn = "<a href='projectAllotement.destroy' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->addColumn('technology_id', function ($tid) {
@@ -73,7 +73,7 @@ class ProjectAllotmentController extends Controller
         }
     }
 
-    public function admingetPTechnology()
+    public function gettechnology()
     {
         $nm = $_GET['name'];
         $technology = Project::find($nm);
@@ -83,7 +83,7 @@ class ProjectAllotmentController extends Controller
         return json_encode($data);
     }
 
-    public function adminInsertPAllotment()
+    public function create()
     {
         $users = User::get();
         $technology = Technology::get();
@@ -92,7 +92,7 @@ class ProjectAllotmentController extends Controller
         return view('Project Allotment.add',compact('users','projects','technology'));
     }
 
-    public function adminAddPAllotment(ProjectAllotmentRequest $request)
+    public function store(ProjectAllotmentRequest $request)
     {
         if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
         {
@@ -119,9 +119,10 @@ class ProjectAllotmentController extends Controller
         return redirect('ProjectAllotment')->with('status', 'Successfully Inserted Project Allotment');
     }
 
-    public function DeleteAllotment($id)
+    public function destroy($id)
     {
         $delete = ProjectAllotment::find($id)->delete();
         return redirect()->back()->with('status', 'Successfully Delete Project Allotment');
     }
+    
 }

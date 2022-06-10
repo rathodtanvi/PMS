@@ -163,10 +163,10 @@ $(document).ready(function(){
               'taskid':$taskid,
             },
             success: function (response) {
-              if(response.status == true)
-              {
+            if(response.status == true)
+            {
                 $('.message').html(`<div class="alert alert-primary alert-dismissible fade show" role="alert">
-                   Done!
+                Done!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>`);
               }
@@ -178,7 +178,7 @@ $(document).ready(function(){
                </div>`);
               }
             }
-          });
+            }
         });
      
         $('#exampleModalCenter').on('click','#close', function () {
