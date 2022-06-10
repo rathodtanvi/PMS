@@ -11,41 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head> 
 <body> 
-  <style>
-
-    .modal {
-      display: none; 
-      position: fixed; 
-      z-index: 1; 
-      padding-top: 100px; 
-      left:30%;
-      top:20%;
-      width:50%;
-      height: 100%; 
-      overflow: auto;
-    }
-    .modal-content 
-    {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-    }
-    .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  </style>
+  
   @if (Auth::user()->roles_id != 3)
 
   <script type="text/javascript">
@@ -95,14 +61,17 @@
         ]
     });
   });
+  
   </script>
   @endif
-  
+
+    
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Task Allotment
           <a class="btn btn-info"  href="{{route('add_task')}}" style="float:right">New</a> 
       </h1>
+      
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
@@ -157,25 +126,28 @@
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
-
-              <div class="modal" id="myModal">
+              
+              <!-- The Modal -->
+              <div class="modal fade" id="myModal">
                 <div class="modal-dialog">
                   <div class="modal-content">
                   
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title">Modal Heading</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <div class="pagetitle"><h1> Review For Task <span class="tid" style="display:none"></span> </h1></div>
+                      <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
-                    
+
                     <!-- Modal body -->
                     <div class="modal-body">
-                      Modal body..
+                      
+                        <textarea placeholder="Enter Review" id="reviewtxt" style="width:100%"></textarea>
+                      
                     </div>
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary btn-sm m-1 sub-review"> Submit </button>
                     </div>
                     
                   </div>
@@ -190,7 +162,7 @@
     </section>
 
   </main>
-
+  
 </body>
 </html>
 @endsection

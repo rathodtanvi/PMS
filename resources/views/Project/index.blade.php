@@ -13,7 +13,7 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            ajax: "{{ route('Project.list') }}",
+            ajax: "{{ route('Project.getdata') }}",
             columns: [
                 {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -45,7 +45,7 @@
             
             $.ajax
             ({
-                url: "{{url('/completeproject')}}",
+                url: "{{ url('statuschange') }}",
                 type: 'GET',
                 datatype: 'JSON',
                 data: {id : idval },
@@ -65,7 +65,7 @@
 
     <div class="pagetitle">
         <h1>Project 
-            <a href='AddProject' class="btn btn-info mb-3"> New </a>
+            <a href="{{route('project.create')}}" class="btn btn-info mb-3"> New </a>
         </h1>
     </div>  
     <nav>

@@ -19,13 +19,13 @@
         </a>       
     </li> 
     <li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('Project')}}">
+        <a class="nav-link collapsed"  href="{{url('project')}}">
         <i class="fa fa-list-alt"></i><span> Project </span>
         </a>
     </li>
     @endif
     <li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('ProjectAllotment')}}">
+        <a class="nav-link collapsed"  href="{{url('projectAllotement')}}">
         <i class="fa fa-file"></i><span> Project Allotment </span>
         </a>
         

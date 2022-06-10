@@ -146,30 +146,66 @@ $(document).ready(function(){
            });
        });
 
-       $('.change').click(function(){
-         
-           $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
-           $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o").addClass('rating');
-           $ratingvalue=$(this).attr('id');
-           $.ajax({
+    $('.change').click(function(){
+        
+            $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
+            $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o").addClass('rating');
+            $ratingvalue=$(this).attr('id');
+            $.ajax({
             type: "GET",
             url: "rating/id",
             data: {
-              'ratingvalue':$ratingvalue,
+            'ratingvalue':$ratingvalue,
             },
             success: function (response) {
-              if(response.status == true)
-              {
+            if(response.status == true)
+            {
                 $('.message').html(`<div class="alert alert-primary alert-dismissible fade show" role="alert">
-                   Done!
+                Done!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>`);
-              }
             }
-          });
+            }
         });
-     
-     
+        });
+    
+        $(document).on("click", ".review", function () 
+        {
+            var eventId = $(this).data('id');
+            $('.tid').html( eventId );
+            $.ajax({
+                type: "GET",
+                url: "reviewupd",
+                data: {tid : eventId },
+                success: function (res) 
+                {
+                    console.log(res);
+                    $('#reviewtxt').html(res);
+                }
+            });
+        });
+
+        $(document).on("click", ".sub-review", function () 
+        {
+            var taskid = $('.tid').text();
+            var rtxt = $('#reviewtxt').val();
+            //console.log(taskid,rtxt);
+            $.ajax({
+                type: "GET",
+                url: "reviewadd",
+                data: {tid : taskid , rtxt : rtxt },
+                success: function (res) 
+                {
+                    console.log("success");
+                    //$('#reviewtxt').val('');
+                }
+            });
+        });
+
+        /*$(document).on("click", ".close , .fade ", function () 
+        {
+            $('#reviewtxt').val('');
+        });*/
 });
 
 

@@ -7,10 +7,12 @@ use App\Models\TaskAllotment;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\TaskAllotmentRequest;
+use Illuminate\Support\Facades\DB;
 
 class TaskAllotmentController extends Controller
 {
@@ -66,7 +68,7 @@ class TaskAllotmentController extends Controller
     }            
     public function task_allotment()
     {
-          return view('TaskAllotment.index');
+        return view('TaskAllotment.index');
     }
     public function task_allotment_list(Request $request)
     {
@@ -83,8 +85,8 @@ class TaskAllotmentController extends Controller
         else
         {
           $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
-        }   
-      
+        }  
+        
           return DataTables::of($data)
                   ->addIndexColumn()
                   ->addColumn('action', function($row){
@@ -97,11 +99,12 @@ class TaskAllotmentController extends Controller
                           $btn = '<a href="'.route('taskcomplete',$row->id).'"class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
                         }    
                           $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a><br/>';
-                          //$btn = $btn.'<a href="'.route('rating',$row->id).'" class=" btn btn-warning btn-sm m-1">rating</a><button class="btn btn-secondary btn-sm m-1" value="'.$row->id.'"onclick="reviewbtn(this)" data-target="#myModal">Review</button><br/>';
-                        
+                                                  
                           if(Auth::user()->roles_id != 3 && $row->user_id != $row->tl_id)
                           {
-                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class="fa fa-star btn btn-warning btn-sm m-1 "data-toggle="modal" data-target="#exampleModalCenter"></a><br/>';
+                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class="fa fa-star btn btn-warning btn-sm m-1 " data-toggle="modal" data-target="#exampleModalCenter"></a><button type="button" class="fa fa-review review btn btn-primary" data-id ="'.$row->id.'" data-toggle="modal" data-target="#myModal">
+                          Review </button>';
+                            
                           }  
                           return $btn;
                         })
@@ -149,6 +152,7 @@ class TaskAllotmentController extends Controller
                   ->rawColumns(['action'])
                   ->make(true);
         }
+        
     }
 
     public function taskdelete($id)
@@ -183,16 +187,50 @@ class TaskAllotmentController extends Controller
 
     public function rating(Request $request,$id)
     {
-     // dd($id);
-      $rating=$request->input('ratingvalue');
-      $rate=new Rating();
-      $rate->user_id=Auth::id();
-      $rate->task_id= 1;
-      $rate->star_rated=$rating;
-      $rate->save();
-      return response()->json([
-        'status'=>true,
-    ]);
+      // dd($id);
+        $rating=$request->input('ratingvalue');
+        $rate=new Rating();
+        $rate->user_id=Auth::id();
+        $rate->task_id= 1;
+        $rate->star_rated=$rating;
+        $rate->save();
+        return response()->json([
+          'status'=>true,
+        ]);
     }
     
+    public function AddReview(Request $request)
+    {
+        $tid = $_GET['tid'];
+        $rtxt = $_GET['rtxt'];
+        
+        $getid = Review::where('user_id',Auth::user()->id)->where('task_id',$tid)->exists();
+        
+        if($getid)
+        {
+          
+          DB::table('review')->where('user_id',Auth::user()->id)->where('task_id',$tid)->update(['task_review'=>$rtxt]);
+
+          
+        }
+        else
+        {
+          $review = new Review;
+          $review->user_id = Auth::user()->id;
+          $review->task_id = $tid;
+          $review->task_review = $rtxt;
+          //dd($review);
+          $review->save();
+        }
+        return redirect('task_allotment');
+    }
+
+    public function ReviewUpdate()
+    {
+        $tid = $_GET['tid'];
+
+        $review = Review::where('user_id',Auth::user()->id)->where('task_id',$tid)->pluck('task_review')->toArray();
+
+        return $review;
+    }
 }

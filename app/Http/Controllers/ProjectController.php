@@ -12,12 +12,12 @@ use App\Models\User;
 class ProjectController extends Controller
 {
 
-    public function adminProject()
+    public function index()
     {
         return view('Project.index');
     }
 
-    public function DispAdminProject(Request $request)
+    public function getdata(Request $request)
     {
         if ($request->ajax()) {
             $data = Project::with("technology")->get();
@@ -31,11 +31,11 @@ class ProjectController extends Controller
                 ->addColumn('action', function($row){
                     if($row->status == 1)
                     {
-                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a><span class='actiondiv'> <i class='fa fa-check-circle-o' style='font-size:36px;color:green;'></i> </span>";
+                        $actionBtn = "<a href='".route('project.edit',$row->id)."' class='edit btn btn-primary btn-sm m-1'> Edit </a><span class='actiondiv'> <i class='fa fa-check-circle-o' style='font-size:36px;color:green;'></i> </span>";
                     }
                     else
                     {
-                        $actionBtn = "<a href='Editproject/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a> <span class='actiondiv'> </span>";
+                        $actionBtn = "<a href='".route('project.edit',$row->id)."' class='edit btn btn-primary btn-sm m-1'> Edit </a> <span class='actiondiv'> </span>";
                     }
                     return $actionBtn;
                 })
@@ -66,13 +66,13 @@ class ProjectController extends Controller
         }
     }
 
-    public function adminInsertProject()
+    public function create()
     {
         $technology = Technology::get();
         $tls=User::where('roles_id','2')->get();
         return view('Project.add',compact('technology','tls'));
     }
-    public function adminAddproject(ProjectRequest $request)
+    public function store(ProjectRequest $request)
     {
         
             $tech = new Project;
@@ -91,33 +91,34 @@ class ProjectController extends Controller
 
             $tech->save();
 
-            return redirect('Project');
+            return view('Project.index');
     
     }
 
-    public function adminEditProject($id)
+    public function edit($id)
     {
         $tls=User::where('roles_id','2')->get();
         $technology = Technology::get();
         $edits = Project::find($id);
+        
         return view("Project.edit",compact('edits','technology','tls'));   
     }
 
-    public function adminUpdate(ProjectRequest $request,$id)
+    public function update(ProjectRequest $request,$id)
     {
         $update = Project::find($id);
         $update->technology_id = implode(",",$request->technology_name);
         $update->project_name = $request->project_name;
         if( $request->tl_name == '')
-            {
-                $update->tl_id = 0;
-            }
-            else
-            {
-                $update->tl_id = $request->tl_name;
-            }
-           $update->update();
-           return redirect('Project');
+        {
+            $update->tl_id = 0;
+        }
+        else
+        {
+            $update->tl_id = $request->tl_name;
+        }
+        $update->update();
+        return view("Project.index");
     }
 
     public function adminDelete($id)
@@ -126,7 +127,7 @@ class ProjectController extends Controller
         return redirect()->back();
     }
 
-    public function CompletProject()
+    public function statuschange()
     {
         $getid = $_GET['id'];
 
@@ -134,6 +135,6 @@ class ProjectController extends Controller
         $update->status = 1;
         $update->update();
 
-        return redirect('Project');
+        return view('Project.index');
     }
 }
