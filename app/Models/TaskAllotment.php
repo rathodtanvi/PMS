@@ -28,5 +28,8 @@ class TaskAllotment extends Model
     {
         return $this->belongsTo(ProjectAllotment::class,'project_id');
     }
-    
+    public function rating()
+    {
+        return $this->hasMany(Rating::class,'task_id','id');
+    }
 }

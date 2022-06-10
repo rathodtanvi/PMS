@@ -20,7 +20,7 @@
           
 
               <!-- General Form Elements -->
-              <form method="POST" action="{{route('update',$datas->id)}}">
+              <form method="POST" action="{{route('employee.update',$datas->id)}}">
                 @csrf
                 @method("PUT")
 

@@ -145,17 +145,22 @@ $(document).ready(function(){
                }
            });
        });
+   
+ 
+       
 
-       $('.change').click(function(){
-         
+       $('.change').click(function(){ 
            $(this).add($(this).prevAll("li")).removeClass("fa-star-o").addClass("fa-star").addClass('rating-css');
            $(this).nextAll("li").removeClass("fa-star").removeClass('rating-css').addClass("fa-star-o").addClass('rating');
-           $ratingvalue=$(this).attr('id');
+           $ratingvalue=$(this).attr('id'); 
+           $taskid=$('#taskid').text();
+            //console.log($taskid);      
            $.ajax({
             type: "GET",
             url: "rating/id",
             data: {
               'ratingvalue':$ratingvalue,
+              'taskid':$taskid,
             },
             success: function (response) {
               if(response.status == true)
@@ -165,12 +170,54 @@ $(document).ready(function(){
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>`);
               }
+              else
+              {
+                $('.message').html(`<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                Updated
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+               </div>`);
+              }
             }
           });
         });
      
-     
+        $('#exampleModalCenter').on('click','#close', function () {
+            console.log("close");
+            // $('.change').addClass('rating-star-o');
+          });
+       
 });
+
+
+$(document).on("click", ".star", function () {
+    var eventId = $(this).data('id');
+    //console.log(eventId);
+    $('#taskid').html( eventId );
+});
+    
+
+$(document).on("click", ".star1", function () {
+    $taskid=$('#taskid').text();
+   // alert(eventId);
+    console.log(eventId);
+    $.ajax({
+        type: "GET",
+        url: "ratingdisplay/id",
+        data:{
+            'taskid':$taskid,
+        },
+        dataType: "json",
+        success: function (response) {
+          
+        }
+    });
+});
+
+
+
+
+
+     
 
 
 

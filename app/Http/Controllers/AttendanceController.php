@@ -12,13 +12,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
 {
-    public function Attendance(Request $request)
+    public function index(Request $request)
     {
         $todate = Carbon::now()->format('Y-m-d');
-        
         $attendance  = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date',"=",$todate)->latest()->get();
-        $getlatest = Attendance::where("user_id",'=',Auth::user()->id)->latest()->first();
-        
+        $getlatest = Attendance::where("user_id",'=',Auth::user()->id)->latest()->first();       
         return view('Attendance.index',compact('attendance','getlatest'));
     }
 
@@ -32,7 +30,6 @@ class AttendanceController extends Controller
         $attend->attendance_date = Carbon::now()->format('Y-m-d');
         //dd($attend);
         $attend->save();
-
         return response()->json(['data',$currenttime]);
     }
 
@@ -41,11 +38,8 @@ class AttendanceController extends Controller
         $strtime = $_GET['stime'];
         $stime = trim($strtime);
         $uid =  Auth::user()->id;
-        
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
-
         $out = DB::table("attendace")->where("user_id","=",$uid)->where("in_entry","=",$stime)->update(["out_entry" => $currenttime]);
-        
         return response()->json(['data'=>$currenttime]);
     }
 

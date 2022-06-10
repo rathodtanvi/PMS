@@ -40,6 +40,12 @@
             <li class="breadcrumb-item">Project Allotment</li>
         </ol>
     </nav>  
+    @if (session('status'))
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      {{ session('status') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <table class="table table-hover">

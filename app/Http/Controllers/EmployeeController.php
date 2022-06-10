@@ -11,48 +11,15 @@ use Yajra\DataTables\DataTables;
 
 class EmployeeController extends Controller
 {
-    public function employee()
+    public function index()
     {  
         return view('Employee.index');
     }
-    public function employeelist(Request $request)
-    {
-      if ($request->ajax()) {
-         //$data = User::select('*');
-          $data=User::where('roles_id',2)->orWhere('roles_id',3)->latest()->get();
-          $user = User::latest()->get();
-          return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-    
-                        $btn = '<a href="'.route('viewdata',$row->id).'"  class="fa fa-eye btn btn-warning btn-sm m-1"></a>';
-                        $btn = $btn.'<a href="'.route('edit',$row->id).'" class="fa fa-edit edit btn btn-primary btn-sm m-1"></a>';
-                        if($row->status == 1)
-                        {
-                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-check btn btn-success btn-sm active"></a> ';
-                        }else
-                        {
-                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-close btn btn-danger btn-sm inactive mr-1"></a>';
-                        }
-                        if($row->roles_id == 2)
-                        {
-                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class="fa fa-users btn btn-secondary btn-sm active  mt-1"></a>';
-                        }else
-                        {
-                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class="fa fa-user btn btn-secondary btn-sm inactive mt-1"></a>';
-                        }
-                        return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-      }
-      
-    }  
-    public function addemployee()
+    public function create()
     {
       return view('Employee.add');
     }
-    public function add(UserStoreRequest  $request)
+    public function store(UserStoreRequest  $request)
     {
         $user=new User;
         $user->name=$request->name;
@@ -65,37 +32,9 @@ class EmployeeController extends Controller
         $user->qualification=$request->qualification;
         $user->address=$request->address;
         $user->save();
-        return redirect('employee');
+        return redirect('employee')->with('status', 'Successfully Inserted Employee Deatils');
     }
-    public function status(Request $request,$id)
-    {
-      $user = User::find($id);
-      if( $user->status == 0)
-      {
-        $user->status=1;
-      }
-      else
-      {
-        $user->status=0;
-      }
-        $user->save();
-        return redirect('employee');
-    }
-    public function changerole(Request $request,$id)
-    {
-      $user = User::find($id);
-      if($user->roles_id == 3)
-      {
-        $user->roles_id=2;
-      }
-      else
-      {
-        $user->roles_id=3;
-      }
-        $user->save();
-        return redirect('employee');
-    }
-    public function viewdata($id)
+    public function show($id)
     {
       $datas=User::find($id);
       return view('Employee.view',compact('datas'));
@@ -118,6 +57,89 @@ class EmployeeController extends Controller
       $updatedata->qualification=$request->qualification;
       $updatedata->address=$request->address;
       $updatedata->update();
-      return redirect('employee');
+      return redirect('employee')->with('status', 'Successfully Update Employee Deatils');
     }
+    public function getdata(Request $request)
+    {
+      if ($request->ajax()) {
+         //$data = User::select('*');
+          $data=User::where('roles_id',2)->orWhere('roles_id',3)->latest()->get();
+          //$user = User::latest()->get();
+          return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+    
+                        $btn = '<a href="'.route('employee.show',$row->id).'"  class="fa fa-eye btn btn-warning btn-sm m-1"></a>';
+                        $btn = $btn.'<a href="'.route('employee.edit',$row->id).'" class="fa fa-edit edit btn btn-primary btn-sm m-1"></a>';
+                        if($row->status == 1)
+                        {
+                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-check btn btn-success btn-sm active" data-toggle="tooltip" title="Active!"></a> ';
+                        }else
+                        {
+                        $btn = $btn.'<a href="'.route('status',$row->id).'" class="fa fa-close btn btn-danger btn-sm inactive mr-1" data-toggle="tooltip" title="inactive!"></a>';
+                        }
+                        if($row->roles_id == 2)
+                        {
+                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class="fa fa-users btn btn-secondary btn-sm active  mt-1" data-toggle="tooltip" title="Remove Team Leader!"></a>';
+                        }else
+                        {
+                        $btn = $btn.'<a href="'.route('changerole',$row->id).'" class="fa fa-user btn btn-secondary btn-sm inactive mt-1"  data-toggle="tooltip" title="Create Team Leader!"></a>';
+                        }
+                        return $btn;
+                })
+                ->rawColumns(['action'])
+              
+                ->make(true);
+      }
+      
+    }  
+    
+   
+    public function status(Request $request,$id)
+    {
+      $user = User::find($id);
+      if( $user->status == 0)
+      {
+        $user->status=1;
+      }
+      else
+      {
+        $user->status=0;
+      }
+        $user->save();
+        if($user->status == 0)
+        {
+          return redirect('employee')->with('status', ' InActive Employee!');
+        }
+        else
+        {
+          return redirect('employee')->with('status', ' Active Employee!');
+        
+        }
+    }
+    public function changerole(Request $request,$id)
+    {
+      $user = User::find($id);
+      if($user->roles_id == 3)
+      {
+        $user->roles_id=2;
+      }
+      else
+      {
+        $user->roles_id=3;
+      }
+        $user->save();
+        if($user->roles_id == 3)
+        {
+          return redirect('employee')->with('status', 'Successfully Remove From Teame Leader!');
+        }
+        else
+        {
+          return redirect('employee')->with('status', 'Successfully  Created Teame Leader!');
+        
+        }
+       
+    }
+   
+    
 }

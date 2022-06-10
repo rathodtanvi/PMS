@@ -7,7 +7,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('daily_work_entry')}}">Daily work entry</a></li>
+          <li class="breadcrumb-item"><a href="{{url('DailyWorkEntry')}}">Daily work entry</a></li>
           <li class="breadcrumb-item">Add</li>
         </ol>
       </nav>
@@ -20,7 +20,7 @@
           <div class="card p-2">
             <div class="card-body">
               <!-- General Form Elements -->
-              <form method="post" action="{{route('enter_daily_work_entry')}}">
+              <form method="Post" action="{{ route('DailyWorkEntry.store') }}">
                 @csrf
               <div class="row mb-3">
                 <div class="col-4">

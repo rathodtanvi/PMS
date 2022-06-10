@@ -12,114 +12,50 @@ use function PHPUnit\Framework\isNull;
 
 class TechnologyController extends Controller
 {
-    /*public function AddTech(Request $request)
-    {
-        $check = Technology::where("technology_name","=",$request['technm'])->pluck('technology_name')->toArray();
-        
-        if(in_array($request['technm'],$check))
-        {
-            return redirect()->back()->withErrors(['msg' => 'This Technology Already exist.']);
-        }
-        else
-        {
-            $tech = new Technology;
-            $tech->Technology_Name = $request['technm'];
-            $tech->save();
-
-            return redirect('Technology');
-        }
-
-    }
-
     public function index()
     {
         return view('Technology.index');
     }
-
-    public function ShowTech(Request $request)
+    public function create()
     {
-        if ($request->ajax()) {
-            $data = Technology::get();
-            
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = "<a href='edit_tech/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>";
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        return view('Technology.add');
     }
-
-    public function Edit($id)
+    public function store(TechnologyRequest $request)
     {
-        $edits = Technology::find($id);
-    
-        return view("Technology.edit",compact('edits'));
-        
-    }
-    
-    public function Update(Request $request,$id)
-    {
-        $update = Technology::find($id);
-        $update->technology_name = $request->input('technm');
-        
-        $update->update();
-        return redirect('Technology');
-    }*/
-
-
-    
-    /* -------------------------------- */
-    /* Admin side Technology Controller */
-
-
-
-    public function Adminindex()
-    {
-        return view('Technology.index');
-    }
-
-    public function AdminShowTech(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = Technology::get();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = "<a href='EditTech/".$row['id']."' class='edit btn btn-primary btn-sm m-1'> Edit </a>";
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-    }
-
-    public function addTechnology(TechnologyRequest $request)
-    {
-        
         $tech = new Technology;
         $tech->technology_name = $request->technology_name;
         $tech->save();
-
-        return redirect('Technology');
-        
+        return redirect('Technology')->with('status', 'Successfully  Inserted Technology!');     
     }
-    public function editTechnology($id)
+    public function edit($id)
     {
         $edits = Technology::find($id);
-    
         return view("Technology.edit",compact('edits'));
     }
 
-    public function UpdateTechnology(TechnologyRequest $request,$id)
+    public function update(TechnologyRequest $request,$id)
     {
         $update = Technology::find($id);
         $update->technology_name = $request->technology_name;
-        
         $update->update();
-        return redirect('Technology');
+        return redirect('Technology')->with('status', 'Successfully  Update Technology!');
     }
+    public function getdata(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Technology::get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="'.route('Technology.edit',$row->id).'" class="edit btn btn-primary btn-sm m-1"> Edit </a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+   
+    
+    
 }

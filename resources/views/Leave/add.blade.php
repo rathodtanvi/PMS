@@ -23,7 +23,7 @@
             <div class="card-body">
 
               <!-- General Form Elements -->
-              <form method="post" action="{{route('inleave')}}">
+              <form method="post" action="{{route('leave.store')}}">
                 @csrf
               <div class="row mb-3">
                 <div class="col-6">

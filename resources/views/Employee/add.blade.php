@@ -20,9 +20,9 @@
             <div class="card-body">
               
               <!-- General Form Elements -->
-              <form method="POST" action="{{ route('add') }}">
+              <form method="POST" action="{{ route('employee.store') }}">
                 @csrf
-
+                
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label ">{{ __('Name') }}</label>
 

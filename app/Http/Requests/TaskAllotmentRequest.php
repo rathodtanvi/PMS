@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-//use Auth;
+use Auth;
 //use Validator;
 
 class TaskAllotmentRequest extends FormRequest
@@ -27,7 +27,7 @@ class TaskAllotmentRequest extends FormRequest
     public function rules()
     {
         return [
-          //  'user_id' => ['required',Rule::ignore(Auth::user()->roles_id == 3)],
+          //'user_id' => ['required'],
             'project_id' => ['required'],
             'title' => ['required'], 
             'days_txt' => ['required_without:hours_txt'],
@@ -35,10 +35,11 @@ class TaskAllotmentRequest extends FormRequest
             'description' => ['required'],
         ];
     }
+
     public function messages()
     {
         return [
-          //  'user_id.required'=>'Employee Name is required!',   
+           // 'user_id.required'=>'Employee Name is required!',   
             'project_id.required'=>'Project Name is required!',
             'title.required'=>'title required!',
             'days_txt.required_without'=>'Days is required!',

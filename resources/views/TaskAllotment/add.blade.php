@@ -7,7 +7,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('task_allotment')}}">Task Allotment</a></li>
+          <li class="breadcrumb-item"><a href="{{url('TaskAllotment')}}">Task Allotment</a></li>
           <li class="breadcrumb-item">Add</li>
         </ol>
       </nav>
@@ -23,7 +23,7 @@
 
 
               <!-- General Form Elements -->
-              <form method="post" action="{{route('enter_task')}}">
+              <form method="post" action="{{route('TaskAllotment.store')}}">
                 @csrf
               <div class="row mb-3">
                 <div class="col-4">

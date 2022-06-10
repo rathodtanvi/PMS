@@ -13,36 +13,16 @@ use Illuminate\Http\Request;
 
 class DailyWorkEntryController extends Controller
 {
-    public function daily_work_entry()
+    public function index()
     {
         return view('DailyWorkEntry.index');
     }
-    
-    public function daily_work_entrylist(Request $request)
+    public function create()
     {
-      if ($request->ajax()) {
-        $data=DailyWorkEntry::where('user_id',Auth::id())->latest()->get();
-        //$work = DailyWorkEntry::latest()->get();
-        return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                        $btn = '<a href="'.route('workedit',$row->id).'"  class=" edit btn btn-primary btn-sm m-1">Edit</a>';
-                        $btn = $btn.'<a href="'.route('workdelete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
-                        return $btn;
-                })
-                ->addColumn('description',function(DailyWorkEntry $des){
-                  $des= Strip_tags($des->description);
-                  return str_replace('&nbsp;','',$des);
-                })
-                ->addColumn('project_id',function(DailyWorkEntry $project_id){
-                    return $project_id->project->project_name;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+        $project=Project::all();
+        return view('DailyWorkEntry.add',compact('project'));
     }
-      // return view('User.daily_work_entry');
-    }
-    public function enter_daily_work_entry(DailyworkentryRequest $request)
+    public function store(DailyworkentryRequest $request)
     {
       $hours=$request->entry_duration_hours;
       $minutes=$request->entry_duration_minutes;
@@ -59,20 +39,16 @@ class DailyWorkEntryController extends Controller
       $work->work_type=$request->work_type;
       $work->description=$request->description;
       $work->save();
-      return redirect('daily_work_entry');
+      return redirect('DailyWorkEntry')->with('status', 'Successfully Inserted Work Entry');
     }
-    public function addwork()
-    {
-        $project=Project::all();
-        return view('DailyWorkEntry.add',compact('project'));
-    }
-    public function workedit($id)
+
+    public function edit($id)
     {
         $work=User::where('roles_id','3')->get();
         $datas=DailyWorkEntry::find($id);
         return view('DailyWorkEntry.edit',compact('datas','work'));
     }
-    public function workupdate(DailyworkentryRequest $request,$id)
+    public function update(DailyworkentryRequest $request,$id)
     {
       $hours=$request->entry_duration_hours;
       $minutes=$request->entry_duration_minutes;
@@ -90,11 +66,39 @@ class DailyWorkEntryController extends Controller
       $updatework->work_type=$request->work_type;
       $updatework->description=$request->description;
       $updatework->update();
-      return redirect('daily_work_entry');
+      return redirect('DailyWorkEntry')->with('status', 'Successfully Update Work Entry');;
     }
-    public function workdelete($id)
+   
+
+    public function getdata(Request $request)
+    {
+      if ($request->ajax()) {
+        $data=DailyWorkEntry::where('user_id',Auth::id())->latest()->get();
+        //$work = DailyWorkEntry::latest()->get();
+        return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                        $btn = '<a href="'.route('DailyWorkEntry.edit',$row->id).'"  class=" edit btn btn-primary btn-sm m-1">Edit</a>';
+                        $btn = $btn.'<a href="'.route('delete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
+                        return $btn;
+                })
+                ->addColumn('description',function(DailyWorkEntry $des){
+                  $des= Strip_tags($des->description);
+                  return str_replace('&nbsp;','',$des);
+                })
+                ->addColumn('project_id',function(DailyWorkEntry $project_id){
+                    return $project_id->project->project_name;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+    }
+      // return view('User.daily_work_entry');
+    }
+   public function delete($id)
     {
         DailyWorkEntry::find($id)->delete();
-        return redirect()->back();
+          return redirect('DailyWorkEntry')->with('status', 'Successfully Delete Work Entry');;
     }
+   
+    
 }

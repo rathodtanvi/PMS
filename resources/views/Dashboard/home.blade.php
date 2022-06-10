@@ -126,7 +126,7 @@
           
             var table = $('.yajra-datatable').DataTable({
               responsive: true,
-                  ajax: "{{ route('employee_list') }}",
+                  ajax: "{{ route('getdata_employeelist') }}",
                   columns: [ 
                       {data: 'id', name: 'id'},     
                       {data:'name',name:'name'},

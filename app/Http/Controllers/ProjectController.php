@@ -91,7 +91,7 @@ class ProjectController extends Controller
 
             $tech->save();
 
-            return redirect('Project');
+            return redirect('Project')->with('status', 'Successfully Inserted Project');
     
     }
 
@@ -117,13 +117,13 @@ class ProjectController extends Controller
                 $update->tl_id = $request->tl_name;
             }
            $update->update();
-           return redirect('Project');
+           return redirect('Project')->with('status', 'Successfully Update Project');
     }
 
     public function adminDelete($id)
     {
         $delete = Project::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Successfully Delete Project');
     }
 
     public function CompletProject()
@@ -133,7 +133,6 @@ class ProjectController extends Controller
         $update = Project::find($getid);
         $update->status = 1;
         $update->update();
-
-        return redirect('Project');
+        return redirect('Project')->with('status', 'Successfully Completed Project');
     }
 }

@@ -10,11 +10,12 @@ use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+
 use App\Http\Requests\TaskAllotmentRequest;
 
 class TaskAllotmentController extends Controller
 {
-    public function add_task()
+    public function create()
     {
   
         if(Auth::user()->roles_id ==1)
@@ -37,14 +38,14 @@ class TaskAllotmentController extends Controller
          }
         return view('TaskAllotment.add',compact('project'));
     }
-    public function enter_task(TaskAllotmentRequest $request)
+    public function store(TaskAllotmentRequest $request)
     {
       $task=new TaskAllotment();
       if($request->user_id)
       {
         $task->user_id=$request->user_id;
       }
-      elseif($request->user_id == '')
+      elseif($request->user_id == '' && Auth::user()->roles_id == 2)
       {
         $task->user_id=Auth::id();
       }
@@ -62,23 +63,28 @@ class TaskAllotmentController extends Controller
       $task->description=$request->description;
       $task->status=0;
       $task->save();                                                                       
-      return redirect('task_allotment');                           
+      return redirect('TaskAllotment');                           
     }            
-    public function task_allotment()
+    public function index()
     {
-          return view('TaskAllotment.index');
+      $task=TaskAllotment::all();
+      $rating=Rating::where('user_id',Auth::id())->pluck('star_rated','task_id')->toarray();
+     // dd($rating);
+      return view('TaskAllotment.index',compact('rating','task'));
     }
     public function task_allotment_list(Request $request)
     {
-     
+    
       if ($request->ajax()) {
         if(Auth::user()->roles_id == 1)
         { 
           $data=TaskAllotment::latest()->get();
+         // $data=TaskAllotment::where('tl_id',Auth::id())->latest()->get();
         }
         elseif(Auth::user()->roles_id == 2)
         {
-          $data=TaskAllotment::where('tl_id',Auth::id())->get();
+
+          $data=TaskAllotment::where('tl_id',Auth::id())->latest()->get();
         }
         else
         {
@@ -99,8 +105,10 @@ class TaskAllotmentController extends Controller
                           $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a><br/>';
                           if(Auth::user()->roles_id != 3 && $row->user_id != $row->tl_id)
                           {
-                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class="fa fa-star btn btn-warning btn-sm m-1 "data-toggle="modal" data-target="#exampleModalCenter"></a><br/>';
-                          }  
+                          $btn = $btn.'<button class="fa fa-star star star1 btn btn-warning btn-sm m-1   "data-toggle="modal" data-target="#exampleModalCenter"  data-id="'.$row->id.'"></button><br/>';
+                          //$btn = $btn.'<button class="star">Star</button><br/>';
+                        
+                        }  
                           return $btn;
                          })
                   ->addColumn('description',function(TaskAllotment $des){
@@ -159,7 +167,7 @@ class TaskAllotmentController extends Controller
       $user = TaskAllotment::find($id);
       $user->status=1;
       $user->save();
-      return redirect('task_allotment');
+      return redirect('TaskAllotment');
     }
 
      public function empname(Request $request)
@@ -181,16 +189,41 @@ class TaskAllotmentController extends Controller
 
     public function rating(Request $request,$id)
     {
-     // dd($id);
+     
+      $taskid=$request->input('taskid');
+      if(Rating::where('user_id',Auth::id())->where('task_id',$taskid)->exists())
+      {
+      $taskid=$request->input('taskid');
+      $rating=$request->input('ratingvalue');
+      $rate=Rating::where('user_id',Auth::id())->where('task_id',$taskid)->first();
+      $rate->user_id=Auth::id();
+      $rate->task_id=$request->input('taskid');
+      $rate->star_rated=$rating;
+      $rate->update();
+      return response()->json([
+          'update'=>true,
+      ]);
+    }
+       else
+       {   
       $rating=$request->input('ratingvalue');
       $rate=new Rating();
       $rate->user_id=Auth::id();
-      $rate->task_id= 1;
+      $rate->task_id=$request->input('taskid');
       $rate->star_rated=$rating;
       $rate->save();
       return response()->json([
         'status'=>true,
     ]);
-    }
     
+  }
+} 
+ 
+
+   public function ratingdisplay(Request $request,$id)
+   {
+     dd("hello");
+      dd($request->input('taskid'));
+   }
+  
 }

@@ -21,7 +21,7 @@ class HomeController extends Controller
       $employee=User::all();
       return view('Dashboard.home',compact('employee')); 
    }
-   public function employee_list(Request $request)
+   public function getdata(Request $request)
    {
       if ($request->ajax()) {
       $data=User::all();

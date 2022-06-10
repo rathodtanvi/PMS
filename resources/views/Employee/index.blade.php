@@ -14,8 +14,8 @@
       <main id="main" class="main">
 
         <div class="pagetitle">
-          <h1>Employee Details
-            <a class="btn btn-info mb-3"  href="{{route('addemployee')}}" >New</a> 
+          <h1>Employee
+            <a class="btn btn-info mb-3"  href="{{route('employee.create')}}" >New</a> 
           </h1>
           <nav >
             <ol class="breadcrumb">
@@ -24,15 +24,19 @@
             </ol>
           </nav>
         </div><!-- End Page Title -->
-    
+        @if (session('status'))
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+          {{ session('status') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <section class="section">
           <div class="row">
             <div class="col-lg-12">
     
               <div class="card">
                 <div class="card-body">
-             
-                  
+                 
                   <!-- Table with stripped rows -->
                   <table class="table yajra-datatable">
                     <thead>
@@ -75,7 +79,7 @@
     "bScrollCollapse": true,
     "bAutoWidth": false,
     responsive: true,
-        ajax: "{{ route('employeelist') }}",
+        ajax: "{{ route('getdata_employee') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
@@ -85,6 +89,7 @@
             {data: 'qualification', name: 'qualification'},
             {data: 'address', name: 'address'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
+          
         ]
        
     });

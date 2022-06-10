@@ -11,7 +11,7 @@
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Daily Work Entry
-          <a class="btn btn-info"  href="{{route('addwork')}}" style="float:right">New</a> 
+          <a class="btn btn-info"  href="{{route('DailyWorkEntry.create')}}" style="float:right">New</a> 
       </h1>
       <nav>
         <ol class="breadcrumb">
@@ -20,7 +20,12 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+    @if (session('status'))
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      {{ session('status') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -68,7 +73,7 @@
     "bScrollCollapse": true,
     "bAutoWidth": false,
     responsive: true,
-        ajax: "{{ route('daily_work_entrylist') }}",
+        ajax: "{{ route('getdata_dailyworkentry') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'project_id', name: 'project_id'},

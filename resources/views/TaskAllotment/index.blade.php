@@ -12,7 +12,7 @@
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Task Allotment
-          <a class="btn btn-info"  href="{{route('add_task')}}" style="float:right">New</a> 
+          <a class="btn btn-info"  href="{{route('TaskAllotment.create')}}" style="float:right">New</a> 
       </h1>
       <nav>
         <ol class="breadcrumb">
@@ -28,14 +28,44 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Task Rating</h5>
           </div>
+          <div id="taskid" style="display: none"></div>
           <div class="message"></div>
           <div class="modal-body">
-            @for($i = 1; $i <= 5; $i++)
-            <li class="fa fa-star-o change rating-css" id={{$i}}></li>
-            @endfor
+             {{-- @for($i = 1; $i <= 5; $i++)
+            <li class="fa fa-star-o change rating" id={{$i}}></li>
+            @endfor  --}}
+          <div>
+                 @if(isset($task)|| isset($tk))
+                    @foreach ($task as $tk)                        
+                    @if(array_key_exists($tk->id,$rating))
+                      @foreach ($tk->rating as $rate)
+                      {{$rate->task_id}} 
+                      {{$rate->task->id}} 
+                 
+                      @if($rate->user_id == Auth::user()->id)
+                      @for($i = 1; $i <= 5; $i++)
+                        @if ($i <= $rate->star_rated )
+                        <li class="fa fa-star change rating-css" id={{$i}}></li>
+                        @else
+                        <li class="fa fa-star-o change rating" id={{$i}}></li>
+                        @endif
+                        @endfor
+                        @endif
+                        @endforeach
+                    @else
+                    @for($i = 1; $i <= 5; $i++)
+                    <li class="fa fa-star-o change rating" id={{$i}}></li>
+                    @endfor
+                    @endif
+                    @endforeach     
+                  @endif  
+           
+            </div>    
+          
+         
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
           </div>
         </div>
       </div>

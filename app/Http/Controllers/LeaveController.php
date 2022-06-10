@@ -12,11 +12,35 @@ use Illuminate\Http\Request;
 
 class LeaveController extends Controller
 {                                                                
-    public function leave()
+    public function index()
     {
         return view('Leave.index');
     }
-    public function leavelist(Request $request)
+    public function create()
+    {
+          return view('Leave.add');
+    }
+    public function store(LeaveRequest $request)
+    {
+        $leave=new Leave();
+        $leave->user_id=Auth::id();
+        $leave->leave_type = $request->leave_type;
+        $leave->half_leave_type = $request->half_leave_type;
+        $leave->subject=$request->subject;
+        $leave->date_start=$request->date_start;
+        $leave->date_end=$request->date_end;
+        $leave->leave_status=$request->leave_status ?? 0;
+        $leave->message=$request->message;
+        $leave->approve=$request->approve ?? 0;
+        $leave->save();    
+        return redirect('leave')->with('status', 'Successfully Inserted  Leave');
+    }
+    public function show($id)
+    {
+        $datas= Leave::find($id);
+        return view('Leave.view',compact('datas'));
+    }
+    public function getdata(Request $request)
     {
       if ($request->ajax()) {
         $data=Leave::where('user_id',Auth::id())->latest()->get();
@@ -25,7 +49,7 @@ class LeaveController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                         $btn = '<a href="'.route('leavestatus',$row->id).'"  class=" btn btn-primary btn-sm m-1">Pending</a>';
-                        $btn =$btn.'<a href="'.route('leaveview',$row->id).'" class="edit btn btn-success btn-sm m-1">view</a>';
+                        $btn =$btn.'<a href="'.route('leave.show',$row->id).'" class="edit btn btn-success btn-sm m-1">view</a>';
                         return $btn;
                 })
                 ->addColumn('created_at',function($request){
@@ -64,42 +88,11 @@ class LeaveController extends Controller
                 ->make(true);
         }
     }
-    public function addleave()
-    {
-          return view('Leave.add');
-    }
-    public function inleave(LeaveRequest $request)
-    {
-        $leave=new Leave();
-        $leave->user_id=Auth::id();
-        $leave->leave_type = $request->leave_type;
-        $leave->half_leave_type = $request->half_leave_type;
-        $leave->subject=$request->subject;
-        $leave->date_start=$request->date_start;
-        $leave->date_end=$request->date_end;
-        $leave->leave_status=$request->leave_status ?? 0;
-        $leave->message=$request->message;
-        $leave->approve=$request->approve ?? 0;
-        $leave->save();    
-        return redirect('leave');
-    }
-    public function leaveview($id)
-    {
-        $datas= Leave::find($id);
-        return view('Leave.view',compact('datas'));
-    }
-
+   
     public function leavestatus(Request $request,$id)
     {
-        return redirect('leave');
+        return redirect('leave')->with('status', 'Successfully Update Leave Sataus');
     }
-
-    public function all_leave()
-    {
-        return view('Leave.index');
-    }
-
-
     public function all_leavelist(Request $request)
     {
       if ($request->ajax()) {

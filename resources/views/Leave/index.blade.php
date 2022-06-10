@@ -12,7 +12,7 @@
     <div class="pagetitle">
       <h1>Leave
         @if (Auth::user()->roles_id != 1)
-        <a class="btn btn-info"  href="{{route('addleave')}}" style="float:right">New</a>     
+        <a class="btn btn-info"  href="{{route('leave.create')}}" style="float:right">New</a>     
         @endif
     </h1>
       <nav>
@@ -23,13 +23,11 @@
       </nav>
     </div><!-- End Page Title -->
     @if (session('status'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>  {{ session('status') }}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    @endif
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+          {{ session('status') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -75,7 +73,7 @@
       "bScrollCollapse": true,
       "bAutoWidth": false,
       responsive: true,
-          ajax: "{{ route('leavelist') }}",
+          ajax: "{{ route('getdata_leave') }}",
           columns: [ 
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data:'created_at',name:'created_at'},
@@ -99,7 +97,7 @@
 
     var table = $('.yajra-datatable').DataTable({
       responsive: true,
-          ajax: "{{ route('leavelist') }}",
+          ajax: "{{ route('all_leavelist') }}",
           columns: [ 
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data:'created_at',name:'created_at'},

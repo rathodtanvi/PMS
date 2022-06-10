@@ -13,7 +13,7 @@
             "bScrollCollapse": true,
             "bAutoWidth": false,
             responsive: true,
-            ajax: "{{ route('Technology.list') }}",
+            ajax: "{{ route('getdata') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'technology_name', name: 'technology_name'},
@@ -33,7 +33,7 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Technology 
-            <a href='AddTechnology' class="btn btn-info mb-3"> New </a>
+            <a href="{{route('Technology.create')}}" class="btn btn-info mb-3"> New </a>
         </h1>
     </div>  
     <nav>
@@ -42,6 +42,12 @@
             <li class="breadcrumb-item">Technology</li>
         </ol>
     </nav>
+    @if (session('status'))
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      {{ session('status') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="card p-2">
         <div class="card-body">
             <table class="table table-hover">

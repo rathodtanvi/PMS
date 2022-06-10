@@ -18,7 +18,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="post" action="{{url('/')}}/AddTechnology"> 
+            <form method="Post" action="{{ route('Technology.store') }}"> 
                 @csrf
 
                 <div class="row mb-3">

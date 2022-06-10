@@ -18,8 +18,9 @@
     <div class="card p-2">
         <div class="card-body">
 
-            <form method="post" action="{{ url('update-technology/'.$edits->id) }}"> 
+            <form method="post"   action="{{route('Technology.update',$edits->id)}}"> 
                 @csrf
+                @method("PUT")
                 <div class="row mb-3">
                     <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
                         <span style="color:red"> * </span></label>

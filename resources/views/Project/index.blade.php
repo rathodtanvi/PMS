@@ -74,6 +74,12 @@
             <li class="breadcrumb-item">Project</li>
         </ol>
     </nav>
+    @if (session('status'))
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      {{ session('status') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <center><button type="button"  class="btn btn-primary btn-sm m-1 completeproject"  style="display:none"> Complete Project </button></center>

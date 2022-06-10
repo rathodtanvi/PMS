@@ -38,13 +38,13 @@
     </li>
     @endif
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('task_allotment')}}">
+        <a class="nav-link collapsed"  href="{{url('TaskAllotment')}}">
         <i class="fa fa-book"></i><span> Task Allotment </span>
         </a>    
     </li>
     @if (Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3)
 	<li class="nav-item">
-        <a class="nav-link collapsed"  href="{{url('daily_work_entry')}}">
+        <a class="nav-link collapsed"  href="{{url('DailyWorkEntry')}}">
         <i class="fa fa-edit"></i><span> Daily Work Entry </span>
         </a>    
     </li>

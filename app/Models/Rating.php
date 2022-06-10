@@ -10,4 +10,9 @@ class Rating extends Model
     use HasFactory;
     public $table = 'rating';
     protected $fillable=['id','user_id','task_id','star_rated'];
+
+    public function task()
+    {
+       return $this->belongsTo(TaskAllotment::class,'task_id','id');
+    }
 }

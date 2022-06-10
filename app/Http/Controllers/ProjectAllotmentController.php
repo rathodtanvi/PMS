@@ -116,12 +116,12 @@ class ProjectAllotmentController extends Controller
             
         }
         
-        return redirect('ProjectAllotment');
+        return redirect('ProjectAllotment')->with('status', 'Successfully Inserted Project Allotment');
     }
 
     public function DeleteAllotment($id)
     {
         $delete = ProjectAllotment::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Successfully Delete Project Allotment');
     }
 }
