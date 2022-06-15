@@ -1,6 +1,7 @@
 @extends('layouts.index')
 @section('content')
 <script src="{{ asset('userpms.js') }}"></script>
+
 <main id="main" class="main">
     <div class="pagetitle">
       <h1>Task Allotment</h1>
@@ -23,7 +24,7 @@
 
 
               <!-- General Form Elements -->
-              <form method="post" action="{{route('TaskAllotment.store')}}">
+              <form method="post" action="{{route('TaskAllotment.store')}}" id="TaskAllotmentadd">
                 @csrf
               <div class="row mb-3">
                 <div class="col-4">
@@ -40,9 +41,7 @@
                @enderror
               </div>
             </div>
-          
-
-               @if(Auth::user()->roles_id == 1)
+               {{-- @if(Auth::user()->roles_id == 1)
                <div class="col-4">
                       <label class="col-form-label">Employee Name</label>
                       <div> 
@@ -50,7 +49,7 @@
                       <option  disabled selected value>---select---</option>
                        {{-- @foreach ($emp as $em)                 
                         <option value="{{$em->id }}"> {{$em->name}}</option>
-                      @endforeach --}}
+                      @endforeach 
                     </select>
                     @error('user_id')
                     <span style="color:red"> {{$message }} </span>
@@ -58,22 +57,22 @@
                   </div>
               </div> 
              @endif
-               @if(Auth::user()->roles_id ==2)
+            @if(Auth::user()->roles_id ==2)
                 <div class="col-4">
                        <label class="col-form-label">Employee Name</label>
                        <div> 
-                       <select class="form-select emp_tl" aria-label="Default select example" name="user_id">
+                       <select class="form-select empname" aria-label="Default select example" name="user_id">
                        <option  disabled selected value>---select---</option>
                         {{-- @foreach ($employee as $emp)
                        <option value="{{$emp->id }}{{ $emp->id == Auth::id()  ? 'selected' : '' }}"> {{$emp->name}}</option>
-                       @endforeach --}}
+                       @endforeach 
                      </select>
                      @error('user_id')
                      <span style="color:red"> {{$message }} </span>
                     @enderror
                    </div>
                </div> 
-              @endif
+              @endif   --}}
                 <div class="col-4">
                 <label class="col-form-label">Title</label>
                     <div class="col">
@@ -98,7 +97,7 @@
                 <div class="col-4" id="days">
                     <label class="col-form-label">Days</label>
                     <div> 
-                      <input type="number" class="form-control" name="days_txt"  placeholder="Enter Days" >
+                      <input type="number" class="form-control" name="days_txt"  placeholder="Enter Days" id="days_txt">
                       @error('days_txt')
                       <span style="color:red"> {{$message }} </span>
                      @enderror
@@ -107,7 +106,7 @@
                <div class="col-4" id="hours" style="display:none;">
                 <label class="col-form-label">Hours</label>
                 <div> 
-                  <input type="number" class="form-control" name="hours_txt"  placeholder="Enter Hours">
+                  <input type="number" class="form-control" name="hours_txt"  placeholder="Enter Hours" id="hours_txt">
                   @error('hours_txt')
                   <span style="color:red"> {{$message }} </span>
                  @enderror
@@ -115,11 +114,11 @@
                </div>
               </div>
              
-                <div class="row mt-3 pb-2">
-                  <div class="col-12">
-                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
-                      <textarea  class="form-control textarea ckeditor"  name="description"></textarea>   
-                </div>
+              <div class="row mt-3 pb-2">
+                <div class="col-12 container" >
+                <div> <label for="description" class="col-sm-2 col-form-label" >Description</label></div>
+                    <textarea  class="form-control textarea ckeditor"  name="description" id="description"></textarea>   
+              </div>
                 @error('description')
                 <span style="color:red"> {{$message }} </span>
                @enderror

@@ -12,6 +12,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAllotmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\AdminReportsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\TaskAllotmentController;
@@ -54,6 +55,11 @@ Route::get('/status/{id}', [EmployeeController::class, 'status'])->name('status'
 Route::get('/changerole/{id}', [EmployeeController::class, 'changerole'])->name('changerole');
 Route::resource('/employee',EmployeeController::class);
 
+//Holiday Controller
+Route::resource('/Holiday',HolidayController::class);
+Route::get('getdata_holiday', [HolidayController::class, 'getdata'])->name('getdata_holiday');
+Route::get('/delete_holiday/{id}', [HolidayController::class, 'delete'])->name('delete_holiday');
+
 //DailyWorkEntry
 Route::get('/getdata_dailyworkentry', [DailyWorkEntryController::class, 'getdata'])->name('getdata_dailyworkentry');
 Route::get('/delete/{id}', [DailyWorkEntryController::class, 'delete'])->name('delete');
@@ -71,16 +77,14 @@ Route::resource('/leave',LeaveController::class);
 
 
 //Task_Allotment Controller
-// Route::get('/add_task', [TaskAllotmentController::class, 'add_task'])->name('add_task');
-// Route::post('/enter_task', [TaskAllotmentController::class, 'enter_task'])->name('enter_task');
-Route::get('/task_allotment', [TaskAllotmentController::class, 'task_allotment'])->name('task_allotment');
-Route::get('/task_allotment_list', [TaskAllotmentController::class, 'task_allotment_list'])->name('task_allotment_list');
+Route::get('/getdata_taskallotment', [TaskAllotmentController::class, 'getdata'])->name('getdata_taskallotment');
 Route::get('/taskcomplete/{id}', [TaskAllotmentController::class, 'taskcomplete'])->name('taskcomplete');
 Route::get('/taskdelete/{id}', [TaskAllotmentController::class, 'taskdelete'])->name('taskdelete');
-Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
-Route::post('/emptl', [TaskAllotmentController::class, 'emptl'])->name('emptl');
+//Route::post('/empname', [TaskAllotmentController::class, 'empname'])->name('empname');
+// Route::post('/emptl', [TaskAllotmentController::class, 'emptl'])->name('emptl');
 // Route::get('/rating', [TaskAllotmentController::class, 'rating'])->name('rating');
-Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('rating');
+// Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('rating');
+Route::resource('/TaskAllotment',TaskAllotmentController::class);
 
 
 Route::get('/ratingdisplay/{id}', [TaskAllotmentController::class, 'ratingdisplay'])->name('ratingdisplay');
@@ -89,6 +93,7 @@ Route::get('/rating/{id}', [TaskAllotmentController::class, 'rating'])->name('ra
 
 Route::get('/reviewadd', [TaskAllotmentController::class, 'AddReview']);  //Task review Button
 Route::get('reviewupd', [TaskAllotmentController::class, 'task_allotment']);
+
 
 // Project Milestones 
 Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
@@ -99,6 +104,7 @@ Route::get('/report_attendance', [ReportsController::class, 'report_attendance']
 Route::post('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
 Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
 Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
+Route::post('/total_hour', [ReportsController::class, 'total_hour'])->name('total_hour');
 
 
 
@@ -124,8 +130,8 @@ Route::get('addatendance',[AttendanceController::class,'AddAttendance']);
 Route::get('outatendance',[AttendanceController::class,'OutAttendance']);
 Route::get('workhour',[AttendanceController::class,'WorkHours']);
 Route::resource('/Attendance',AttendanceController::class);
-//Project
 
+//Project
 Route::resource('/project', ProjectController::class);
 Route::get('Project/getdata', [ProjectController::class, 'getdata'])->name('Project.getdata');
 Route::get('statuschange',[ProjectController::class,'statuschange']);
@@ -136,62 +142,62 @@ Route::get('ProjectAllotment/getdata', [ProjectAllotmentController::class, 'getd
 Route::get('gettechnology',[ProjectAllotmentController::class,'gettechnology']); // get technology based on projectname
 
 
-Route::get('/Dashboard', function () {
-    return view('Client.Dashboard.index');
-});
+// Route::get('/Dashboard', function () {
+//     return view('Client.Dashboard.index');
+// });
 
-Route::get('/admin', function () {
-    return view('Admin.Dashboard.index');
-});
+// Route::get('/admin', function () {
+//     return view('Admin.Dashboard.index');
+// });
 
-Route::get('AddTechnology', function () {
-    return view('Client.Technology.add');
-});
+// Route::get('AddTechnology', function () {
+//     return view('Client.Technology.add');
+// });
 
 
 //Route::get('/Project',[ProjectController::class,'ShowProject'])->name('Project');
 //Route::get('Project/list', [ProjectController::class, 'DispProject'])->name('Project.list');
 
-Route::get('/completeproject',[ProjectController::class,'CompletProject']);    //complete project checkbox
+// Route::get('/completeproject',[ProjectController::class,'CompletProject']);    //complete project checkbox
 
-Route::get('AddProject',[ProjectController::class,'InsertProject']);
-Route::post('AddProject',[ProjectController::class,'Addproject']);
+// Route::get('AddProject',[ProjectController::class,'InsertProject']);
+// Route::post('AddProject',[ProjectController::class,'Addproject']);
 
-Route::get('edit_project/{id}',[ProjectController::class,'EditProject']);
-Route::post('update-project/{id}',[ProjectController::class,'Update']);
+// Route::get('edit_project/{id}',[ProjectController::class,'EditProject']);
+// Route::post('update-project/{id}',[ProjectController::class,'Update']);
 
-Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
+// Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
 
-/*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
-Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');*/
+// /*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
+// Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');*/
 
 
 
-Route::get('delete_PAllotment/{id}',[ProjectAllotmentController::class,'Delete']);
+// Route::get('delete_PAllotment/{id}',[ProjectAllotmentController::class,'Delete']);
 
 
 // Routes (Admin Side)
 
 
-Route::get('/Project',[ProjectController::class,'adminProject']);
-Route::get('Project/list', [ProjectController::class, 'DispAdminProject'])->name('Project.list');
+// Route::get('/Project',[ProjectController::class,'adminProject']);
+// Route::get('Project/list', [ProjectController::class, 'DispAdminProject'])->name('Project.list');
 
-Route::get('AddProject',[ProjectController::class,'adminInsertProject']);
-Route::post('AddProject',[ProjectController::class,'adminAddproject']);
+// Route::get('AddProject',[ProjectController::class,'adminInsertProject']);
+// Route::post('AddProject',[ProjectController::class,'adminAddproject']);
 
-Route::get('Editproject/{id}',[ProjectController::class,'adminEditProject']);
-Route::post('update-project/{id}',[ProjectController::class,'adminUpdate']);
+// Route::get('Editproject/{id}',[ProjectController::class,'adminEditProject']);
+// Route::post('update-project/{id}',[ProjectController::class,'adminUpdate']);
 
-Route::get('DeleteProject/{id}',[ProjectController::class,'adminDelete']); 
+// Route::get('DeleteProject/{id}',[ProjectController::class,'adminDelete']); 
 
-Route::get('/completeproject',[ProjectController::class,'CompletProject']); 
+// Route::get('/completeproject',[ProjectController::class,'CompletProject']); 
 
-/*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'adminPAllotment']);
-Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'dispPAllotment'])->name('ProjectAllotment.list');*/
+// /*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'adminPAllotment']);
+// Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'dispPAllotment'])->name('ProjectAllotment.list');*/
 
-Route::get('AddAllotment',[ProjectAllotmentController::class,'adminInsertPAllotment']);
-Route::post('AddAllotment',[ProjectAllotmentController::class,'adminAddPAllotment']);
+// Route::get('AddAllotment',[ProjectAllotmentController::class,'adminInsertPAllotment']);
+// Route::post('AddAllotment',[ProjectAllotmentController::class,'adminAddPAllotment']);
 
-Route::get('admingetprojectnm',[ProjectAllotmentController::class,'admingetPTechnology']); // get technology based on projectname
+// Route::get('admingetprojectnm',[ProjectAllotmentController::class,'admingetPTechnology']); // get technology based on projectname
 
-Route::get('delete_PAllotment/{id}',[ProjectAllotmentController::class,'DeleteAllotment']);
+// Route::get('delete_PAllotment/{id}',[ProjectAllotmentController::class,'DeleteAllotment']);

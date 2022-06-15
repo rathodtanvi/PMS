@@ -82,14 +82,10 @@ class DailyWorkEntryController extends Controller
                         $btn = $btn.'<a href="'.route('delete',$row->id).'" class="edit btn btn-danger btn-sm m-1">Delete</a>';
                         return $btn;
                 })
-                ->addColumn('description',function(DailyWorkEntry $des){
-                  $des= Strip_tags($des->description);
-                  return str_replace('&nbsp;','',$des);
-                })
                 ->addColumn('project_id',function(DailyWorkEntry $project_id){
                     return $project_id->project->project_name;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','description'])
                 ->make(true);
     }
       // return view('User.daily_work_entry');

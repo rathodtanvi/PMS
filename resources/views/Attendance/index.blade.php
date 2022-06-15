@@ -13,7 +13,7 @@
             <li class="breadcrumb-item">Attendance</li>
         </ol>
     </nav>
-    
+    <div class="error"></div>
     <div class="card ">
         <div class="card-body">
 
@@ -67,12 +67,23 @@
             dataType: "json",
             success: function(res)
             {
-                $.each(res,function(Index,value)
+                if(res.success == true)
                 {
+                    $('.error').html(`<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                      Today Holiday
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+                }
+                else
+                {
+                    $.each(res,function(Index,value)
+                   {
                     tr.find(".btn-inentry").html("<i class='fa fa-clock-o'></i> " + value);
                     $(".btn-inentry").attr("disabled","disabled");
                     $(".btn-outentry").show();
                 });
+                }
+               
             }
         });
     });

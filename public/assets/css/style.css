@@ -13,7 +13,9 @@ th, td {
   padding: 16px;
   border: 1px solid rgba(236, 233, 233, 0.889);
 }
-
+.select2-selection__clear{
+  display:none;
+}
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }

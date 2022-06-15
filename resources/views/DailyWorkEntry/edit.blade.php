@@ -21,7 +21,7 @@
           <div class="card p-2">
             <div class="card-body">
                <!-- General Form Elements -->
-              <form method="post" action="{{route('DailyWorkEntry.update',$datas->id)}}">
+              <form method="post" action="{{route('DailyWorkEntry.update',$datas->id)}}" id="dailyworkentryadd">
                 @csrf
                   @method('PUT')
              <div class="row mb-3">
@@ -80,9 +80,9 @@
         </div>
       </div>
                 <div class="row mt-3 pb-2">
-                  <div class="col-12">
+                  <div class="col-12 container">
                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
-                     <textarea class="form-control textarea ckeditor"  name="description">{{$datas->description}}</textarea>   
+                     <textarea class="form-control textarea ckeditor"  name="description" id="description">{{$datas->description}}</textarea>   
                 </div>
                 @error('description')
                 <span style="color:red"> {{$message }} </span>

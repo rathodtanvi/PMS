@@ -29,4 +29,9 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.18.0/ckeditor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 
+
+<script src="{{ asset('validation.js') }}"></script>
+<script src="{{ asset('userpms.js') }}"></script>
+<link href="{{ asset('validation-error-style.css') }}" rel="stylesheet">

@@ -55,9 +55,9 @@ class LeaveController extends Controller
                 ->addColumn('created_at',function($request){
                   return  $request->created_at->format('Y-m-d');
                 })
-                ->addColumn('message',function(Leave $msg){
-                return Strip_tags($msg->message);
-                })
+                // ->addColumn('message',function(Leave $msg){
+                // return Strip_tags($msg->message);
+                // })
                 ->addColumn('name',function(Leave  $name){
                   return  $name=Auth::user()->name;
                 })
@@ -84,7 +84,7 @@ class LeaveController extends Controller
                         return "Multipal Day leave";
                       
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','message'])
                 ->make(true);
         }
     }

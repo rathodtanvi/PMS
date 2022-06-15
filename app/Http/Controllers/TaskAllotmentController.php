@@ -7,57 +7,64 @@ use App\Models\TaskAllotment;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Rating;
-use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 use App\Http\Requests\TaskAllotmentRequest;
-use Illuminate\Support\Facades\DB;
 
 class TaskAllotmentController extends Controller
 {
+  public function index()
+  {
+    $task=TaskAllotment::all();
+    $rating=Rating::where('user_id',Auth::id())->pluck('star_rated','task_id')->toarray();
+   // dd($rating);
+    return view('TaskAllotment.index',compact('rating','task'));
+  }
     public function create()
     {
-  
-        if(Auth::user()->roles_id ==1)
-        {
-          $project=Project::pluck('project_name','id')->toarray();
-          //dd($project);
-        }
-        else if(Auth::user()->roles_id == 2)
-        {
-
-          $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
-          $project=Project::select('id','project_name')->where('tl_id',Auth::id())->orWhereIn('id', $allotment)->pluck('project_name','id')->toarray();
-          //dd($project);
-        }
-        else
-        {
-            $allotment = ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
-            $project = Project::select('id','project_name')->whereIn('id', $allotment)->pluck('project_name','id')->toarray(); 
-           // dd($project);
-        }
+        // if(Auth::user()->roles_id ==1)
+        // {
+        //   $project=Project::pluck('project_name','id')->toarray();
+        //   // dd($project);
+        // }
+        // else if(Auth::user()->roles_id == 2)
+        // {
+        //   $allotment=ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+        //   $project=Project::select('id','project_name')->where('tl_id',Auth::id())->orWhereIn('id', $allotment)->pluck('project_name','id')->toarray();
+        //   //dd($project);
+        // }
+        //  else
+        //  {
+        //     $allotment = ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+        //     $project = Project::select('id','project_name')->whereIn('id', $allotment)->pluck('project_name','id')->toarray(); 
+        //     //dd($project);
+        //  }
+         $allotment = ProjectAllotment::where('user_id',Auth::id())->pluck('project_id')->toArray();
+         $project = Project::select('id','project_name')->whereIn('id', $allotment)->pluck('project_name','id')->toarray(); 
         return view('TaskAllotment.add',compact('project'));
     }
     public function store(TaskAllotmentRequest $request)
     {
+     
       $task=new TaskAllotment();
-      if($request->user_id)
-      {
-        $task->user_id=$request->user_id;
-      }
-      elseif($request->user_id == '' && Auth::user()->roles_id == 2)
-      {
-        $task->user_id=Auth::id();
-      }
-      else
-      {
-        $task->user_id=0;
-      }
+      // if($request->user_id)
+      // {
+      //   $task->user_id=$request->user_id;
+      // }
+      // elseif($request->user_id == '' && Auth::user()->roles_id == 2)
+      // {
+      //   $task->user_id=Auth::id();
+      // }
+      // else
+      // {
+      //   $task->user_id=0;
+      // }
     
       //$task->user_id=$request->user_id;
-      $task->tl_id=Auth::id();
+      //$task->tl_id=Auth::id();
+      $task->user_id=Auth::id();
       $task->project_id = $request->project_id; 
       $task->title = $request->title; 
       $task->days_txt = $request->days_txt; 
@@ -65,74 +72,60 @@ class TaskAllotmentController extends Controller
       $task->description=$request->description;
       $task->status=0;
       $task->save();                                                                       
-      return redirect('TaskAllotment');                           
+      return redirect('TaskAllotment')->with('status', 'Successfully Inserted TaskAllotment');                           
     }            
-    public function index()
-    {
-      $task=TaskAllotment::all();
-      $rating=Rating::where('user_id',Auth::id())->pluck('star_rated','task_id')->toarray();
-     // dd($rating);
-      return view('TaskAllotment.index',compact('rating','task'));
-    }
-    public function task_allotment_list(Request $request)
+   
+    public function getdata(Request $request)
     {
     
       if ($request->ajax()) {
-        if(Auth::user()->roles_id == 1)
-        { 
-          $data=TaskAllotment::latest()->get();
-         // $data=TaskAllotment::where('tl_id',Auth::id())->latest()->get();
-        }
-        elseif(Auth::user()->roles_id == 2)
-        {
+        // if(Auth::user()->roles_id == 1)
+        // { 
+        //   $data=TaskAllotment::latest()->get();
+        //   $data=TaskAllotment::where('tl_id',Auth::id())->latest()->get();
+        // }
+        // elseif(Auth::user()->roles_id == 2)
+        // {
 
-          $data=TaskAllotment::where('tl_id',Auth::id())->latest()->get();
-        }
-        else
-        {
-          $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
-        }  
-        
+        //   $data=TaskAllotment::where('tl_id',Auth::id())->latest()->get();
+        // }
+        // else
+        // {
+        //   $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
+        // }   
+        $data=TaskAllotment::where('user_id',Auth::id())->latest()->get();
           return DataTables::of($data)
                   ->addIndexColumn()
                   ->addColumn('action', function($row){
-                        if($row->status == 1)
-                        {
+                         if($row->status == 1)
+                         {
                           $btn = '<a class="fa fa-check  btn btn-success btn-sm m-1" style="color:white"></a>';
-                        }
-                        else
-                        {
+                         }
+                         else
+                         {
                           $btn = '<a href="'.route('taskcomplete',$row->id).'"class="fa fa-check  btn btn-primary btn-sm m-1"></a>';
-                        }    
+                         }    
                           $btn = $btn.'<a href="'.route('taskdelete',$row->id).'" class="fa fa-trash btn btn-danger btn-sm m-1"></a><br/>';
-                                                  
-                          if(Auth::user()->roles_id != 3 && $row->user_id != $row->tl_id)
-                          {
-                          $btn = $btn.'<a href="'.route('rating',$row->id).'" class="fa fa-star btn btn-warning btn-sm m-1 " data-toggle="modal" data-target="#exampleModalCenter"></a><button type="button" class="fa fa-review review btn btn-primary" data-id ="'.$row->id.'" data-toggle="modal" data-target="#myModal">
-                          Review </button>';
-                            
-                          }  
+                        //   if(Auth::user()->roles_id != 3 && $row->user_id != $row->tl_id)
+                        //   {
+                        //   $btn = $btn.'<button class="fa fa-star star star1 btn btn-warning btn-sm m-1   "data-toggle="modal" data-target="#exampleModalCenter"  data-id="'.$row->id.'"></button><br/>';
+                        //   //$btn = $btn.'<button class="star">Star</button><br/>';
+                        
+                        // }  
                           return $btn;
-                        })
-                  ->addColumn('description',function(TaskAllotment $des){
-                    $des =Strip_tags($des->description);
-                    return str_replace('&nbsp;','',$des);
-                  })
-                  ->addColumn('tl_id',function(TaskAllotment $tl_id){
-                    return $tl_id->username->name;
-                  })
+                         })
                   ->addColumn('project_name',function(TaskAllotment $project_name){
                     return $project_name->projectallotment->project->project_name;
                   })
                   ->addColumn('employeename',function(TaskAllotment $emp){
-                    if($emp->user_id == 0)
-                    {
-                      return '';
-                    }
-                    else
-                    {
+                     if($emp->user_id == 0)
+                     {
+                       return '';
+                     }
+                     else
+                     {
                       return $emp->user->name;
-                    }
+                     }
                   
                 })
                 ->addColumn('days_txt',function(TaskAllotment $days){
@@ -142,11 +135,11 @@ class TaskAllotmentController extends Controller
                   }
                   else
                   {
-                    $data=$days->hours_txt/8;
+                     $data=$days->hours_txt/8;
                     return round($data,1);
                   }
-                })
-                ->addColumn('hours_txt',function(TaskAllotment $hours){
+                 })
+                 ->addColumn('hours_txt',function(TaskAllotment $hours){
                   if($hours->hours_txt == '')
                   {
                     return  $hours->days_txt*8;
@@ -154,41 +147,41 @@ class TaskAllotmentController extends Controller
                   else{
                     return $hours->hours_txt;
                   }
-              })
-                  ->rawColumns(['action'])
+               })
+                  ->rawColumns(['action','description'])
                   ->make(true);
         }
-        
     }
 
     public function taskdelete($id)
     {
-      TaskAllotment::find($id)->delete();
-      return redirect()->back();
+       TaskAllotment::find($id)->delete();
+       return redirect()->back()->with('status', 'Successfully deleted Task');  
     }
     public function taskcomplete(Request $request,$id)
     {
       $user = TaskAllotment::find($id);
       $user->status=1;
       $user->save();
-      return redirect('TaskAllotment');
+      return redirect('TaskAllotment')->with('status', 'Successfully completed TaskAllotment');
     }
 
-    public function empname(Request $request)
-    {
-      $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
-      $data['user']=User::whereIn('id', $data['employeename'])->get();            
-      return response()->json($data);
-    
-    }
+    //  public function empname(Request $request)
+    //  {
+    //   $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
+    //   $data['user']=User::whereIn('id', $data['employeename'])->get(); 
+    //   return response()->json($data);
+    //  }
 
-    
-    public function emptl(Request $request)
-    {
-      $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
-      $data['user']=User::whereIn('id', $data['employeename'])->get();            
-      return response()->json($data);
-    }
+     
+    //  public function emptl(Request $request)
+    //  {
+    //   dd("hello");
+    //   $data['employeename']=ProjectAllotment::where('project_id',$request->project_id)->pluck('user_id');
+    //   $data['user']=User::whereIn('id', $data['employeename'])->get();   
+    //   dd($data['user']);          
+    //   return response()->json($data);
+    //  }
 
 
     public function rating(Request $request,$id)
@@ -229,42 +222,8 @@ class TaskAllotmentController extends Controller
      dd("hello");
       dd($request->input('taskid'));
    }
-  
-      
+   public function show($id)
+   {
     
-    
-    public function AddReview(Request $request)
-    {
-        $tid = $_GET['tid'];
-        $rtxt = $_GET['rtxt'];
-        
-        $getid = Review::where('user_id',Auth::user()->id)->where('task_id',$tid)->exists();
-        
-        if($getid)
-        {
-          
-          DB::table('review')->where('user_id',Auth::user()->id)->where('task_id',$tid)->update(['task_review'=>$rtxt]);
-
-          
-        }
-        else
-        {
-          $review = new Review;
-          $review->user_id = Auth::user()->id;
-          $review->task_id = $tid;
-          $review->task_review = $rtxt;
-          //dd($review);
-          $review->save();
-        }
-        return redirect('task_allotment');
-    }
-
-    public function ReviewUpdate()
-    {
-        $tid = $_GET['tid'];
-
-        $review = Review::where('user_id',Auth::user()->id)->where('task_id',$tid)->pluck('task_review')->toArray();
-
-        return $review;
-    }
+   }
 }

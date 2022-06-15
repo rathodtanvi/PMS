@@ -53,7 +53,7 @@ class AdminReportsController extends Controller
         {
             $projects=Project::all();
             $employee=User::all();
-            return view('Admin.Reports.ProjectHour.index',compact('projects','employee'));
+            return view('Reports.ProjectHour.index',compact('projects','employee'));
         }
         public function employee_summary()
         {

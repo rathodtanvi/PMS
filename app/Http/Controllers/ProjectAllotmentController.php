@@ -116,7 +116,7 @@ class ProjectAllotmentController extends Controller
             
         }
         
-        return redirect('ProjectAllotment')->with('status', 'Successfully Inserted Project Allotment');
+        return redirect('projectAllotement')->with('status', 'Successfully Inserted Project Allotment');
     }
 
     public function destroy($id)

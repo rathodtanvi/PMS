@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectAllotment;
 use App\Models\Attendance;
+use App\Models\Project;
+use App\Models\DailyWorkEntry;
+use App\Models\User;
 use Hash;
 use DataTables;
 use Illuminate\Http\Request;
@@ -61,13 +64,39 @@ class ReportsController extends Controller
      
     public function report_daily_work_entry()
     {
+
         $projects=ProjectAllotment::where('user_id',Auth::id())->get();
         return view('User.Reports.DailyWorkEntry.index',compact('projects'));
     }
     public function report_project_total_hour()
     {
-        $projects=ProjectAllotment::where('user_id',Auth::id())->get();
-        return view('User.Reports.ProjectHour.index',compact('projects'));
+        if(Auth::user()->roles_id == 1)
+        {
+            $employee=User::all();
+            $projects=Project::all();
+        }
+        else
+        {
+            $employee=User::where('roles_id',Auth::id())->get();
+            $projects=ProjectAllotment::where('user_id',Auth::id())->get();
+        }
+       
+        return view('Reports.ProjectHour.index',compact('projects','employee'));
     }
-
+    public function total_hour(Request $request)
+    {
+        
+        $date=$request->input('date');
+        $date_end=$request->input('date_end');
+        $project_id=$request->input('project');
+        $tech=ProjectAllotment::where('user_id',Auth::id())->where('project_id',$project_id)->pluck('technology');
+        $dailyworks=DailyWorkEntry::where('user_id',Auth::id())->where('project_id',$project_id)->whereBetween('entry_date',[$date,$date_end])->pluck('entry_duration')->toarray();
+        $sum_minutes = 0;
+        foreach($dailyworks as $time) {
+            $explodedTime = array_map('intval', explode(':', $time ));
+            $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
+        }
+        $sumTime = floor($sum_minutes/60).' Hours : '.floor($sum_minutes % 60).' Minutes';
+        return response()->json(['success'=>true, 'dailyworks'=>$sumTime,'project_id'=>$project_id,'tech'=>$tech]);
+    }     
 }

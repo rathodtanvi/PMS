@@ -1,0 +1,7 @@
+    label.error {
+         color: #dc3545;
+         font-size: 14px;
+    }
+     /* input::-webkit-datetime-edit{ color: transparent; }
+    input:focus::-webkit-datetime-edit{ color: #000; }  */ 
+   

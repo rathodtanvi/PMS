@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('task_allotment', function (Blueprint $table) {
+        Schema::create('holidays', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('user_id');
-            // $table->integer('tl_id');
-            $table->foreignId('project_id');
-            $table->string('title');
-            $table->integer('days_txt')->nullable();
-            $table->integer('hours_txt')->nullable();
-            $table->longText('description');
-            $table->tinyInteger('status');
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_allotment');
+        Schema::dropIfExists('holidays');
     }
 };

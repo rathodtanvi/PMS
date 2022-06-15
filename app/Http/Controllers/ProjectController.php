@@ -14,7 +14,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        return view('Project.index');
+        return view('project.index');
     }
 
     public function getdata(Request $request)
@@ -70,7 +70,7 @@ class ProjectController extends Controller
     {
         $technology = Technology::get();
         $tls=User::where('roles_id','2')->get();
-        return view('Project.add',compact('technology','tls'));
+        return view('project.add',compact('technology','tls'));
     }
     public function store(ProjectRequest $request)
     {
@@ -91,7 +91,7 @@ class ProjectController extends Controller
 
             $tech->save();
 
-            return redirect('Project')->with('status', 'Successfully Inserted Project');
+            return redirect('project')->with('status', 'Successfully Inserted Project');
     
     }
 
@@ -101,7 +101,7 @@ class ProjectController extends Controller
         $technology = Technology::get();
         $edits = Project::find($id);
         
-        return view("Project.edit",compact('edits','technology','tls'));   
+        return view("project.edit",compact('edits','technology','tls'));   
     }
 
     public function update(ProjectRequest $request,$id)
@@ -118,7 +118,7 @@ class ProjectController extends Controller
                 $update->tl_id = $request->tl_name;
             }
            $update->update();
-           return redirect('Project')->with('status', 'Successfully Update Project');
+           return redirect('project')->with('status', 'Successfully Update Project');
     }
 
     public function adminDelete($id)
@@ -134,6 +134,6 @@ class ProjectController extends Controller
         $update = Project::find($getid);
         $update->status = 1;
         $update->update();
-        return redirect('Project')->with('status', 'Successfully Completed Project');
+        return redirect('project')->with('status', 'Successfully Completed Project');
     }
 }

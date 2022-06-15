@@ -6,7 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -41,7 +41,6 @@
                                     @if ($user->roles_id != 1)
                                         <option value={{$user->id}}>{{$user->name}}</option>
                                     @endif
-                                    
                                 @endforeach
                             </select>
                             @error('unm')
@@ -164,7 +163,9 @@
                 $('select[id="nameid"]').empty();
             }
         });
-            
+        $("select").on("select2:close", function (e) {  
+        $(this).valid(); 
+    });
     });
 </script>
 
