@@ -20,7 +20,10 @@ class ProjectAllotment extends Model
         
     }
     public function technology(){
-        return $this->belongsTo(Technology::class, 'technology_id'); 
-        
+        return $this->belongsTo(Technology::class, 'technology_id');   
     }
+    public function dailywork(){
+        return $this->belongsTo(DailyWorkEntry::class);   
+    }
+
 }

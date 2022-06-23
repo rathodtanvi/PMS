@@ -132,7 +132,9 @@ $(document).ready(function(){
         rules: {
             project_id: "required",
             entry_date: "required",
-            entry_duration_hours:"required",
+            entry_duration_hours:{
+                required: true,
+            },
             entry_duration_minutes:"required",
             description:{
                 required: function() 

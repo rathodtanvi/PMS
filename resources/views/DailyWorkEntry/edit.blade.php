@@ -1,7 +1,6 @@
 @extends('layouts.index')
 @section('content')
 <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Edit Work Entry</h1>
       <nav>
@@ -12,7 +11,6 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
           <div class="p-2">
@@ -29,7 +27,6 @@
                         <label class="col-form-label">Project Name</label>
                         <div> 
                         <select class="form-select" aria-label="Default select example" name="project_id">
-                        <option disabled selected value>---select---</option>
                         <option value={{$datas->project_id}} selected>{{$datas->project->project_name}}</option>      
                       </select>
                       @error('project_id')
@@ -40,7 +37,7 @@
                  <div class="col-4">
                  <label class="col-form-label">Date</label>
                     <div class="col">
-                      <input type="date" class="form-control" name="entry_date" value="{{date('Y-m-d', time())}}">
+                      <input type="date" class="form-control" name="entry_date" value="{{$datas->entry_date}}">
                     </div>
                   </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\DailyWorkEntry;
 use App\Models\Project;
+use App\Models\ProjectAllotment;
 use App\Models\User;
 use App\Http\Requests\DailyworkentryRequest;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class DailyWorkEntryController extends Controller
     }
     public function create()
     {
-        $project=Project::all();
+        $project=ProjectAllotment::where('user_id',Auth::id())->get();
         return view('DailyWorkEntry.add',compact('project'));
     }
     public function store(DailyworkentryRequest $request)
@@ -56,10 +57,9 @@ class DailyWorkEntryController extends Controller
         $hours,
         $minutes,
       ];
-      $project_id="1";
       $updatework=DailyWorkEntry::find($id);
       $updatework->user_id=Auth::id();
-      $updatework->project_id = $project_id; 
+      $updatework->project_id = $request->project_id; 
       $updatework->entry_date=$request->entry_date;
       $updatework->entry_duration=implode(':',$data);
       $updatework->productive=$request->productive;
@@ -69,12 +69,10 @@ class DailyWorkEntryController extends Controller
       return redirect('DailyWorkEntry')->with('status', 'Successfully Update Work Entry');;
     }
    
-
     public function getdata(Request $request)
     {
       if ($request->ajax()) {
-        $data=DailyWorkEntry::where('user_id',Auth::id())->latest()->get();
-        //$work = DailyWorkEntry::latest()->get();
+        $data=DailyWorkEntry::with('project')->where('user_id',Auth::id())->latest()->get();
         return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

@@ -36,7 +36,6 @@ class ProjectAllotmentController extends Controller
                 ->addColumn('technology_id', function ($tid) {
                     $arr = explode(",",$tid->technology_id);
                     $data = Technology::whereIn('id',$arr)->get();
-                    
                     foreach($data as $row)
                     {
                         $tdata[] = $row->technology_name;
@@ -49,7 +48,6 @@ class ProjectAllotmentController extends Controller
             else
             {
                 $data = ProjectAllotment::with('project')->with('user')->where("user_id",'=',Auth::user()->id)->get();
-            
                 return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
@@ -57,9 +55,9 @@ class ProjectAllotmentController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('technology_id', function ($tid) {
+                     
                     $arr = explode(",",$tid->technology_id);
                     $data = Technology::whereIn('id',$arr)->get();
-                    
                     foreach($data as $row)
                     {
                         $tdata[] = $row->technology_name;
@@ -102,18 +100,14 @@ class ProjectAllotmentController extends Controller
             $tech->project_id = $request['projectnm'];
             $tech->technology_id = implode(',',$request->technology_id );
             $tech->save();
-            
         }
         else
         {
-            
             $tech = new ProjectAllotment;
             $tech->user_id = Auth::user()->id;
             $tech->project_id = $request['projectnm'];
             $tech->technology_id = implode(',',$request->technology_id );
-            
-            $tech->save();
-            
+            $tech->save(); 
         }
         
         return redirect('projectAllotement')->with('status', 'Successfully Inserted Project Allotment');

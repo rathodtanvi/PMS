@@ -17,5 +17,12 @@ class DailyWorkEntry extends Model
          return $this->belongsTo(Project::class,'project_id','id');
     }
     
-  
+    public function allotment()
+    {
+         return $this->hasMany(ProjectAllotment::class);
+    }
+    
+    public function user(){
+     return $this->belongsTo(User::class, 'user_id');  
+    }
 }
