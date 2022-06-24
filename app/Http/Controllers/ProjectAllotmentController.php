@@ -30,11 +30,12 @@ class ProjectAllotmentController extends Controller
                 return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='{{route('projectAllotement.destroy')}}' class=' btn btn-danger btn-sm inactive'> Delete </a>";
+                    $actionBtn = "<a href='destroy/".$row->id."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->addColumn('technology_id', function ($tid) {
                     $arr = explode(",",$tid->technology_id);
+                    
                     $data = Technology::whereIn('id',$arr)->get();
                     
                     foreach($data as $row)
@@ -53,7 +54,7 @@ class ProjectAllotmentController extends Controller
                 return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = "<a href='projectAllotement.destroy' class=' btn btn-danger btn-sm inactive'> Delete </a>";
+                    $actionBtn = "<a href='destroy/".$row->id."' class=' btn btn-danger btn-sm inactive'> Delete </a>";
                     return $actionBtn;
                 })
                 ->addColumn('technology_id', function ($tid) {
@@ -101,6 +102,7 @@ class ProjectAllotmentController extends Controller
             $tech->user_id = $request['unm'];
             $tech->project_id = $request['projectnm'];
             $tech->technology_id = implode(',',$request->technology_id );
+
             $tech->save();
             
         }
@@ -116,7 +118,7 @@ class ProjectAllotmentController extends Controller
             
         }
         
-        return redirect('ProjectAllotment')->with('status', 'Successfully Inserted Project Allotment');
+        return redirect('projectAllotement')->with('status', 'Successfully Inserted Project Allotment');
     }
 
     public function destroy($id)

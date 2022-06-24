@@ -16,6 +16,7 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
+  
   @include('layouts.script')
 </head>
 
@@ -45,11 +46,12 @@
   <script src="/assets/vendor/echarts/echarts.min.js"></script>
   <script src="/assets/vendor/quill/quill.min.js"></script>
   <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script> 
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="/assets/vendor/php-email-form/validate.js"></script>
 
+  
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script> 
+  <script href="assets/js/main.js"></script> 
 
 </body>
 

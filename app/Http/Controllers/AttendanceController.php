@@ -71,14 +71,14 @@ class AttendanceController extends Controller
             $attendance[] = $interval->format('%h').":".$interval->format('%i').":".$interval->format('%s');
 
         }
-    
+        
         echo $this->AddPlayTime($attendance);
         
     }
 
     public function AddPlayTime($times) {
         $seconds  = 0; //declare minutes either it gives Notice: Undefined variable
-
+        
         // loop throught all the times
         foreach ($times as $time) {
             list($hour, $minute , $second) = explode(':', $time);

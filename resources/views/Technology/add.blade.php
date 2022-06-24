@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -18,7 +19,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="Post" action="{{ route('Technology.store') }}"> 
+            <form method="Post" action="{{ route('Technology.store') }}" id="techForm"> 
                 @csrf
 
                 <div class="row mb-3">

@@ -18,6 +18,10 @@
 <!-- Template Main CSS File -->
 <link href="/assets/css/style.css" rel="stylesheet">
 
+<!-- Sweet Alert Box -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
 <!-- yajra links -->
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -29,4 +33,10 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.18.0/ckeditor.js"></script>
+
+
+<!-- Validation.JS -->
+<script href="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" ></script>
+<script src="{{asset('validation.js')}}"></script>
+
 

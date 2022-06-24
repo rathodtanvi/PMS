@@ -76,7 +76,7 @@ class ProjectController extends Controller
     {
         
             $tech = new Project;
-            $tech->technology_id= implode(' , ', $request->technology_name);
+            $tech->technology_id= implode(',', $request->technology_name);
             $tech->project_name = $request->project_name;
             if( $request->tl_name == '')
             {
@@ -91,13 +91,13 @@ class ProjectController extends Controller
 
             $tech->save();
 
-            return redirect('Project')->with('status', 'Successfully Inserted Project');
+            return redirect('project')->with('status', 'Successfully Inserted Project');
     
     }
 
     public function edit($id)
     {
-        $tls=User::where('roles_id','2')->get();
+        $tls = User::where('roles_id','2')->get();
         $technology = Technology::get();
         $edits = Project::find($id);
         
@@ -117,8 +117,8 @@ class ProjectController extends Controller
             {
                 $update->tl_id = $request->tl_name;
             }
-           $update->update();
-           return redirect('Project')->with('status', 'Successfully Update Project');
+        $update->update();
+        return redirect('project')->with('status', 'Successfully Update Project');
     }
 
     public function adminDelete($id)
@@ -134,6 +134,6 @@ class ProjectController extends Controller
         $update = Project::find($getid);
         $update->status = 1;
         $update->update();
-        return redirect('Project')->with('status', 'Successfully Completed Project');
+        return redirect('project')->with('status', 'Successfully Completed Project');
     }
 }

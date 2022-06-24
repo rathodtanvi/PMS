@@ -96,11 +96,10 @@ Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
 
 //Reports Controller
 Route::get('/report_attendance', [ReportsController::class, 'report_attendance'])->name('report_attendance');
-Route::post('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
+Route::get('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
 Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
 Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
-
-
+Route::get('/report_attendancetotal', [ReportsController::class, 'report_attendancetotal'])->name('report_attendancetotal');
 
 
 //Admin Report
@@ -124,6 +123,8 @@ Route::get('addatendance',[AttendanceController::class,'AddAttendance']);
 Route::get('outatendance',[AttendanceController::class,'OutAttendance']);
 Route::get('workhour',[AttendanceController::class,'WorkHours']);
 Route::resource('/Attendance',AttendanceController::class);
+
+
 //Project
 
 Route::resource('/project', ProjectController::class);
@@ -134,7 +135,7 @@ Route::get('statuschange',[ProjectController::class,'statuschange']);
 Route::resource('/projectAllotement', ProjectAllotmentController::class);
 Route::get('ProjectAllotment/getdata', [ProjectAllotmentController::class, 'getdata'])->name('ProjectAllotment.getdata');
 Route::get('gettechnology',[ProjectAllotmentController::class,'gettechnology']); // get technology based on projectname
-
+Route::get('destroy/{id}',[ProjectAllotmentController::class,'destroy']);
 
 Route::get('/Dashboard', function () {
     return view('Client.Dashboard.index');
@@ -160,7 +161,7 @@ Route::post('AddProject',[ProjectController::class,'Addproject']);
 Route::get('edit_project/{id}',[ProjectController::class,'EditProject']);
 Route::post('update-project/{id}',[ProjectController::class,'Update']);
 
-Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
+//Route::get('delete_project/{id}',[ProjectController::class,'Delete']);
 
 /*Route::get('/ProjectAllotment',[ProjectAllotmentController::class,'dispPAllot']);
 Route::get('ProjectAllotment/list', [ProjectAllotmentController::class, 'PAllotment'])->name('ProjectAllotment.list');*/

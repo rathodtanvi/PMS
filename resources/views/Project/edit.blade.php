@@ -7,6 +7,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 <main id="main" class="main">
 
@@ -24,7 +25,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="post" action="{{ route('project.update', $edits->id) }}"> 
+            <form method="post" action="{{ route('project.update', $edits->id) }}" id="projectForm"> 
                 @csrf
                 @method('PUT')
                 <div class="row mb-3">
@@ -65,7 +66,6 @@
                     <div class="col-md-6">
                         
                         <select id="selecttl" class="form-control" aria-label="Default select example" name="tl_name">
-                            <option></option>
                             @foreach ($tls as $tl)
                             @if ($edits->user_id == $tl->id)
                             <option value="{{$tl->id}}" selected> {{$tl->name}}</option>

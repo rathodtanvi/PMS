@@ -11,6 +11,8 @@ class Technology extends Model
     protected $table = "technology";
     protected $primarykey = "id";
 
+    protected $fillable = [ 'technology_name', ];
+
     public function project(){
         return $this->hasMany(Project::class);
     }

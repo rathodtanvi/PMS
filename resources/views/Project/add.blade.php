@@ -1,12 +1,15 @@
 
+
 @extends('layouts.index')
 
 @section('content')
+
 
 <!-- Select2  link -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 <main id="main" class="main">
 
@@ -24,34 +27,36 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="Post" action=" {{ route('project.store') }}"> 
+            <form method="Post" action=" {{ route('project.store') }}" id="projectForm"> 
                 @csrf
                 
-                <div class="row mb-3">
+                <div class="row mb-3 ">
                     <label for="technology_name" class="col-md-4 col-form-label ">{{ __('Technology Name') }}
                         <span style="color:red"> * </span></label>
-
+                        
                     <div class="col-md-6">
                         
-                        <select id="nameid" name="technology_name[]" class="form-control @error('technology_name') is-invalid @enderror" value="{{ old('technology_name') }}" multiple>
+                        <select id="technology_name" name="technology_name[]" class="form-control @error('technology_name') is-invalid @enderror" value="{{ old('technology_name') }}" multiple>
                             <option></option>
                             @foreach($technology as $row)
                                 <option value="{{$row->id}}">{{$row->technology_name}}</option>
                             @endforeach
                         </select>
+                        
                         @error('technology_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
+                    <div class="technm" style="margin-left:33%"></div>
                 </div>
                     
-                <div class="row mb-3">
+                <div class="row mb-3 ">
                     <label for="project_name" class="col-md-4 col-form-label ">{{ __('Project Name') }}
                         <span style="color:red"> * </span></label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 ">
                         <input id="project_name" type="text" class="form-control @error('project_name') is-invalid @enderror" value="{{ old('project_name') }}" name="project_name" placeholder="Enter Project Name" >
                         @error('project_name')
                             <span class="invalid-feedback" role="alert">
@@ -59,12 +64,14 @@
                             </span>
                         @enderror
                     </div>
+                    <div class="projectnm" style="margin-left:33%"></div>
                 </div>
+
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label ">TeamLeader Name </label>
                     <div class="col-md-6">
                         
-                        <select id="selecttl" class="form-control" name="tl_name">
+                        <select id="selecttl" class="form-control" name="tl_name" style="width:416px;">
                             <option></option>
                             @foreach ($tls as $tl)
                                 <option value="{{$tl->id}}"> {{$tl->name}}</option>
@@ -75,7 +82,7 @@
 
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" name="submit" class="btn btn-primary"> Submit </button>
+                        <button type="submit" name="submit" class="btn btn-primary projectbtn"> Submit </button>
                     </div>
                 </div>
             </form>
@@ -83,9 +90,10 @@
     </div>
 </main>
 
+
 <script type="text/javascript">
 
-    $("#nameid").select2({
+    $("#technology_name").select2({
         placeholder: "Select a Technology",
         allowClear: true
     });

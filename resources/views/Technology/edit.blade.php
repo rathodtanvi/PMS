@@ -18,7 +18,7 @@
     <div class="card p-2">
         <div class="card-body">
 
-            <form method="post"   action="{{route('Technology.update',$edits->id)}}"> 
+            <form method="post"   action="{{route('Technology.update',$edits->id)}}" id="techForm"> 
                 @csrf
                 @method("PUT")
                 <div class="row mb-3">

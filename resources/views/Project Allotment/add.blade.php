@@ -6,6 +6,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
 
 <main id="main" class="main">
 
@@ -14,7 +16,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{url('ProjectAllotment')}}">Project Allotment</a></li>
+                <li class="breadcrumb-item"><a href="{{url('projectAllotement')}}">Project Allotment</a></li>
                 <li class="breadcrumb-item">Add</li>
             </ol>
         </nav>
@@ -23,8 +25,8 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="post" action="{{ route('projectAllotement.store') }}"> 
-                @csrf
+            <form method="post" action="{{ route('projectAllotement.store') }}" id="pAllotmentForm"> 
+                @csrf 
 
             @if (Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
                 
@@ -35,7 +37,7 @@
     
                         <div class="col-md-6">
                             
-                            <select class="selectid form-control @error('unm') is-invalid @enderror" name="unm" >
+                            <select id="unm" class="selectid form-control @error('unm') is-invalid @enderror" name="unm">
                                 <option></option>
                                 @foreach ($users as $user)
                                     @if ($user->roles_id != 1)
@@ -45,9 +47,12 @@
                                 @endforeach
                             </select>
                             @error('unm')
-                                <span style="color:red"> {{$message }} </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
+                        <div class="empnm" style="margin-left:34%"></div>
                     </div>
 
                     <div class="row mb-3">
@@ -55,16 +60,19 @@
                             <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
+                            <select id="projectnm" class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
                                 <option></option>
                                 @foreach($projects as $project)
                                     <option value="{{$project->id}}">{{$project->project_name}}</option>
                                 @endforeach
                             </select>
                             @error('projectnm')
-                                <span style="color:red"> {{$message }} </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
+                        <div class="pnm" style="margin-left:34%"></div>
                     </div>
                     
                     <div class="row mb-3">
@@ -72,35 +80,41 @@
                             <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control @error('technology_id') is-invalid @enderror" id="nameid" name="technology_id[]" multiple>
+                            <select id="technology_id" class="selectid form-control @error('technology_id') is-invalid @enderror" name="technology_id[]" multiple>
                                 <option></option>
                                 @foreach($technology as $row)
                                     <option value="{{$row->id}}">{{$row->technology_name}}</option>
                                 @endforeach
                             </select>
                             @error('technology_id')
-                                <span style="color:red"> {{$message }} </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
+                        <div class="technm" style="margin-left:34%"></div>
                     </div>
-                                        
+                    
                 @else
                 
                     <div class="row mb-3">
-                        <label class="col-md-4 col-form-label ">{{ __('Project Name') }}
+                        <label for="projectnm" class="col-md-4 col-form-label ">{{ __('Project Name') }}
                             <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
+                            <select id="projectnm" class="selectid form-control @error('projectnm') is-invalid @enderror" name="projectnm" >
                                 <option></option>
                                 @foreach($projects as $project)
                                     <option value="{{$project->id}}">{{$project->project_name}}</option>
                                 @endforeach
                             </select>
                             @error('projectnm')
-                                <span style="color:red"> {{$message }} </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
+                        <div class="pnm" style="margin-left:34%"></div>
                     </div>
                     
                     <div class="row mb-3">
@@ -108,16 +122,19 @@
                             <span style="color:red"> * </span></label>
     
                         <div class="col-md-6">
-                            <select class="selectid form-control @error('technology_id') is-invalid @enderror" id="nameid" name="technology_id[]" multiple>
+                            <select id="technology_id" class="selectid form-control @error('technology_id') is-invalid @enderror" name="technology_id[]" multiple>
                                 <option></option>
                                 @foreach($technology as $row)
                                     <option value="{{$row->id}}">{{$row->technology_name}}</option>
                                 @endforeach
                             </select>
                             @error('technology_id')
-                                <span style="color:red"> {{$message }} </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
+                        <div class="technm" style="margin-left:34%"></div>
                     </div>
 
             @endif
@@ -130,6 +147,7 @@
         </div>
     </div>
 </main>
+
 
 <script type="text/javascript">
     $(".selectid").select2({
@@ -151,21 +169,22 @@
                     data: {name : pnm },
                     success: function(res)
                     {
-                        $('select[id="nameid"]').empty();
+                        $('select[id="technology_id"]').empty();
                         $.each(res,function(Index,value)
                         {
-                            $('select[id="nameid"]').append("<option value='"+ value.id +"'>"+value.technology_name+"</option>");
+                            $('select[id="technology_id"]').append("<option value='"+ value.id +"'>"+value.technology_name+"</option>");
                         });
                     }
                 });
             }
             else 
             {
-                $('select[id="nameid"]').empty();
+                $('select[id="technology_id"]').empty();
             }
         });
             
     });
+    
 </script>
 
 
