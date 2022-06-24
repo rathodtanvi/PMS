@@ -20,7 +20,7 @@
           <div class="card p-2">
             <div class="card-body">
               <!-- General Form Elements -->
-              <form method="Post" action="{{ route('DailyWorkEntry.store') }}">
+              <form method="Post" action="{{ route('DailyWorkEntry.store') }}"  id="dailyworkentryadd">
                 @csrf
               <div class="row mb-3">
                 <div class="col-4">
@@ -29,7 +29,7 @@
                         <select class="form-select" aria-label="Default select example" name="project_id">
                         <option disabled selected value>---select---</option>
                         @foreach ($project as $item)
-                        <option value="{{$item->id}}">{{$item->project_name}}</option>
+                        <option value="{{$item->project_id}}">{{$item->project->project_name}}</option>
                         @endforeach
                       </select>
                       @error('project_id')
@@ -78,11 +78,13 @@
               </div>
            </div>
                 <div class="row mt-3 pb-2">
-                  <div class="col-12">
-                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
-                      <textarea  class="form-control textarea ckeditor"  name="description"></textarea>   
+                  <div class="col-12 container" >
+                  <div> <label for="inputPassword" class="col-sm-2 col-form-label" >Description</label></div>
+                      <textarea  class="form-control textarea ckeditor"  name="description" id="description"></textarea>   
                 </div>
-              
+                @error('description')
+                <span style="color:red"> {{$message }} </span>
+                @enderror 
                 <div class="row mt-5">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit</button>

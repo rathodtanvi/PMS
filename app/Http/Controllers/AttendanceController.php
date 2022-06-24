@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\DB;
 use Nette\Utils\DateTime;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\Holiday;
+  
 
 class AttendanceController extends Controller
 {
     public function index(Request $request)
-    {
+    {  
         $todate = Carbon::now()->format('Y-m-d');
         $attendance  = Attendance::where('user_id','=',Auth::user()->id)->where('attendance_date',"=",$todate)->latest()->get();
         $getlatest = Attendance::where("user_id",'=',Auth::user()->id)->latest()->first();       
@@ -21,7 +23,14 @@ class AttendanceController extends Controller
     }
 
     public function AddAttendance(Request $request)
-    {
+    {   
+        $currentDate=Carbon::now();
+        if(Holiday::where('start_date', '<=',$currentDate)->where('end_date', '>=',$currentDate)->first() == true )
+        {
+            return response()->json(['success'=>true]);
+        }
+        else
+        {
         $currenttime = Carbon::now('Asia/Kolkata')->format('h:i A');
         $attend = new Attendance;
         $attend->user_id = Auth::user()->id;
@@ -31,6 +40,7 @@ class AttendanceController extends Controller
         //dd($attend);
         $attend->save();
         return response()->json(['data',$currenttime]);
+       }
     }
 
     public function OutAttendance()

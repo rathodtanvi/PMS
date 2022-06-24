@@ -9,6 +9,7 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -43,7 +44,6 @@
                                     @if ($user->roles_id != 1)
                                         <option value={{$user->id}}>{{$user->name}}</option>
                                     @endif
-                                    
                                 @endforeach
                             </select>
                             @error('unm')
@@ -182,7 +182,9 @@
                 $('select[id="technology_id"]').empty();
             }
         });
-            
+        $("select").on("select2:close", function (e) {  
+        $(this).valid(); 
+    });
     });
     
 </script>

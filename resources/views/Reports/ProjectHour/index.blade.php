@@ -1,5 +1,9 @@
-@extends('layouts.backend.index')
+@extends('layouts.index')
 @section('content')
+<!-- Select2  link -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,158 +11,117 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
- 
+     <div class="loading"></div>
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Total Hour Spent Report</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{url('admin_report_project_total_hour')}}">Total Hour Spent Report</a></li>
+          <li class="breadcrumb-item"><a href="{{url('report_project_total_hour')}}">Total Hour Spent Report</a></li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
-
+    </div><!-- End Page Title --> 
+    <div class="load"></div>
+    <div  id="select_project"></div>
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total Hour Spent Report</h5>
-            
               <!-- Table with stripped rows -->
                 <div class="col-4">    
                   <label class="col-form-label">Project</label>
                     <div> 
-                      <select class="form-select">
-                        <option selected>---select---</option>
+                      <select id="project"  name="project_id[]" class="form-control" multiple>
+                        <option></option>
+                        @if(isset($projects))
+                        @if(Auth::user()->roles_id == 1)
                         @foreach ($projects as $project)
-                        <option value="{{$project->id}}">{{$project->Project_Name}}</option>
+                        <option value="{{$project->id}}" >{{$project->project_name}}</option>
+                        @endforeach 
+                        @else
+                        @foreach ($projects as $project)
+                        <option value="{{$project->project_id}}">{{$project->project->project_name}}</option>
                         @endforeach
+                        @endif
+                        @endif
                       </select>
                     </div>
                   </div>
               <div class="col-4">    
                 <label class="col-form-label">From Date</label>
                   <div> 
-                    <input type="date" class="form-control" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
+                    <input type="date" class="form-control date_start" name="date_start" value="{{ date("Y-m-d", strtotime( '-1 days' ) )}}">
                   </div>
                 </div>
                 <div class="col-4">    
                     <label class="col-form-label">To Date</label>
                       <div> 
-                        <input type="date" class="form-control" name="date_end" value="{{date('Y-m-d', time())}}" >
+                        <input type="date" class="form-control date_end" name="date_end" value="{{date('Y-m-d', time())}}" >
                       </div>
                 </div>
                 <div class="col-4">    
                     <div class="pt-3"> 
-                      <button type="submit" class="btn btn-sm btn-info" id="getdata">Get Data</button>
+                      <button type="submit" class="btn btn-sm btn-info" id="getdata" style="float:left">
+                        Get Data</button>
                     </div>
               </div>
               <!-- End Table with stripped rows -->
-
             </div>
           </div>
-
         </div>
       </div>
-  
+
           <!-- Card with header and footer -->
-<div class="card" id="data">
-  <div class="card-header text-white" style="background-color: #00AA9E;"></div>
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-
-    <!-- Table with stripped rows -->
-    <table class="table  yajra-datatable table table-bordered table-striped">
-      <thead>
-        <tr>
-            <th>Employee</th>
-            <th>Productive</th>
-            <th>Unproductive</th>
-            <th style="color:#FFF; background-color:#099">Total</th>
-        </tr>
-        @foreach ($employee as $emp)
-    
-      
-        <tr>
-          <td><b>Employee :</b>{{$emp->name}}<br>
-            <b>Techonogy:</b>{{$project->Project_Name}}
-          </td>
-          <td>
-            Days - 0 <br>
-            Duration - 0 Hours 0 Minutes
-          </td>
-          <td>
-            Days - 0 <br>
-            Duration - 0 Hours 0 Minutes
-          </td>
-          <td style="color:#FFF; background-color:#099">
-            Days - 0 <br>
-            Duration - 0 Hours 0 Minutes
-          </td>
-        </tr>
-        @endforeach
-        <tr>
-          <td style="color:#FFF; background-color:#099">Total</td>
-          <td style="color:#FFF; background-color:#099">
-            Days - 0 <br>
-            Duration - 0 Hours 0 Minutes
-          </td>
-          <td style="color:#FFF; background-color:#099">
-            Days - 0 <br>
-            Duration - 0 Hours 0 Minutes
-          </td>
-          <td style="color:#FFF; background-color:#066">
-            Days - 0 <br>
-            Duration - 0 Hours 0 Minutes
-          </td>
-        </tr>
-      
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-
-
-  <!-- End Table with stripped rows -->
-  </div>
-</div><!-- End Card with header and footer -->
+<div class="newdata"></div>
+<div id="loader" class="lds-dual-ring hidden overlay"></div>
     </section>
-
   </main>
 </body>
 <script>
-  $(document).ready(()=>{
-      $('#data').hide();
-      $("#getdata").on("click",function(){
-          $('#data').show();
-      });
+      $("#project").select2({
+      placeholder: "Select a Project",
+      allowClear: true,
   });
+  $(document).ready(()=>{     
+       $("#getdata").on("click",function(){
+
+       if($('#project').val() == null)
+        {
+              $('.load').append(`<div class="alert alert-warning   alert-dismissible fade show" role="alert">
+                 Please Select Project
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>`);
+        }
+        else
+        {
+        $('.newdata').empty();
+       $date=$(".date_start").val();
+       $date_end=$('.date_end').val();
+       $project=$('#project').val();
+        $.ajax({
+        headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },  
+      type: "Post",
+      url: "total_hour",
+      data:{
+        'date':$date,
+        'date_end':$date_end,
+        'project':$project,
+        _token: $('meta[name="csrf-token"]').attr('content'),
+      },
+      success: function (response) { 
+        $('.newdata').append(response);   
+        }
+        });
+      }
+       });
+    
+      });
+
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<link rel="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-{{-- <script type="text/javascript">
-$(function () {
-
-var table = $('.yajra-datatable').DataTable({
-  responsive: true,
-      ajax: "{{ route('attendance') }}",
-      columns: [ 
-          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          {data:'created_at',name:'created_at'},
-          {data:'name',name:'name'},
-          {data: 'leave_type', name: 'leave_type'},
-          {data:'fdate_start',name:'fdate_start'},
-          {data: 'action', name: 'action', orderable: false, searchable: false},
-      ]
-  });
-});
-
-</script> --}}
 </html>
 @endsection

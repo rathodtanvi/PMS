@@ -1,7 +1,6 @@
 @extends('layouts.index')
 @section('content')
 <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Edit Work Entry</h1>
       <nav>
@@ -12,7 +11,6 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
           <div class="p-2">
@@ -21,7 +19,7 @@
           <div class="card p-2">
             <div class="card-body">
                <!-- General Form Elements -->
-              <form method="post" action="{{route('DailyWorkEntry.update',$datas->id)}}">
+              <form method="post" action="{{route('DailyWorkEntry.update',$datas->id)}}" id="dailyworkentryadd">
                 @csrf
                   @method('PUT')
              <div class="row mb-3">
@@ -29,7 +27,6 @@
                         <label class="col-form-label">Project Name</label>
                         <div> 
                         <select class="form-select" aria-label="Default select example" name="project_id">
-                        <option disabled selected value>---select---</option>
                         <option value={{$datas->project_id}} selected>{{$datas->project->project_name}}</option>      
                       </select>
                       @error('project_id')
@@ -40,7 +37,7 @@
                  <div class="col-4">
                  <label class="col-form-label">Date</label>
                     <div class="col">
-                      <input type="date" class="form-control" name="entry_date" value="{{date('Y-m-d', time())}}">
+                      <input type="date" class="form-control" name="entry_date" value="{{$datas->entry_date}}">
                     </div>
                   </div>
             </div>
@@ -80,9 +77,9 @@
         </div>
       </div>
                 <div class="row mt-3 pb-2">
-                  <div class="col-12">
+                  <div class="col-12 container">
                  <div> <label for="inputPassword" class="col-sm-2 col-form-label">Description</label></div>
-                     <textarea class="form-control textarea ckeditor"  name="description">{{$datas->description}}</textarea>   
+                     <textarea class="form-control textarea ckeditor"  name="description" id="description">{{$datas->description}}</textarea>   
                 </div>
                 @error('description')
                 <span style="color:red"> {{$message }} </span>

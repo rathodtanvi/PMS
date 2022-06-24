@@ -20,7 +20,7 @@
             <div class="card-body">
               
               <!-- General Form Elements -->
-              <form method="POST" action="{{ route('employee.store') }}">
+              <form method="POST" action="{{ route('employee.store') }}" id="employeeadd">
                 @csrf
                 
                 <div class="row mb-3">
@@ -66,10 +66,10 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password-confirm" class="col-md-4 col-form-label ">{{ __('Confirm Password') }}</label>
+                    <label for="password_confirmation" class="col-md-4 col-form-label ">{{ __('Confirm Password') }}</label>
 
                     <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  value="{{ old('password_confirmation') }}" autocomplete="new-password">
+                        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"  value="{{ old('password_confirmation') }}" autocomplete="new-password">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -113,19 +113,17 @@
                 </div>
                 <div class="row mb-3">
                     <label for="gender" class="col-md-4 col-form-label ">{{ __('Gender') }}</label>
-                    <div class="col-md-2 form-check-inline pl-5">
-                        <input id="gender" type="radio" value="0" class=" @error('gender') is-invalid @enderror" value="{{ old('gender') == '0' ? 'checked' : ''}}" name="gender" >
+                    <div class="col-md-6 form-check-inline container ml-2">
+                        <input id="gender" type="radio" value="0" class="ml-2 @error('gender') is-invalid @enderror" value="{{ old('gender') == '0' ? 'checked' : ''}}" name="gender" >
                         <label class="pl-2">Male</label>
-                    </div>
-                    <div class="col-md-2 form-check-inline">
-                        <input id="gender" type="radio" value="1" class=" @error('gender') is-invalid @enderror" value="{{ old('gender') == '1' ? 'checked' : ''}}" name="gender" >
+                        <input id="gender" type="radio" value="1" class="ml-2 @error('gender') is-invalid @enderror" value="{{ old('gender') == '1' ? 'checked' : ''}}" name="gender" >
                       <label class="pl-2">Female</label>
                     </div>
                     @error('gender')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                  @enderror
                 </div>
 
                 <div class="row mb-3">
@@ -142,13 +140,11 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="address" class="col-md-4 col-form-label ">{{ __('address') }}</label>
-
+                    <label for="address" class="col-md-4 col-form-label ">{{ __('Address') }}</label>
+                
                     <div class="col-md-6">
-                        <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror"  name="address"  >
-                        {{ old('address') }}
-                        </textarea>
-                        @error('address')
+                        <textarea class="form-control textarea"  name="address" id="address">{{ old('address') }}</textarea>
+                        @error('qualification')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
