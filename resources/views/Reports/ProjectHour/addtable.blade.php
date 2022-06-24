@@ -19,7 +19,14 @@
         <td><div><b>Employee :  </b> {{$data}}</div>
           <b>Technology:</b>
            <div class="tech_name">   
-            {{$pro->technology->technology_name}}  
+            @foreach(explode(',', $pro->technology_id) as $info) 
+            @foreach($technology as $tech) 
+                 @if($info == $tech->id)
+                   [{{$tech->technology_name}}]
+                 @endif
+            @endforeach
+     @endforeach   
+           
        </div>
         </td>
         {{-- @foreach ($a as $key => $value)
@@ -57,8 +64,8 @@
           <div class="data">Duration -  {{$value}}</div>
         </td>
         <td style="color:#FFF; background-color:#099">
-          Days - 0 <br>
-          Duration - 0 Hours 0 Minutes
+           Days - {{$val}}<br>
+          Duration - {{$value}}
         </td>
         <td style="color:#FFF; background-color:#066">
           <div class="data_hr">Days - {{$val}} </div>
@@ -92,31 +99,40 @@
         <td><div><b>Employee :  </b>{{$pro->user->name}}</div>
           <b>Technology:</b> 
           <div class="tech_name">
-            {{$pro->technology->technology_name}} 
-             {{-- @foreach(explode(',', $pro->technology_id) as $info) 
-             @php $data=App\Models\Technology::where('id',$info)->pluck('technology_name')->toarray() @endphp
-              @foreach($data as $tname)
-                [{{$tname}}]
-              @endforeach
-          @endforeach  --}}
+           @foreach(explode(',', $pro->technology_id) as $info) 
+                 @foreach($technology as $tech) 
+                      @if($info == $tech->id)
+                        [{{$tech->technology_name}}]
+                      @endif
+                 @endforeach
+          @endforeach 
         </div>
         </td>
         @foreach ($a as $key => $value)
            @if($key == $pro->project_id)
             @foreach($b as $key=>$val)
             @if($key == $pro->project_id)
+
+            @foreach ($a_data as $a_key => $a_value)
+            @if($a_key == $pro->project_id)
+             @foreach($b_data as $b_key=>$a_val)
+             @if($b_key == $pro->project_id)
           <td>
            <div class="data_hr">Days - {{$val}}</div>         
           <div class="data"> Duration - {{$value}}</div>
-        </td>
-        <td>
-          Days - 0 <br>
-          Duration - 0 Hours 0 Minutes
-        </td>
+          </td> 
+                
+          <td>
+          Days - {{$a_val}} <br>
+          Duration - {{$a_value}}
+         </td>
+       
+      
         <td style="color:#FFF; background-color:#099">
-          <div class="data_hr">Days - {{$val}}</div>
-          <div class="data">Duration - {{$value}}</div>
+          <div class="data_hr">Days - {{$hr_arr}}</div>
+          <div class="data">Duration - {{$sumTime_arr}}</div>
         </td>
+      
       </tr>
       <tr>
         <td style="color:#FFF; background-color:#099">Total</td>
@@ -125,13 +141,21 @@
           <div class="data">Duration -  {{$value}}</div>
         </td>
         <td style="color:#FFF; background-color:#099">
-          Days - 0 <br>
-          Duration - 0 Hours 0 Minutes
+          Days -  {{$a_val}}<br>
+          Duration -  {{$a_value}}
         </td>
+       
         <td style="color:#FFF; background-color:#066">
-          <div class="data_hr">Days - {{$val}} </div>
-          <div class="data">Duration - {{$value}}</div>
+          <div class="data_hr">Days - {{$hr_arr}} </div>
+          <div class="data">Duration - {{$sumTime_arr}}</div>
         </td>
+      
+     
+        @endif
+        @endforeach
+        @endif        
+        @endforeach
+
         @endif
         @endforeach
         @endif        

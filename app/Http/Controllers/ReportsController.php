@@ -85,6 +85,7 @@ class ReportsController extends Controller
         $date=$request->input('date');
         $date_end=$request->input('date_end');
         $project_id=$request->input('project');
+        $technology = Technology::get(); 
         if(Auth::user()->roles_id == 1)
         {
             $projectname=ProjectAllotment::with('project')->with('user')->with('technology')
@@ -100,28 +101,26 @@ class ReportsController extends Controller
               ->pluck('user.name')->toarray();
               $info_data +=(array($project_id[$i]=>$daily));
             }
-            
+
             for($i=0; $i < sizeof($project_id); $i++)
             {
                 $tech = ProjectAllotment::where('project_id',$project_id[$i])->get();
                   foreach($tech->unique('project_id') as $take)
                   {
-
                             $arr = explode(",",$take->technology_id);
                             $data = Technology::whereIn('id',$arr)->get();
                             foreach($data as $row)
                             {
                                 $tdata[] = $row->technology_name; 
                             } 
-                           // print_r($tdata);  
                   }
                   $tech_data [] =(array((array($project_id[$i])[0])=>$tdata));
-                 // print_r($tech_data[0]);
             }
           
         }
         else
         {
+           
             $projectname=ProjectAllotment::with('project')->with('user')->with('technology')
             ->where('project_allotment.user_id',Auth::id())
             ->where('daily_work_entries.user_id',Auth::id())
@@ -131,10 +130,10 @@ class ReportsController extends Controller
             ->get();
             $info_data = [];
             $tech_data= [];
-          //  $tname =[];
         }
-       
             $a = [];
+            $a_data = [];
+            $b_data = [];
             $b = [];
             for($i=0; $i<sizeof($project_id); $i++)
              {
@@ -142,23 +141,56 @@ class ReportsController extends Controller
                 {
                     $dailyworks=DailyWorkEntry::where('project_id',$project_id[$i])
                     ->whereBetween('entry_date',[$date,$date_end])->pluck('entry_duration')->toarray();  
+
+                    $daily_works=DailyWorkEntry::where('project_id',$project_id[$i])
+                     ->whereBetween('entry_date',[$date,$date_end])->where('productive','2')->pluck('entry_duration')->toarray(); 
+
                 }
                 else
                 {
                     $dailyworks=DailyWorkEntry::where('user_id',Auth::id())->where('project_id',$project_id[$i])
-                    ->whereBetween('entry_date',[$date,$date_end])->pluck('entry_duration')->toarray();  
+                    ->whereBetween('entry_date',[$date,$date_end])->where('productive','1')->pluck('entry_duration')->toarray(); 
+
+                     $daily_works=DailyWorkEntry::where('user_id',Auth::id())->where('project_id',$project_id[$i])
+                     ->whereBetween('entry_date',[$date,$date_end])->where('productive','2')->pluck('entry_duration')->toarray();  
                 }
-                $sum_minutes = 0;
-                foreach($dailyworks as $time) {
+                    $sum_minutes = 0;
+                    foreach($dailyworks as $time) {
                     $explodedTime = array_map('intval', explode(':', $time ));
                     $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
-                }
-                $sumTime = floor($sum_minutes/60).' Hours : '.floor($sum_minutes % 60).' Minutes';
-                $hr =round(($sum_minutes/60)/8,8);
-                $a  += array(array($project_id[$i])[0] => array($sumTime)[0]); 
-                $b  += array(array($project_id[$i])[0] => $hr); 
+                    }
+                    $sumTime = floor($sum_minutes/60).' Hours : '.floor($sum_minutes % 60).' Minutes';
+                    $hr =round(($sum_minutes/60)/8,8);
+                    $a  += array(array($project_id[$i])[0] => array($sumTime)[0]); 
+                    $b  += array(array($project_id[$i])[0] => $hr);
+                   
+
+                    $sum_minutes_data = 0;
+                    foreach($daily_works as $time) {
+                    $explodedTime_data = array_map('intval', explode(':', $time ));
+                    $sum_minutes_data += $explodedTime_data[0]*60+$explodedTime_data[1];
+                    }
+                    $sumTime_data = floor($sum_minutes_data/60).' Hours : '.floor($sum_minutes_data % 60).' Minutes';
+                    $hr_data =round(($sum_minutes_data/60)/8,8);
+                    $a_data  += array(array($project_id[$i])[0] => array($sumTime_data)[0]); 
+                    $b_data  += array(array($project_id[$i])[0] => $hr_data);
+                      
+
+
+                    $sum_minutes_arr = 0;
+                    $p_total=floor($sum_minutes/60).':'.floor($sum_minutes % 60);
+                    $u_total=floor($sum_minutes_data/60).':'.floor($sum_minutes_data % 60);
+                     $arr=array($p_total,$u_total);
+                     foreach($arr as $arr_time) {
+                        $explodedTime_arr = array_map('intval', explode(':', $arr_time ));
+                        $sum_minutes_arr += $explodedTime_arr[0]*60+$explodedTime_arr[1];
+                        }
+                    $sumTime_arr = floor($sum_minutes_arr/60).' Hours : '.floor($sum_minutes_arr % 60).' Minutes';
+                    $hr_arr =round(($sum_minutes_arr/60)/8,8);
              }
+                
              ['pms'=>'16 Hours : 16 Minutes' ,'API'=>'7 Hours : 23 Minutes'];
-            return view('Reports.ProjectHour.addtable',compact('projectname','date','date_end','a','b','dailyworks','info_data','tech_data'));
+            return view('Reports.ProjectHour.addtable',compact('projectname','date','date_end','a','b','dailyworks',
+            'info_data','tech_data','a_data','b_data','technology','sumTime_arr','hr_arr'));
     }     
 }

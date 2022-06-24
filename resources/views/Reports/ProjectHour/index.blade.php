@@ -11,6 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 <body>
+     <div class="loading"></div>
     <main id="main" class="main"> 
     <div class="pagetitle">
       <h1>Total Hour Spent Report</h1>
@@ -21,6 +22,7 @@
         </ol>
       </nav>
     </div><!-- End Page Title --> 
+    <div class="load"></div>
     <div  id="select_project"></div>
     <section class="section">
       <div class="row">
@@ -61,7 +63,8 @@
                 </div>
                 <div class="col-4">    
                     <div class="pt-3"> 
-                      <button type="submit" class="btn btn-sm btn-info" id="getdata" style="float:left">Get Data</button>
+                      <button type="submit" class="btn btn-sm btn-info" id="getdata" style="float:left">
+                        Get Data</button>
                     </div>
               </div>
               <!-- End Table with stripped rows -->
@@ -69,6 +72,7 @@
           </div>
         </div>
       </div>
+
           <!-- Card with header and footer -->
 <div class="newdata"></div>
 <div id="loader" class="lds-dual-ring hidden overlay"></div>
@@ -80,8 +84,18 @@
       placeholder: "Select a Project",
       allowClear: true,
   });
-  $(document).ready(()=>{
+  $(document).ready(()=>{     
        $("#getdata").on("click",function(){
+
+       if($('#project').val() == null)
+        {
+              $('.load').append(`<div class="alert alert-warning   alert-dismissible fade show" role="alert">
+                 Please Select Project
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>`);
+        }
+        else
+        {
         $('.newdata').empty();
        $date=$(".date_start").val();
        $date_end=$('.date_end').val();
@@ -99,19 +113,14 @@
         _token: $('meta[name="csrf-token"]').attr('content'),
       },
       success: function (response) { 
-        $project=$('#project').val(); 
-        if($project == null)
-        {
-          location.reload();
-        }
-        else
-        {
-          $('.newdata').append(response); 
-        }  
+        $('.newdata').append(response);   
         }
         });
+      }
        });
+    
       });
+
 </script>
 
 </html>
