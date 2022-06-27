@@ -89,26 +89,33 @@
         var fdate = $('.fromdate').val();
         var tdate = $('.todate').val();
         
+        
         if(typeof(empnm) === 'undefined')
         {
-          itemDataTable(fdate,tdate)
-          getTotal(fdate,tdate)
+           itemDataTable(fdate,tdate)
+           getTotal(fdate,tdate)
         }
         else
         {
-          $(".table-data").empty();
+          $('.new_data').empty();
           $.ajax
           ({
               url: "{{ route('report_attendancelist') }}",
               type: "GET",
-              data: {empnm : empnm ,fdate : fdate ,tdate : tdate},
+              data: {
+                empnm : empnm ,
+                fdate : fdate ,
+                tdate : tdate,
+
+              },
               success: function(response)
               {
-                //console.log(res);
-                $(".table-data").append(response);
+                $('.new_data').append(response); 
               }
           }); 
         }    
+
+        
       });
     });
 
@@ -139,6 +146,7 @@
                 <label class="col-form-label">Employee</label>
                   <div> 
                     <select name="technology_name" class="form-control empnm">
+                      <option>select</option>
                         <option value="all"> All </option>
                         @foreach($employee as $row)
                             <option value="{{$row->id}}">{{$row->name}}</option>
@@ -174,70 +182,80 @@
 
         </div>
       </div>
-  <!-- Card with header and footer -->
-  <div class="card" id="data" style="display:none">
-    <div class="card-header text-white usernm" style="background-color: #00AA9E;"> {{Auth::user()->name}}</div>
-    <div class="card-body">
-  
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>No</th>
-                <th>Date</th>
-                <th>Attendance Timing</th>
-                <th>Attendance Duration</th>
-            </tr>
-            </thead>
-            <tbody >
-            
-            </tbody>
-        </table>
-
-    </div>
-    <div class="card-footer  text-black">
-        <div class="row">
-        <div class="col-4">
+       
+      @if(Auth::user()->roles_id == 1)
+      <div class="new_data"></div>
+      @else
+       <div class="card" id="data" style="display:none">
+        <div class="card-header text-white usernm" style="background-color: #00AA9E;"> 
+          {{Auth::user()->name}}</div>
+        <div class="card-body">
+      
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Date</th>
+                    <th>Attendance Timing</th>
+                    <th>Attendance Duration</th>
+                </tr>
+                </thead>
+                <tbody >
+                
+                </tbody>
+            </table>
+    
+        </div>
+        <div class="card-footer  text-black">
+            <div class="row">
+            <div class="col-4">
+                    <div class="row">
+                    <div class="col-10">Required Attendance Hours</div>
+                    <div class="col-2 badge bg-warning text-black AHours" style="font-size: 15px;">8</div>
+                    </div>
+            </div>
+            <div class="col-4">
                 <div class="row">
-                <div class="col-10">Required Attendance Hours</div>
-                <div class="col-2 badge bg-warning text-black AHours" style="font-size: 15px;">8</div>
+                <div class="col-10">Actual Attendance Hours</div>
+                <div class="col-2 badge bg-danger ActualHours" style="font-size: 15px;">00:00</div>
                 </div>
-        </div>
-        <div class="col-4">
+            </div>
+            <div class="col-4">
+                <div class="row">
+                <div class="col-10">Work Duration Hours</div>
+                <div class="col-2 badge bg-secondary text-white WorkHour" style="font-size: 15px;">00:00</div>
+                </div>
+            </div>
+            </div>
             <div class="row">
-            <div class="col-10">Actual Attendance Hours</div>
-            <div class="col-2 badge bg-danger ActualHours" style="font-size: 15px;">00:00</div>
+            <div class="col-4">
+                <div class="row pt-2">
+                <div class="col-10">Required Attendance Days</div>
+                <div class="col-2 badge bg-warning text-black ADays" style="font-size: 15px;">1</div>
+                </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="row">
-            <div class="col-10">Work Duration Hours</div>
-            <div class="col-2 badge bg-secondary text-white WorkHour" style="font-size: 15px;">00:00</div>
+            <div class="col-4">
+                <div class="row pt-2">
+                <div class="col-10">Actual Attendance Days</div>
+                <div class="col-2 badge bg-danger ActualDay" style="font-size: 15px;">0</div>
+                </div>
             </div>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-4">
-            <div class="row pt-2">
-            <div class="col-10">Required Attendance Days</div>
-            <div class="col-2 badge bg-warning text-black ADays" style="font-size: 15px;">1</div>
+            <div class="col-4">
+                <div class="row pt-2">
+                <div class="col-10">Work Duration Days</div>
+                <div class="col-2 badge bg-secondary text-white WorkDay" style="font-size: 15px;">0</div>
+                </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="row pt-2">
-            <div class="col-10">Actual Attendance Days</div>
-            <div class="col-2 badge bg-danger ActualDay" style="font-size: 15px;">0</div>
             </div>
+    
         </div>
-        <div class="col-4">
-            <div class="row pt-2">
-            <div class="col-10">Work Duration Days</div>
-            <div class="col-2 badge bg-secondary text-white WorkDay" style="font-size: 15px;">0</div>
-            </div>
-        </div>
-        </div>
-
     </div>
-</div>
+     @endif
+
+
+  <!-- Card with header and footer -->
+ 
+
 
 
     </section>

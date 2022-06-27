@@ -113,7 +113,7 @@
               <i class="fa fa-circle-o"></i><span>Attendance </span>
             </a>
           </li>
-          <!-- <li>
+       <li>
             <a href="{{url('admin_report_daily_work_entry')}}">
               <i class="fa fa-circle-o"></i><span>Daily Work Entry</span>
             </a>
@@ -142,7 +142,7 @@
             <a href="charts-chartjs.html">
               <i class="fa fa-circle-o"></i><span>Leave</span>
             </a>
-          </li> -->
+          </li> 
         </ul>
       </li>
        
