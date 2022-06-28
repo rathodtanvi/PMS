@@ -30,11 +30,9 @@ class ReportsController extends Controller
         //$empnm = $_GET['empnm'];
         $fdate = $_GET['fdate'];
         $tdate = $_GET['tdate'];
-
-        $times = [];
-        $work = [];
-        $getdate = [];
-
+        $times = []; $work = [];  $getdate = [];
+       $attendance =[]; $temp_indata= [];$datas=[];
+        $getwork=[]; $atten_data=[]; $data=[];
         if(Auth::user()->roles_id == 1)
         {
             if($_GET['empnm'] == "all")
@@ -44,26 +42,22 @@ class ReportsController extends Controller
                 $attendance = Attendance::all();
                 $period = CarbonPeriod::create($fdate, $tdate);
                 $datas = $period->toArray();
-                foreach($datas as $data)
-                { 
-                $temp_indata = Attendance::where("user_id",$user->id)->whereDate("attendance_date",$date->format('Y-m-d'))->get();
-                }     
-                    
-                          
-                
-              
-                // $dates = CarbonPeriod::create($fdate, $tdate);
+                $temp_indata = Attendance::all();
+                $getwork =DailyworkEntry::all();  
+                $dates = CarbonPeriod::create($fdate, $tdate);
+                $user_data=User::pluck('id')->toarray();
+                foreach($users as $user)
+                {
+                    foreach ($dates as $date)
+                    {
+                    $time_data = Attendance::where('user_id',$user->id)->pluck('out_entry','in_entry')->toarray();
+                        //print_r($time_data);
+                    }
+                }
                 // foreach($users as $user)
                 // {
                 //     foreach ($dates as $date)
                 //     {
-                //         //work Duration
-                //         $getwork = DailyWorkEntry::where("user_id",$user->id)->whereDate("entry_date",$date->format('Y-m-d'))->get();
-                //         foreach($getwork as $works)
-                //         {
-                //             $work[][$user->id] = [$date->format('Y-m-d')=>["work"=>$works->entry_duration]]; 
-                //         }
-                           
                 //         //Attendance Duration
                 //         $getAtime = Attendance::where("user_id",$user->id)->whereDate("attendance_date",$date->format('Y-m-d'))->get();
                 //         if(sizeof($getAtime) != 0)
@@ -75,7 +69,9 @@ class ReportsController extends Controller
                 //                     $start = new DateTime(date("H:i:s", strtotime($Atime['in_entry'])));
                 //                     $end =  new DateTime(date("H:i:s", strtotime($Atime['out_entry'])));
                 //                     $interval = $start->diff($end);
-                //                     $times[][$Atime->user_id] = [$Atime->attendance_date=>$interval->format('%h').":".$interval->format('%i').":".$interval->format('%s')];
+                //                   //  $times[][$Atime->user_id] = [$Atime->attendance_date=>$interval->format('%h').":".$interval->format('%i').":".$interval->format('%s')];
+                //                     $data += [$Atime->attendance_date=>$interval->format('%h').":".$interval->format('%i').":".$interval->format('%s')];
+                //                     $atten_data = (array($Atime->user_id=>$data));
                 //                 } 
                                 
                 //             }
@@ -85,16 +81,22 @@ class ReportsController extends Controller
                 //     }
                     
                 // }
-                 return view('Reports.Attendance.tabledata',compact('users','attendance','temp_indata','datas','ATN'));
+
+             
+                print_r($data);
             
             }
             
             else
             {
                 $users = User::where("id",$_GET['empnm'])->get();
-                return view('Reports.Attendance.tabledata',compact('users'));
+                $attendance = Attendance::all();
+                $period = CarbonPeriod::create($fdate, $tdate);
+                $datas = $period->toArray();
+                $temp_indata = Attendance::all();
+                $getwork =DailyworkEntry::all();
             }
-            
+            return view('Reports.Attendance.tabledata',compact('users','attendance','temp_indata','datas','getwork','users','atten_data'));
         }
         else
         {

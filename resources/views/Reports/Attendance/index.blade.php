@@ -111,6 +111,7 @@
               success: function(response)
               {
                 $('.new_data').append(response); 
+                $('.info_data').append(respose);
               }
           }); 
         }    

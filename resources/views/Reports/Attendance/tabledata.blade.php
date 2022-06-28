@@ -16,53 +16,74 @@
                 </thead>
                 <tbody>
 
-                  @foreach($datas as $info)
+            @foreach($datas as $info)
                     <tr>
-                    <td>no</td>
-                    <td>{{$info->format('l, F d,Y')}}</td>                                            
+                {{-- No --}}
+                    <td>{{$user->id}}</td>
+                {{-- Date --}}
+                    <td>{{$info->format('l, F d,Y')}}</td>     
+                {{-- Attendance Timing   --}}                                           
                     <td>
                         @foreach($attendance as $att)
-                        @if($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date )
+                        @if(($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date))
                           {{$att->in_entry}}-{{$att->out_entry}}<br>
                         @endif
-                        @endforeach
                         @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday' )
-                         <div style='color:orange'> Holiday </div>
-                         @else
-                         <div style='color:red' class="ab"> Absent </div>
+                        <div style='color:orange'> Holiday </div>@break
+                         {{-- @elseif (($user->id != $att->user_id &&  $att->attendance_date !=$info->format('Y-m-d')))
+                         <div style='color:red' class="ab"> Absent </div>  --}}
                          @endif
-                       
-                    </td> 
+                        @endforeach
+                       </td> 
+                {{-- Attendance Duration    --}}
                     <td>
+                      
                         @foreach($attendance as $att)
+                        
+                        @foreach($atten_data as $key=>$value)
+                         {{-- {{dd($key);}} --}}
+                        @endforeach
+
                         @if($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date )
-                           @if($att->out_entry != Null)
-                           @php  
-                           $start = new DateTime($att->in_entry);
-                           $end =  new DateTime($att->out_entry);
-                           $interval = $start->diff($end); 
-                           $times[] = $interval->format('%h').":".$interval->format('%i').":".$interval->format('%s');
-                           //print_r($times);
-                           @endphp
+                            @if($att->out_entry != Null)
+                             
                           
                            @else
                            <div class="badge bg-danger" style="font-size:15px;padding:7px;">No OUT</div>
                            @endif
                          @endif
-                        @endforeach
-                        @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday')
-                         <div style='color:orange'> Holiday </div>
-                        @endif
-                    </td>
-                    <td>
-                        @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday')
-                         <div style='color:orange'> Holiday </div>
-                        @endif
+                         @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday' )
+                         <div style='color:orange'> Holiday </div>@break
+                          {{-- @elseif ($user->id != $att->user_id &&  $att->attendance_date !=$info->format('Y-m-d') )
+                          <div style='color:red' class="ab"> Absent </div>  --}}
+                          @endif
+                        @endforeach 
                     </td>
 
-                  
+                {{-- Work Duration --}}
+                    <td>
+                        @foreach($attendance as $att)
+                        @if($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date )
+                            @if($att->out_entry != Null)
+                               @foreach ($getwork as $work)
+                                  @if($user->id == $work->user_id  && $info->format('Y-m-d')==$work->entry_date)
+                                   {{$work->entry_duration}}
+                                
+                                   @endif
+                               @endforeach @break
+                           @else
+                           <div class="badge bg-danger" style="font-size:15px;padding:7px;">00:00</div>
+                           @endif
+                         @endif
+                         @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday' )
+                        <div style='color:orange'> Holiday </div>@break
+                         {{-- @elseif ($user->id != $att->user_id &&  $att->attendance_date !=$info->format('Y-m-d') )
+                         <div style='color:red' class="ab"> Absent </div>  --}}
+                         @endif
+                        @endforeach   
+                    </td>
                 <tr>
-                  @endforeach 
+            @endforeach 
                 
                 </tbody>
             </table>
