@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectAllotment;
 use App\Models\Attendance;
+use App\Models\Holiday;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\DailyWorkEntry;
@@ -27,76 +28,100 @@ class ReportsController extends Controller
     
     public function report_attendancelist(Request $request)
     {    
+         $holidays=Holiday::all();
+          foreach($holidays as $holiday)
+          {
+            $period = CarbonPeriod::create($holiday->start_date, $holiday->end_date);
+             $datas = $period->toArray();
+             foreach($datas as $data)
+             {
+                print($data);
+             }
+          }
+        
+        
+           $attendance=[];
+        //print_r($result);
         //$empnm = $_GET['empnm'];
         $fdate = $_GET['fdate'];
         $tdate = $_GET['tdate'];
-        $times = []; $work = [];  $getdate = [];
-       $attendance =[]; $temp_indata= [];$datas=[];
-        $getwork=[]; $atten_data=[]; $data=[];
+        $period = CarbonPeriod::create($fdate, $tdate);
+        $datas = $period->toArray();
+      
         if(Auth::user()->roles_id == 1)
         {
             if($_GET['empnm'] == "all")
             {
-                $a="";
-                $users = User::where('roles_id','!=',1)->get();
-                $attendance = Attendance::all();
-                $period = CarbonPeriod::create($fdate, $tdate);
-                $datas = $period->toArray();
-                $temp_indata = Attendance::all();
-                $getwork =DailyworkEntry::all();  
-                $dates = CarbonPeriod::create($fdate, $tdate);
-                $user_data=User::pluck('id')->toarray();
-                foreach($users as $user)
+                $users_data = User::where('roles_id','!=',1)->get();
+                $users_attendance=[];
+                foreach($users_data as $data)
                 {
-                    foreach ($dates as $date)
-                    {
-                    $time_data = Attendance::where('user_id',$user->id)->pluck('out_entry','in_entry')->toarray();
-                        //print_r($time_data);
-                    }
-                }
-                // foreach($users as $user)
-                // {
-                //     foreach ($dates as $date)
-                //     {
-                //         //Attendance Duration
-                //         $getAtime = Attendance::where("user_id",$user->id)->whereDate("attendance_date",$date->format('Y-m-d'))->get();
-                //         if(sizeof($getAtime) != 0)
-                //         {
-                //             foreach($getAtime as $Atime)
-                //             {
-                //                 if($Atime->out_entry!= Null)
-                //                 {
-                //                     $start = new DateTime(date("H:i:s", strtotime($Atime['in_entry'])));
-                //                     $end =  new DateTime(date("H:i:s", strtotime($Atime['out_entry'])));
-                //                     $interval = $start->diff($end);
-                //                   //  $times[][$Atime->user_id] = [$Atime->attendance_date=>$interval->format('%h').":".$interval->format('%i').":".$interval->format('%s')];
-                //                     $data += [$Atime->attendance_date=>$interval->format('%h').":".$interval->format('%i').":".$interval->format('%s')];
-                //                     $atten_data = (array($Atime->user_id=>$data));
-                //                 } 
-                                
-                //             }
-                            
-                //         }
-                        
-                //     }
+                    $attendance = [];
+                    $times=[];
+                    foreach($datas as $date)
+                    { 
                     
-                // }
+                      if($date->format('l') == 'Saturday' || $date->format('l') == 'Sunday')
+                      {
+                        $attendance[$date->format('Y-m-d')] ='Holiday';
+                      }
+                      else{
+                        $getAtime = Attendance::where("user_id",$data->id)->whereDate("attendance_date",$date->format('Y-m-d'))->get();
+                       
+                        foreach($getAtime as $Atime)
+                        {
+                         
+                          $start = new DateTime(date("H:i:s", strtotime($Atime['in_entry'])));
+                          $end =  new DateTime(date("H:i:s", strtotime($Atime['out_entry'])));
+                          $interval = $start->diff($end);
+                          $times[] = $interval->format('%h').":".   $interval->format('%i').":".$interval->format('%s');
+                        }    
+                        $seconds  = 0;
+                        foreach ($times as $time) 
+                        {
+                            list($hour, $minute , $second) = explode(':', $time);
+                            $seconds  += $hour * 3600;
+                            $seconds  += $minute * 60;
+                            $seconds  += $second ;
+                        }
+                        $hours = floor($seconds  / 3600);
+                        $seconds -= $hours * 3600;
+  
+                        $minutes  = floor($seconds/60);
+                        $seconds -= $minutes * 60;
+                        $attendanceTotal = sprintf('%02d:%02d', $hours, $minutes); 
+                        if($attendanceTotal == "00:00")
+                        {
+                            $attendance[$date->format('Y-m-d')] ="Absent";
+                        }
+                        else
+                        {
+                            $attendance[$date->format('Y-m-d')] =$attendanceTotal;
+                        }
+                       
+                      }
+                    
+                
+                   }
+                   $users_attendance[$data->id] = $attendance;
 
-             
-                print_r($data);
-            
+                }
+
+                dd($users_attendance);
             }
-            
+         
             else
             {
-                $users = User::where("id",$_GET['empnm'])->get();
-                $attendance = Attendance::all();
-                $period = CarbonPeriod::create($fdate, $tdate);
-                $datas = $period->toArray();
-                $temp_indata = Attendance::all();
-                $getwork =DailyworkEntry::all();
+
             }
-            return view('Reports.Attendance.tabledata',compact('users','attendance','temp_indata','datas','getwork','users','atten_data'));
+          // dd($times);  
+           
+
+           // dd($attendance);
+            //dd($users); 
+         
+           
+            return view('Reports.Attendance.tabledata'); 
         }
         else
         {
