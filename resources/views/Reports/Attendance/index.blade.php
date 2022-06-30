@@ -29,7 +29,7 @@
         });
     }
 
-    function getTotal(fdate,tdate)
+    function getTotal(fdate,tdate,empnm)
     {
       if(typeof(empnm) === "undefined")
       {
@@ -55,30 +55,31 @@
             }
         });
       }
-      /*else
+      else
       {
-        $.ajax({
-            url: "{{ route('report_attendancetotal') }}",
-            type: 'GET',
-            datatype: 'JSON',
-            data: {empnm : empnm ,fdate : fdate ,tdate : tdate},
-            success: function(res)
-            {
-              $responseData = JSON.parse(res);
-              //Required Hours & Day
-              $(".AHours").html($responseData.countday_h);
-              $(".ADays").html($responseData.countday);
+        // $.ajax({
+        //     url: "{{ route('report_attendancelist') }}",
+        //     type: 'GET',
+        //     datatype: 'JSON',
+        //     data: {empnm : empnm ,fdate : fdate ,tdate : tdate},
+        //     success: function(res)
+        //     {
+            
+             // $responseData = JSON.parse(res);
+              // //Required Hours & Day
+              // $(".AHours").html($responseData.countday_h);
+              // $(".ADays").html($responseData.countday);
 
-              //Actual Hours & Day
-              $(".ActualHours").html($responseData.attendance);
-              $(".ActualDay").html($responseData.ActualDay);
+              // //Actual Hours & Day
+              // $(".ActualHours").html($responseData.attendance);
+              // $(".ActualDay").html($responseData.ActualDay);
 
-              //Work Hours & Day
-              $(".WorkHour").html($responseData.workduration);
-              $(".WorkDay").html($responseData.ActualDay);
-            }
-        });
-      }*/
+              // //Work Hours & Day
+              // $(".WorkHour").html($responseData.workduration);
+              // $(".WorkDay").html($responseData.ActualDay);
+           // }
+       // });
+      }
     }
 
     $(document).ready(function(){
@@ -98,6 +99,7 @@
         else
         {
           $('.new_data').empty();
+          getTotal(fdate,tdate,empnm)
           $.ajax
           ({
               url: "{{ route('report_attendancelist') }}",
@@ -111,7 +113,8 @@
               success: function(response)
               {
                 $('.new_data').append(response); 
-                $('.info_data').append(respose);
+              //  $('.info_data').append(respose);
+              
               }
           }); 
         }    
@@ -186,6 +189,7 @@
        
       @if(Auth::user()->roles_id == 1)
       <div class="new_data"></div>
+
       @else
        <div class="card" id="data" style="display:none">
         <div class="card-header text-white usernm" style="background-color: #00AA9E;"> 

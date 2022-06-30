@@ -1,8 +1,7 @@
-{{-- 
-@foreach ($users as $user) --}}
 
+@foreach ($users_data as $user)
     <div class="card" id="data_table">
-        <div class="card-header text-white usernm" style="background-color: #00AA9E;"></div>
+        <div class="card-header text-white usernm" style="background-color: #00AA9E;">{{$user->name}}</div>
         <div class="card-body">
             <table class="table table-hover">
                 <thead>
@@ -15,71 +14,65 @@
                 </tr>
                 </thead>
                 <tbody>
-
-            {{-- @foreach($datas as $info) --}}
-                    <tr>
-                {{-- No --}}
-                    <td></td>
-                {{-- Date --}}
-                    <td></td>     
-                {{-- Attendance Timing   --}}                                           
-                    <td>
-                        {{-- @foreach($attendance as $att)
-                        @if(($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date))
-                          {{$att->in_entry}}-{{$att->out_entry}}<br>
-                        @endif
-                        @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday' )
-                        <div style='color:orange'> Holiday </div>@break
-                        @else
-                         {{$abs}}
-                        @endif
-                        <div style='color:red' class="ab"> Absent </div>
-                        @endforeach --}}
-                    
-                       </td> 
-                {{-- Attendance Duration    --}}
-                    <td>
-                      
-                        {{-- @foreach($attendance as $att)
-                        @if($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date )
-                            @if($att->out_entry != Null)
-
-                           @else
-                           <div class="badge bg-danger" style="font-size:15px;padding:7px;">No OUT</div>
-                           @endif
-                         @endif
-                         @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday' )
-                         <div style='color:orange'> Holiday </div>@break
-                          @elseif ($user->id != $att->user_id &&  $att->attendance_date !=$info->format('Y-m-d') )
-                          <div style='color:red' class="ab"> Absent </div> 
-                          @endif
-                        @endforeach  --}}
-                    </td>
-
-                {{-- Work Duration --}}
-                    <td>
-                        {{-- @foreach($attendance as $att)
-                        @if($user->id == $att->user_id && $info->format('Y-m-d')==$att->attendance_date )
-                            @if($att->out_entry != Null)
-                               @foreach ($getwork as $work)
-                                  @if($user->id == $work->user_id  && $info->format('Y-m-d')==$work->entry_date)
-                                     {{$work->entry_duration}}
-                                  @endif
+                    @php $count=1; @endphp
+                    @foreach($users_attendance as $key=>$value) 
+                    @foreach($value as $val=>$val_data)
+                       @if($key == $user->id)
+                       <tr> 
+                        <td>@php echo $count; $count++; @endphp</td>
+                         <td>{{$val}}</td>
+                         <td>@foreach($atten_result as $r_key=>$r_value)
+                              @foreach($r_value as $r_val=>$rr)
+                              @if($r_key == $user->id)
+                                 @if($r_val == $val)
+                                    @foreach($rr as $time=>$t_time) 
+                                      @if($t_time == "Holiday")
+                                      <div style='color:orange'> Holiday </div>
+                                      @elseif($t_time == "Absent")
+                                      <div style='color:red'> Absent </div>
+                                      @else
+                                        {{$time}}-{{$t_time}} <br>
+                                      @endif
+                                    @endforeach  
+                                 @endif
+                               @endif
                                @endforeach
-                           @else
-                           <div class="badge bg-danger" style="font-size:15px;padding:7px;">00:00</div>
-                           @endif
-                         @endif
-                         @if($info->format('l') == 'Saturday' || $info->format('l') == 'Sunday' )
-                        <div style='color:orange'> Holiday </div>@break
-                          @elseif ($user->id != $att->user_id &&  $att->attendance_date !=$info->format('Y-m-d') )
-                         <div style='color:red' class="ab"> Absent </div> 
-                         @endif
-                        @endforeach    --}}
-                    </td>
-                <tr>
-            {{-- @endforeach  --}}
-                
+                            @endforeach
+                         </td>
+                         <td>
+                            {{-- {{$val_data}} --}}
+                            @if($val_data == "Holiday")
+                            <div style='color:orange'> Holiday </div>
+                            @elseif($val_data == "Absent")
+                            <div style='color:red'> Absent </div>
+                             @else
+                             {{$val_data}}
+                            @endif 
+                        </td>
+                         <td>
+                            @foreach($daily_work_result as $work=>$duration)
+                               @foreach($duration as $dur=>$work_data) 
+                                @if($work == $user->id)
+                                @if($dur == $val)
+                                  @foreach($work_data as $f_time)
+                                    @if($f_time == "Holiday")
+                                    <div style='color:orange'> Holiday </div>
+                                    @elseif($f_time == "Absent")
+                                    <div style='color:red'> Absent </div>
+                                     @else
+                                     {{$f_time}}
+                                    @endif 
+                                 @endforeach
+                                @endif
+                             @endif 
+                             @endforeach
+                            @endforeach
+                         </td>
+                       </tr>
+                        @endif
+                     @endforeach
+                    @endforeach
+                 
                 </tbody>
             </table>
         </div>
@@ -88,7 +81,7 @@
             <div class="col-4">
                     <div class="row">
                     <div class="col-10">Required Attendance Hours</div>
-                    <div class="col-2 badge bg-warning text-black AHours" style="font-size: 15px;">8</div>
+                    <div class="col-2 badge bg-warning text-black AHours" style="font-size: 15px;">{{$countday_h}}</div>
                     </div>
             </div>
             <div class="col-4">
@@ -128,4 +121,4 @@
         </div>
     </div>
 
- {{-- @endforeach  --}}
+ @endforeach 

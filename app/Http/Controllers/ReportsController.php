@@ -28,21 +28,25 @@ class ReportsController extends Controller
     
     public function report_attendancelist(Request $request)
     {    
+      
+      $atten_result=[];
+      $daily_work_result=[];
+        $Holiday=[];
          $holidays=Holiday::all();
           foreach($holidays as $holiday)
           {
-            $period = CarbonPeriod::create($holiday->start_date, $holiday->end_date);
-             $datas = $period->toArray();
-             foreach($datas as $data)
+            $period_holiday = CarbonPeriod::create($holiday->start_date, $holiday->end_date);
+             $datas_holiday = $period_holiday->toArray();
+             foreach($datas_holiday as $data_holiday)
              {
-                print($data);
+                $Holiday[]=$data_holiday->format('Y-m-d');
              }
-          }
+           
+          } 
+        $attendance=[];
         
-        
-           $attendance=[];
         //print_r($result);
-        //$empnm = $_GET['empnm'];
+        $empnm = $_GET['empnm'];
         $fdate = $_GET['fdate'];
         $tdate = $_GET['tdate'];
         $period = CarbonPeriod::create($fdate, $tdate);
@@ -53,75 +57,133 @@ class ReportsController extends Controller
             if($_GET['empnm'] == "all")
             {
                 $users_data = User::where('roles_id','!=',1)->get();
-                $users_attendance=[];
-                foreach($users_data as $data)
-                {
-                    $attendance = [];
-                    $times=[];
-                    foreach($datas as $date)
-                    { 
-                    
-                      if($date->format('l') == 'Saturday' || $date->format('l') == 'Sunday')
-                      {
-                        $attendance[$date->format('Y-m-d')] ='Holiday';
-                      }
-                      else{
-                        $getAtime = Attendance::where("user_id",$data->id)->whereDate("attendance_date",$date->format('Y-m-d'))->get();
-                       
-                        foreach($getAtime as $Atime)
-                        {
-                         
-                          $start = new DateTime(date("H:i:s", strtotime($Atime['in_entry'])));
-                          $end =  new DateTime(date("H:i:s", strtotime($Atime['out_entry'])));
-                          $interval = $start->diff($end);
-                          $times[] = $interval->format('%h').":".   $interval->format('%i').":".$interval->format('%s');
-                        }    
-                        $seconds  = 0;
-                        foreach ($times as $time) 
-                        {
-                            list($hour, $minute , $second) = explode(':', $time);
-                            $seconds  += $hour * 3600;
-                            $seconds  += $minute * 60;
-                            $seconds  += $second ;
-                        }
-                        $hours = floor($seconds  / 3600);
-                        $seconds -= $hours * 3600;
-  
-                        $minutes  = floor($seconds/60);
-                        $seconds -= $minutes * 60;
-                        $attendanceTotal = sprintf('%02d:%02d', $hours, $minutes); 
-                        if($attendanceTotal == "00:00")
-                        {
-                            $attendance[$date->format('Y-m-d')] ="Absent";
-                        }
-                        else
-                        {
-                            $attendance[$date->format('Y-m-d')] =$attendanceTotal;
-                        }
-                       
-                      }
-                    
-                
-                   }
-                   $users_attendance[$data->id] = $attendance;
-
-                }
-
-                dd($users_attendance);
             }
-         
+                  
             else
             {
-
+                 $users_data = User::where('id',$empnm)->get();  
             }
-          // dd($times);  
-           
+           $users_attendance=[];
+           foreach($users_data as $data)
+           {
+              $attendance_time=[];
+              $daily_data=[];
+               $attendance = [];
+               $times=[];
+               $out_data=[];
+               foreach($datas as $date)
+               { 
+                    
+                  $daily_work =DailyWorkEntry::where('user_id',$data->id)->whereDate('entry_date',$date->format('Y-m-d'))->pluck('entry_duration')->toarray();
+                
+                  if($date->format('l') == 'Saturday' || $date->format('l') == 'Sunday' || in_array($date->format('Y-m-d'),$Holiday))
+                 {
+                   $attendance[$date->format('Y-m-d')] = 'Holiday';
+                 }
+                 else{
+                   $getAtime = Attendance::where("user_id",$data->id)->whereDate("attendance_date",$date->format('Y-m-d'))->get();
+                   $get_time= Attendance::where("user_id",$data->id)->whereDate("attendance_date",$date->format('Y-m-d'))->pluck('out_entry','in_entry')->toarray();
+                
+                   foreach($getAtime as $Atime)
+                   {
+                    if($Atime->out_entry != '')
+                    {
+                     // $out_data[]=$Atime->out_entry;
+                     $start = new DateTime(date("H:i:s", strtotime($Atime['in_entry'])));
+                     $end =  new DateTime(date("H:i:s", strtotime($Atime['out_entry'])));
+                     $interval = $start->diff($end);
+                     $times[] = $interval->format('%h').":".   $interval->format('%i').":".$interval->format('%s');
+                    }
+                    else
+                    {
+                        $attendance[$date->format('Y-m-d')] = 'no out';
+                    }
+                   
+                        
+                   }  
+             
+                   $seconds  = 0;
+                   foreach ($times as $time) 
+                   {
+                       list($hour, $minute , $second) = explode(':', $time);
+                       $seconds  += $hour * 3600;
+                       $seconds  += $minute * 60;
+                       $seconds  += $second ;
+                   }
+                   $hours = floor($seconds  / 3600);
+                   $seconds -= $hours * 3600;
 
-           // dd($attendance);
-            //dd($users); 
-         
-           
-            return view('Reports.Attendance.tabledata'); 
+                   $minutes  = floor($seconds/60);
+                   $seconds -= $minutes * 60;
+                   $attendanceTotal = sprintf('%02d:%02d', $hours, $minutes); 
+                   if($attendanceTotal == "00:00")
+                   {
+                       $attendance[$date->format('Y-m-d')] ="Absent";
+                   }
+                   else
+                   {
+                       $attendance[$date->format('Y-m-d')] =$attendanceTotal;
+                   }
+
+                 }
+                 
+                  //Attendance Duration
+                  if($date->format('l') == 'Saturday' || $date->format('l') == 'Sunday' || in_array($date->format('Y-m-d'),$Holiday))
+                  {
+                     $attendance_time[$date->format('Y-m-d')] = ['Holiday'];
+                  }
+                  else
+                  {
+                  if($get_time == [])
+                  {
+                      $attendance_time[$date->format('Y-m-d')] =["Absent"];
+                  }
+                  else 
+                  {
+                   $attendance_time[$date->format('Y-m-d')]= $get_time;
+                  }
+                  }
+                  //work Duration 
+                  if($date->format('l') == 'Saturday' || $date->format('l') == 'Sunday' || in_array($date->format('Y-m-d'),$Holiday))
+                  {
+                    $daily_data[$date->format('Y-m-d')]= ['Holiday'];
+                  }
+                  else
+                  {
+                  if($daily_work == [])
+                  {
+                    $daily_data[$date->format('Y-m-d')] =["Absent"];
+                  }
+                  else 
+                  {
+                    $daily_data[$date->format('Y-m-d')]= $daily_work;
+                  }
+                  }
+              
+                 
+
+              }
+               $users_attendance[$data->id] = $attendance;
+                //Attendance Duration
+               $atten_result[$data->id]=$attendance_time;
+                //dailywork
+                $daily_work_result[$data->id]=$daily_data;
+           }
+            // dd($daily_work_result);
+           //dd($atten_result);
+          // dd($users_attendance);
+       
+          $RcountDay = Attendance::where("user_id",$empnm)->whereBetween("attendance_date",[$fdate,$tdate])->distinct()->count('attendance_date');          
+          $countday_h = 8*($RcountDay);  // Attendance Hours
+          
+
+
+
+
+
+
+            return view('Reports.Attendance.tabledata',compact('users_attendance','users_data','getAtime','datas','atten_result','daily_work_result'
+                         ,'countday_h')); 
         }
         else
         {
@@ -240,12 +302,10 @@ class ReportsController extends Controller
             $fdate = date_create($_GET['fdate']);
             $tdate = date_create($_GET['tdate']);
             
-            
             // Attendance Day
             $RcountDay = Attendance::where("user_id",$empnm)->whereBetween("attendance_date",[$fdate,$tdate])->distinct()->count('attendance_date');
                         
             $countday_h = 8*($RcountDay);  // Attendance Hours
-
             //Actual Attendance Hours & Days
             $getAttendance= Attendance::where('user_id','=',$empnm)->whereBetween('attendance_date',[$fdate , $tdate])->get();
             
@@ -281,14 +341,14 @@ class ReportsController extends Controller
             $seconds -= $minutes * 60;
             $attendance = sprintf('%02d:%02d', $hours, $minutes); //Attendance Hours
 
-            /*if($RcountDay == '0')
+            if($RcountDay == '0')
             {
                 $ActualDay = $RcountDay;   //Attendance Days
             }
             else
             {
                 $ActualDay = $RcountDay-1;   //Attendance Days
-            }*/
+            }
             
             //work Duration Hours & Days
             $WorkHours = DailyWorkEntry::where("user_id",'=',$empnm)->whereBetween("entry_date",[$fdate,$tdate])->get();
@@ -317,7 +377,8 @@ class ReportsController extends Controller
             $workduration = sprintf('%02d:%02d', $hours, $minutes);
 
             $data = array("countday_h" => $countday_h , "countday" => $RcountDay , "attendance" => $attendance , 'ActualDay' => $ActualDay , 'workduration' => $workduration);
-            return json_encode($data);
+          //  return json_encode($data);
+            // return view('Reports.Attendance.tabledata',compact('countday_h'));
         }
         else
         {
