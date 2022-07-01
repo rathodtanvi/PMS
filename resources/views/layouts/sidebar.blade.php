@@ -142,7 +142,7 @@
             <a href="charts-chartjs.html">
               <i class="fa fa-circle-o"></i><span>Leave</span>
             </a>
-          </li> -->
+          </li> 
         </ul>
       </li>
        

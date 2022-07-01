@@ -1,41 +1,8 @@
 
-@if (Auth::user()->roles_id == '3')
-    <script>
-
-        var dataTable = $('.table').DataTable({
-            processing: true,
-            serverSide: true,
-            "destroy": true,
-            "bScrollCollapse": true,
-            "bAutoWidth": false,
-            responsive: true,
-            
-            ajax: {
-                url: "{{ route('report_attendancelist') }}",
-                type: 'get',
-                //data: {empnm ,fdate ,tdate},
-            },
-            
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'Attendance_Date', name: 'Attendance_Date'},
-                {data: 'mergeColumn', name: 'mergeColumn'},
-                {data: 'attendance_duration', name: 'attendance_duration'},
-                {data: 'work_duration', name: 'work_duration'},
-            ]
-        });
-
-    </script>
-@endif
-
-{{-- @foreach ($users as $user) --}}
-    
-    <div class="card" id="data">
-        <div class="card-header text-white usernm" style="background-color: #00AA9E;"> {{Auth::user()->name}}</div>
+@foreach ($users_data as $user)
+    <div class="card" id="data_table">
+        <div class="card-header text-white usernm" style="background-color: #00AA9E;">{{$user->name}}</div>
         <div class="card-body">
-            
-            @if (Auth::user()->roles_id == '1')
-            
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -47,32 +14,74 @@
                 </tr>
                 </thead>
                 <tbody>
-                    
+                    @php $count=1; @endphp
+                    @foreach($users_attendance as $key=>$value) 
+                    @foreach($value as $val=>$val_data)
+                       @if($key == $user->id)
+                       <tr> 
+                        <td>@php echo $count; $count++; @endphp</td>
+                         <td>{{$val}}</td>
+                         <td>@foreach($atten_result as $r_key=>$r_value)
+                              @foreach($r_value as $r_val=>$rr)
+                              @if($r_key == $user->id)
+                                 @if($r_val == $val)
+                                    @foreach($rr as $time=>$t_time) 
+                                      @if($t_time == "Holiday")
+                                      <div style='color:orange'> Holiday </div>
+                                      @elseif($t_time == "Absent")
+                                      <div style='color:red'> Absent </div>
+                                      @else
+                                        {{$time}}-{{$t_time}} <br>
+                                      @endif
+                                    @endforeach  
+                                 @endif
+                               @endif
+                               @endforeach
+                            @endforeach
+                         </td>
+                         <td>
+                            {{-- {{$val_data}} --}}
+                            @if($val_data == "Holiday")
+                            <div style='color:orange'> Holiday </div>
+                            @elseif($val_data == "Absent")
+                            <div style='color:red'> Absent </div>
+                             @else
+                             {{$val_data}}
+                            @endif 
+                        </td>
+                         <td>
+                            @foreach($daily_work_result as $work=>$duration)
+                               @foreach($duration as $dur=>$work_data) 
+                                @if($work == $user->id)
+                                @if($dur == $val)
+                                  @foreach($work_data as $f_time)
+                                    @if($f_time == "Holiday")
+                                    <div style='color:orange'> Holiday </div>
+                                    @elseif($f_time == "Absent")
+                                    <div style='color:red'> Absent </div>
+                                     @else
+                                     {{$f_time}}
+                                    @endif 
+                                 @endforeach
+                                @endif
+                             @endif 
+                             @endforeach
+                            @endforeach
+                         </td>
+                       </tr>
+                        @endif
+                     @endforeach
+                    @endforeach
+                 
                 </tbody>
             </table>
-            @else
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Date</th>
-                    <th>Attendance Timing</th>
-                    <th>Attendance Duration</th>
-                </tr>
-                </thead>
-                <tbody >
-                
-                </tbody>
-            </table>
-
-            @endif
         </div>
         <div class="card-footer  text-black">
             <div class="row">
             <div class="col-4">
                     <div class="row">
                     <div class="col-10">Required Attendance Hours</div>
-                    <div class="col-2 badge bg-warning text-black AHours" style="font-size: 15px;">8</div>
+                    <div class="col-2 badge bg-warning text-black AHours" style="font-size: 15px;">{{$countday_h}}</div>
                     </div>
             </div>
             <div class="col-4">
@@ -112,4 +121,4 @@
         </div>
     </div>
 
-{{-- @endforeach --}}
+ @endforeach 
