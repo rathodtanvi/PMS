@@ -19,8 +19,11 @@
                     @foreach($value as $val=>$val_data)
                        @if($key == $user->id)
                        <tr> 
+                        {{-- No --}}
                         <td>@php echo $count; $count++; @endphp</td>
+                          {{-- Date --}}
                          <td>{{$val}}</td>
+                        {{-- Attendance Timing --}}
                          <td>@foreach($atten_result as $r_key=>$r_value)
                               @foreach($r_value as $r_val=>$rr)
                               @if($r_key == $user->id)
@@ -39,8 +42,9 @@
                                @endforeach
                             @endforeach
                          </td>
+                         {{--Attendance Duration --}}
+                        
                          <td>
-                            {{-- {{$val_data}} --}}
                             @if($val_data == "Holiday")
                             <div style='color:orange'> Holiday </div>
                             @elseif($val_data == "Absent")
@@ -49,6 +53,7 @@
                              {{$val_data}}
                             @endif 
                         </td>
+                          {{-- work Duration --}}
                          <td>
                             @foreach($daily_work_result as $work=>$duration)
                                @foreach($duration as $dur=>$work_data) 
