@@ -13,7 +13,9 @@ class Technology extends Model
 
     protected $fillable = [ 'technology_name', ];
 
-    public function project(){
-        return $this->hasMany(Project::class);
+    
+    public function projectallotment()
+    {
+        return $this->hasMany(ProjectAllotment::class,'technology_id');
     }
 }

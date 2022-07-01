@@ -56,7 +56,7 @@ class ProjectAllotmentController extends Controller
                     return $actionBtn;
                 })
                 ->addColumn('technology_id', function ($tid) {
-                     
+                    
                     $arr = explode(",",$tid->technology_id);
                     $data = Technology::whereIn('id',$arr)->get();
                     foreach($data as $row)

@@ -102,13 +102,18 @@ Route::get('/ProjectMilestones', [ProjectMilestoneController::class, 'index']);
 //Reports Controller
 Route::get('/report_attendance', [ReportsController::class, 'report_attendance'])->name('report_attendance');
 Route::get('/report_attendancelist', [ReportsController::class, 'report_attendancelist'])->name('report_attendancelist');
-Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
 Route::get('/report_project_total_hour', [ReportsController::class, 'report_project_total_hour'])->name('report_project_total_hour');
 Route::get('/report_attendancetotal', [ReportsController::class, 'report_attendancetotal'])->name('report_attendancetotal');
 Route::post('/total_hour', [ReportsController::class, 'total_hour'])->name('total_hour');
 
+Route::get('/report_daily_work_entry', [ReportsController::class, 'report_daily_work_entry'])->name('report_daily_work_entry');
+Route::get('getproject',[ReportsController::class,'getproject']); // get project based on project_status
+Route::get('get_technology',[ReportsController::class,'get_technology']); // get technology based on project_name
+Route::get('/report_dailyworklist', [ReportsController::class, 'report_dailyworklist'])->name('report_dailyworklist');
+Route::get('/report_dailyworktotal', [ReportsController::class, 'report_dailyworktotal'])->name('report_dailyworktotal');
+Route::get('get_alluser',[ReportsController::class,'report_dailyworklist']);
 
-
+Route::get('/pdf-download',[ReportsController::class,'pdf_file']);
 
 //Admin Report
 Route::get('/admin_report_attendance', [AdminReportsController::class, 'admin_report_attendance'])->name('admin_report_attendance');

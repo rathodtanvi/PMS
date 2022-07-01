@@ -10,7 +10,7 @@ class DailyWorkEntry extends Model
 {
     use HasFactory;
     public $table="daily_work_entries";
-    protected $fillable=['id','project_id','entry_duration' => 'array'];
+    protected $fillable=['id','project_id', "user_id" , "entry_date" ,'entry_duration' => 'array' , "productive" , "work_type" ,"description"];
 
     public function project()
     {
@@ -19,10 +19,15 @@ class DailyWorkEntry extends Model
     
     public function allotment()
     {
-         return $this->hasMany(ProjectAllotment::class);
+        return $this->hasMany(ProjectAllotment::class);
     }
     
-    public function user(){
-     return $this->belongsTo(User::class, 'user_id');  
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');  
     }
+    /*public function technology()
+    {
+        return $this->belongsTo(Technology::class,'technology_id','id');  
+    }*/
 }

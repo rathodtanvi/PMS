@@ -96,7 +96,8 @@
         }
         else
         {
-          $(".table-data").empty();
+          
+          //$(".table-data").empty();
           $.ajax
           ({
               url: "{{ route('report_attendancelist') }}",
@@ -175,7 +176,7 @@
         </div>
       </div>
   <!-- Card with header and footer -->
-  <div class="card" id="data" style="display:none">
+  <div class="card" id="data" >
     <div class="card-header text-white usernm" style="background-color: #00AA9E;"> {{Auth::user()->name}}</div>
     <div class="card-body">
   
