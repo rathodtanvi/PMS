@@ -113,8 +113,8 @@
               <i class="fa fa-circle-o"></i><span>Attendance </span>
             </a>
           </li>
-       <li>
-            <a href="{{url('admin_report_daily_work_entry')}}">
+          <li>
+            <a href="{{url('report_daily_work_entry')}}">
               <i class="fa fa-circle-o"></i><span>Daily Work Entry</span>
             </a>
           </li>
@@ -123,7 +123,7 @@
               <i class="bi bi-circle"></i><span>Project Total Hours</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="{{url('project_summary')}}">
               <i class="fa fa-circle-o"></i><span>Project Summary</span>
             </a>

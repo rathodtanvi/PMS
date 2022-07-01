@@ -21,12 +21,13 @@ class Project extends Model
         return $this->belongsTo(User::class,'tl_id','id'); 
     }
 
-    public function projectallotment()
+   /* public function projectallotment()
     {
         return $this->hasMany(ProjectAllotment::class,'project_id');
     }
+
     public function pallotment(){
         return $this->hasMany(ProjectAllotment::class);
-    }
-
+    }*/
+    
 }

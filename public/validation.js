@@ -232,9 +232,9 @@ $(document).ready(function(){
         },
       
     });
-     CKEDITOR.instances.description.on("change",function(){
+     /*CKEDITOR.instances.description.on("change",function(){
            $('#description-error').text('');
-     });
+     });*/
 
     $("#TaskAllotmentadd").validate({
         ignore: [],

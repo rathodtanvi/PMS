@@ -98,6 +98,8 @@
         }
         else
         {
+          
+          //$(".table-data").empty();
           $('.new_data').empty();
           getTotal(fdate,tdate,empnm)
           $.ajax
